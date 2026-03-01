@@ -198,18 +198,15 @@
       border-bottom:1px solid var(--line);
       position:relative;
     }
-
-    /* ✅ deixa a imagem VIP pequena e centralizada (não estoura) */
     .thumb img{
       width:100%;
       height:100%;
-      object-fit:contain;          /* antes era cover */
+      object-fit:contain;
       object-position:center;
-      padding:16px;               /* espaço pra não encostar na borda */
+      padding:16px;
       display:block;
       background: rgba(0,0,0,.12);
     }
-
     .thumb .tag{
       position:absolute;
       left:12px; top:12px;
@@ -446,9 +443,9 @@
       </nav>
     </header>
 
-    <!-- BANNER DA LOJA (FORÇA ATUALIZAR: ?v=2) -->
+    <!-- ✅ ATUALIZAÇÃO DO BANNER: troque o número sempre que trocar o arquivo -->
     <div class="shop-banner">
-      <img src="assets/banner.png?v=2" alt="Banner Flux MC" onerror="this.style.display='none'">
+      <img src="assets/banner.png?v=3" alt="Banner Flux MC" onerror="this.style.display='none'">
     </div>
 
     <section class="hero">
@@ -540,14 +537,10 @@
   <div class="toast" id="toast">Copiado!</div>
 
   <script>
-    // ===== SEUS DADOS =====
     const PIX_KEY = "098.636.509-27";
     const WHATSAPP_NUMBER = "+5542999095985";
 
-    // ===== PRODUTOS =====
-    // ✅ seu arquivo no GitHub está "vip.png" (minúsculo), então aqui tem que ser igual
     const products = [
-      // VIPS
       {
         id:"vip-1m",
         cat:"VIP",
@@ -615,121 +608,23 @@
 📦 Kit MESTRE: /kit mestre (se estiver configurado no servidor)`
       },
 
-      // KITS
-      {
-        id:"kit-berserker",
-        cat:"Kits",
-        title:"KIT BERSERKER",
-        price: 4.00,
-        duration:"Entrega única",
-        recharge:"—",
-        stock:"∞",
-        img:"",
-        short:"Combate direto: kit focado em dano e resistência.",
-        full:
-`🟠 KIT BERSERKER
-Entrega única (sem recarga)
-Itens (exemplo/Resumo):
-- Machado Netherita encantado
-- Armadura/itens de combate
-- Besta + flechas
-- Tridente`
-      },
-      {
-        id:"kit-sentinela",
-        cat:"Kits",
-        title:"KIT SENTINELA",
-        price: 4.00,
-        duration:"Entrega única",
-        recharge:"—",
-        stock:"∞",
-        img:"",
-        short:"Controle à distância + utilidade.",
-        full:
-`🟩 KIT SENTINELA
-Entrega única (sem recarga)
-Itens (exemplo/Resumo):
-- Arco + espada
-- Armadura
-- Poções e utilidades`
-      },
-      {
-        id:"kit-espectro",
-        cat:"Kits",
-        title:"KIT ESPECTRO",
-        price: 4.00,
-        duration:"Entrega única",
-        recharge:"—",
-        stock:"∞",
-        img:"",
-        short:"Mobilidade e invisibilidade (kit agressivo).",
-        full:
-`⚫ KIT ESPECTRO
-Entrega única (sem recarga)
-Itens (exemplo/Resumo):
-- Lâmina/Arco
-- Armadura
-- Poções (agilidade/visão/ocultação)`
-      },
-      {
-        id:"kit-arcano",
-        cat:"Kits",
-        title:"KIT ARCANO",
-        price: 4.00,
-        duration:"Entrega única",
-        recharge:"—",
-        stock:"∞",
-        img:"",
-        short:"Kit mágico lendário com itens raros.",
-        full:
-`🟣 KIT ARCANO
-Entrega única (sem recarga)
-Itens (exemplo/Resumo):
-- Lâmina + tridente
-- Itens raros
-- Poções fortes`
-      },
+      { id:"kit-berserker", cat:"Kits", title:"KIT BERSERKER", price: 4.00, duration:"Entrega única", recharge:"—", stock:"∞", img:"", short:"Combate direto: kit focado em dano e resistência.",
+        full:`🟠 KIT BERSERKER\nEntrega única (sem recarga)\nItens (exemplo/Resumo):\n- Machado Netherita encantado\n- Armadura/itens de combate\n- Besta + flechas\n- Tridente` },
+      { id:"kit-sentinela", cat:"Kits", title:"KIT SENTINELA", price: 4.00, duration:"Entrega única", recharge:"—", stock:"∞", img:"", short:"Controle à distância + utilidade.",
+        full:`🟩 KIT SENTINELA\nEntrega única (sem recarga)\nItens (exemplo/Resumo):\n- Arco + espada\n- Armadura\n- Poções e utilidades` },
+      { id:"kit-espectro", cat:"Kits", title:"KIT ESPECTRO", price: 4.00, duration:"Entrega única", recharge:"—", stock:"∞", img:"", short:"Mobilidade e invisibilidade (kit agressivo).",
+        full:`⚫ KIT ESPECTRO\nEntrega única (sem recarga)\nItens (exemplo/Resumo):\n- Lâmina/Arco\n- Armadura\n- Poções (agilidade/visão/ocultação)` },
+      { id:"kit-arcano", cat:"Kits", title:"KIT ARCANO", price: 4.00, duration:"Entrega única", recharge:"—", stock:"∞", img:"", short:"Kit mágico lendário com itens raros.",
+        full:`🟣 KIT ARCANO\nEntrega única (sem recarga)\nItens (exemplo/Resumo):\n- Lâmina + tridente\n- Itens raros\n- Poções fortes` },
 
-      // EXTRAS
-      {
-        id:"spawner-2",
-        cat:"Extras",
-        title:"2 SPAWNERS",
-        price: 3.00,
-        duration:"Entrega única",
-        recharge:"—",
-        stock:"∞",
-        img:"",
-        short:"Recebe 2 spawners aleatórios na sua conta.",
-        full:"Ao comprar este produto você irá receber 2 spawners aleatórios na sua conta."
-      },
-      {
-        id:"claim-500",
-        cat:"Extras",
-        title:"500 BLOCOS DE CLAIM",
-        price: 2.00,
-        duration:"Entrega única",
-        recharge:"—",
-        stock:"∞",
-        img:"",
-        short:"Ganha 500 blocos de claim.",
-        full:"Ao comprar esse produto você ganhará 500 blocos de claim."
-      },
-      {
-        id:"unban",
-        cat:"Extras",
-        title:"UNBAN",
-        price: 10.00,
-        duration:"Entrega única",
-        recharge:"—",
-        stock:"∞",
-        img:"",
-        short:"Desbanimento do servidor.",
-        full:"Ao comprar você será desbanido do nosso servidor. (Compre apenas se você estiver banido)"
-      },
+      { id:"spawner-2", cat:"Extras", title:"2 SPAWNERS", price: 3.00, duration:"Entrega única", recharge:"—", stock:"∞", img:"", short:"Recebe 2 spawners aleatórios na sua conta.",
+        full:"Ao comprar este produto você irá receber 2 spawners aleatórios na sua conta." },
+      { id:"claim-500", cat:"Extras", title:"500 BLOCOS DE CLAIM", price: 2.00, duration:"Entrega única", recharge:"—", stock:"∞", img:"", short:"Ganha 500 blocos de claim.",
+        full:"Ao comprar esse produto você ganhará 500 blocos de claim." },
+      { id:"unban", cat:"Extras", title:"UNBAN", price: 10.00, duration:"Entrega única", recharge:"—", stock:"∞", img:"", short:"Desbanimento do servidor.",
+        full:"Ao comprar você será desbanido do nosso servidor. (Compre apenas se você estiver banido)" },
     ];
 
-    // ===== UI =====
     const grid = document.getElementById("grid");
     const modal = document.getElementById("modal");
     const toast = document.getElementById("toast");
@@ -756,9 +651,7 @@ Itens (exemplo/Resumo):
     let currentFilter = "ALL";
     let currentProduct = null;
 
-    function money(v){
-      return v.toLocaleString("pt-BR", { style:"currency", currency:"BRL" });
-    }
+    function money(v){ return v.toLocaleString("pt-BR", { style:"currency", currency:"BRL" }); }
 
     function showToast(msg){
       toast.textContent = msg;
@@ -768,17 +661,12 @@ Itens (exemplo/Resumo):
     }
 
     async function copyText(text){
-      try{
-        await navigator.clipboard.writeText(text);
-        showToast("Copiado!");
-      }catch(e){
+      try{ await navigator.clipboard.writeText(text); showToast("Copiado!"); }
+      catch(e){
         const ta = document.createElement("textarea");
-        ta.value = text;
-        document.body.appendChild(ta);
-        ta.select();
-        document.execCommand("copy");
-        ta.remove();
-        showToast("Copiado!");
+        ta.value = text; document.body.appendChild(ta);
+        ta.select(); document.execCommand("copy");
+        ta.remove(); showToast("Copiado!");
       }
     }
 
@@ -873,7 +761,6 @@ Itens (exemplo/Resumo):
       mDuration.textContent = p.duration || "—";
       mRecharge.textContent = p.recharge || "—";
       mStock.textContent = p.stock || "∞";
-
       mFull.innerHTML = (p.full || p.short || "").replace(/\n/g, "<br>");
 
       modal.classList.add("open");
@@ -926,13 +813,9 @@ Itens (exemplo/Resumo):
     document.getElementById("buyWhats").addEventListener("click", buyWhats);
 
     document.getElementById("btnPix").addEventListener("click", ()=> copyText(PIX_KEY));
-
-    document.getElementById("btnHow").addEventListener("click", ()=>{
-      showToast("1) Escolhe  2) Nick  3) Paga no Pix  4) Envia comprovante ✅");
-    });
+    document.getElementById("btnHow").addEventListener("click", ()=>{ showToast("1) Escolhe  2) Nick  3) Paga no Pix  4) Envia comprovante ✅"); });
 
     document.getElementById("search").addEventListener("input", render);
-
     render();
   </script>
 </body>
