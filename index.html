@@ -149,10 +149,13 @@
         <div class="logo">FX</div>
         <div>Flux MC</div>
       </div>
+
+      <!-- MENU DO TOPO (AQUI TEM A LOJA) -->
       <nav class="nav">
         <a class="chip" href="#ip">IP</a>
         <a class="chip" href="#discord">Discord</a>
         <a class="chip" href="#regras">Regras</a>
+        <a class="chip" href="loja.html">Loja</a>
       </nav>
     </header>
 
@@ -164,6 +167,9 @@
         <div class="cta">
           <button class="btn btn-primary" id="copyIpBtn">📋 Copiar IP</button>
           <a class="btn btn-ghost" id="discordBtn" href="https://discord.gg/qsZ65QJc" target="_blank" rel="noreferrer">💬 Entrar no Discord</a>
+
+          <!-- BOTÃO DA LOJA -->
+          <a class="btn btn-primary" href="loja.html">🛒 Abrir Loja</a>
         </div>
 
         <div class="small">IP atual: <code class="inline" id="ipText">fluxmc.blazehosting.com.br</code></div>
@@ -222,7 +228,6 @@
         await navigator.clipboard.writeText(ip);
         showToast("IP copiado: " + ip);
       }catch(e){
-        // fallback
         const ta = document.createElement("textarea");
         ta.value = ip;
         document.body.appendChild(ta);
