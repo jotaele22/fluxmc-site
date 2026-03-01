@@ -15,8 +15,8 @@
       --line: rgba(255,255,255,.10);
       --shadow: 0 18px 60px rgba(0,0,0,.45);
       --radius: 18px;
-      --max: 1050px;
-      --ok:#22c55e;
+      --max: 1100px;
+      --ok: #22c55e;
       --warn:#f59e0b;
     }
     *{box-sizing:border-box}
@@ -32,7 +32,9 @@
       min-height:100vh;
     }
     a{color:inherit}
-    .wrap{max-width:var(--max); margin:0 auto; padding:28px 16px 54px;}
+    .wrap{max-width:var(--max); margin:0 auto; padding:28px 16px 44px;}
+
+    /* Top bar */
     .top{
       display:flex; gap:12px; align-items:center; justify-content:space-between;
       padding:14px 14px;
@@ -41,7 +43,8 @@
       backdrop-filter: blur(10px);
       border-radius: var(--radius);
       box-shadow: var(--shadow);
-      position:sticky; top:12px; z-index:5;
+      position:sticky; top:12px;
+      z-index:10;
     }
     .brand{display:flex; gap:10px; align-items:center; font-weight:900; letter-spacing:.4px;}
     .logo{
@@ -52,132 +55,129 @@
       font-weight:1000;
       color:#140a22;
     }
-    .nav{display:flex; gap:10px; flex-wrap:wrap; align-items:center}
+    .nav{display:flex; gap:10px; flex-wrap:wrap; align-items:center;}
     .chip{
       padding:10px 12px; border-radius:999px;
       border:1px solid var(--line);
       background: rgba(255,255,255,.04);
       text-decoration:none;
-      font-weight:750;
+      font-weight:700;
       color:var(--muted);
-      display:inline-flex; gap:8px; align-items:center;
+      cursor:pointer;
     }
     .chip:hover{border-color:rgba(139,92,246,.55); color:var(--text)}
+    .chip.active{
+      border-color: rgba(236,72,153,.55);
+      color: var(--text);
+      background: rgba(236,72,153,.10);
+    }
+
+    /* Hero */
     .hero{
       margin-top:18px;
-      padding:22px 18px;
+      padding:26px 18px;
       border-radius: var(--radius);
       border:1px solid var(--line);
       background: rgba(18,10,34,.45);
       box-shadow: var(--shadow);
-      overflow:hidden;
       position:relative;
+      overflow:hidden;
     }
     .hero:before{
       content:"";
       position:absolute; inset:-2px;
-      background: radial-gradient(700px 260px at 20% 0%, rgba(139,92,246,.35), transparent 60%),
-                  radial-gradient(650px 240px at 85% 30%, rgba(236,72,153,.22), transparent 60%);
+      background: radial-gradient(700px 260px at 30% 0%, rgba(139,92,246,.35), transparent 60%),
+                  radial-gradient(650px 240px at 80% 30%, rgba(236,72,153,.25), transparent 60%);
       pointer-events:none;
     }
     .hero-inner{position:relative; display:grid; gap:10px;}
-    h1{margin:0; font-size:32px; line-height:1.05}
-    .sub{margin:0; color:var(--muted); font-size:14px; max-width:70ch}
-    .bar{
+    h1{margin:0; font-size:34px; line-height:1.05}
+    .sub{margin:0; color:var(--muted); font-size:15px; max-width:75ch}
+
+    /* Controls */
+    .controls{
       margin-top:14px;
-      display:flex; gap:10px; flex-wrap:wrap; align-items:center; justify-content:space-between;
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.03);
-      border-radius: 16px;
-      padding:10px 10px;
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:space-between;
     }
     .search{
       flex:1;
-      min-width:220px;
-      display:flex; gap:8px; align-items:center;
+      min-width:240px;
+      display:flex;
+      gap:10px;
+      align-items:center;
       border:1px solid var(--line);
-      background: rgba(18,10,34,.35);
-      border-radius: 14px;
+      background: rgba(255,255,255,.04);
+      border-radius: 999px;
       padding:10px 12px;
     }
     .search input{
       width:100%;
       border:0;
-      outline:0;
+      outline:none;
       background:transparent;
       color:var(--text);
-      font-weight:700;
+      font-size:14px;
     }
     .pill{
+      padding:9px 12px;
+      border-radius:999px;
       border:1px solid var(--line);
-      background: rgba(18,10,34,.35);
-      border-radius: 999px;
-      padding:10px 12px;
+      background: rgba(255,255,255,.04);
       color:var(--muted);
       font-weight:800;
       cursor:pointer;
-      user-select:none;
+      white-space:nowrap;
     }
-    .pill.active{
-      border-color: rgba(139,92,246,.65);
-      color: var(--text);
-      box-shadow: 0 14px 35px rgba(139,92,246,.18);
-    }
+    .pill:hover{border-color:rgba(139,92,246,.55); color:var(--text)}
 
+    /* Grid */
     .grid{
-      margin-top:16px;
+      margin-top:14px;
       display:grid;
       grid-template-columns: repeat(12, 1fr);
       gap:14px;
     }
     .card{
       grid-column: span 4;
-      padding:14px;
+      padding:16px;
       border-radius: var(--radius);
       border:1px solid var(--line);
       background: rgba(18,10,34,.40);
       box-shadow: var(--shadow);
-      overflow:hidden;
-      position:relative;
+      display:grid;
+      gap:10px;
+      min-height: 210px;
     }
-    .card:before{
-      content:"";
-      position:absolute; inset:-2px;
-      background: radial-gradient(400px 180px at 20% 0%, rgba(139,92,246,.18), transparent 60%),
-                  radial-gradient(400px 180px at 90% 30%, rgba(236,72,153,.12), transparent 60%);
-      pointer-events:none;
-      opacity:.9;
-    }
-    .card > *{position:relative}
+    .card-top{display:flex; gap:12px; align-items:flex-start; justify-content:space-between;}
     .badge{
-      display:inline-flex; gap:8px; align-items:center;
-      font-weight:900; font-size:12px;
-      padding:7px 10px;
+      font-size:12px;
+      font-weight:900;
+      padding:6px 10px;
       border-radius:999px;
       border:1px solid var(--line);
       background: rgba(255,255,255,.04);
       color: var(--muted);
     }
-    .name{margin:10px 0 6px 0; font-size:18px; font-weight:1000}
+    .title{margin:0; font-size:16px; font-weight:950;}
     .desc{margin:0; color:var(--muted); font-size:13px; line-height:1.35}
-    .priceRow{
-      margin-top:10px;
-      display:flex; align-items:center; justify-content:space-between; gap:10px;
-      border-top:1px solid rgba(255,255,255,.08);
-      padding-top:10px;
-    }
+    .price-row{display:flex; gap:10px; align-items:center; justify-content:space-between; flex-wrap:wrap;}
     .price{
       font-weight:1000;
+      font-size:18px;
       letter-spacing:.2px;
-      font-size:16px;
     }
+    .small{font-size:12px; color:rgba(255,255,255,.55)}
     .btn{
       border:0; cursor:pointer; text-decoration:none;
-      padding:10px 12px; border-radius:14px;
+      padding:11px 12px; border-radius:14px;
       font-weight:950;
       display:inline-flex; gap:10px; align-items:center; justify-content:center;
       transition: transform .05s ease;
-      white-space:nowrap;
+      user-select:none;
     }
     .btn:active{transform: translateY(1px)}
     .btn-primary{
@@ -190,28 +190,76 @@
       border:1px solid var(--line);
       color:var(--text);
     }
+    .btn-line{display:flex; gap:10px; flex-wrap:wrap}
+    .btn-line .btn{flex:1; min-width:130px;}
 
-    .panel{
-      margin-top:16px;
-      border-radius: var(--radius);
-      border:1px solid var(--line);
-      background: rgba(18,10,34,.45);
-      box-shadow: var(--shadow);
-      padding:14px;
+    /* Modal */
+    .modal{
+      position:fixed; inset:0;
+      background: rgba(0,0,0,.55);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding:18px;
+      z-index:50;
     }
-    .panel h2{margin:0 0 10px 0; font-size:16px}
-    .two{
-      display:grid;
-      grid-template-columns: 1.3fr .9fr;
+    .modal.open{display:flex;}
+    .panel{
+      width:min(920px, 100%);
+      border-radius: 22px;
+      border:1px solid var(--line);
+      background: rgba(18,10,34,.92);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .panel-head{
+      display:flex;
       gap:12px;
+      align-items:center;
+      justify-content:space-between;
+      padding:14px 16px;
+      border-bottom:1px solid var(--line);
+      background: rgba(255,255,255,.03);
+    }
+    .panel-title{
+      display:flex; gap:10px; align-items:center;
+      font-weight:1000;
+    }
+    .xbtn{
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.04);
+      color:var(--text);
+      border-radius: 14px;
+      padding:10px 12px;
+      cursor:pointer;
+      font-weight:950;
+    }
+    .xbtn:hover{border-color:rgba(236,72,153,.55)}
+    .panel-body{
+      padding:16px;
+      display:grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap:14px;
     }
     .box{
       border:1px solid var(--line);
       background: rgba(255,255,255,.03);
-      border-radius: 16px;
-      padding:12px;
+      border-radius: 18px;
+      padding:14px;
+      display:grid;
+      gap:10px;
     }
-    .muted{color:var(--muted); font-size:13px; line-height:1.35; margin:0}
+    .box h3{margin:0; font-size:14px}
+    .box p{margin:0; color:var(--muted); font-size:13px; line-height:1.4}
+    .kvs{display:grid; gap:8px}
+    .kv{
+      display:flex; gap:10px; justify-content:space-between; align-items:center;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.03);
+      border-radius: 14px;
+      padding:10px 12px;
+      font-size:13px;
+    }
     code.inline{
       background: rgba(255,255,255,.06);
       border:1px solid var(--line);
@@ -219,81 +267,45 @@
       border-radius:12px;
       font-weight:900;
       letter-spacing:.3px;
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      word-break:break-all;
+      word-break: break-word;
     }
-    .row{display:flex; gap:10px; align-items:center; justify-content:space-between; flex-wrap:wrap}
-    .small{font-size:12px; color:rgba(255,255,255,.55)}
-    .footer{margin-top:18px; text-align:center; color:rgba(255,255,255,.45); font-size:12px}
-
-    /* Modal */
-    .backdrop{
-      position:fixed; inset:0;
-      background: rgba(0,0,0,.62);
-      display:none;
-      align-items:center;
-      justify-content:center;
-      padding:16px;
-      z-index:50;
+    .input{
+      display:grid; gap:6px;
+      font-size:13px;
+      color:var(--muted);
+      font-weight:800;
     }
-    .modal{
-      width:min(720px, 100%);
-      border-radius: 20px;
-      border:1px solid var(--line);
-      background: rgba(18,10,34,.92);
-      box-shadow: 0 24px 80px rgba(0,0,0,.60);
-      overflow:hidden;
-    }
-    .modalTop{
-      padding:14px 14px;
-      display:flex; align-items:center; justify-content:space-between; gap:10px;
-      border-bottom:1px solid rgba(255,255,255,.08);
-      background: rgba(255,255,255,.02);
-    }
-    .modalTitle{font-weight:1000}
-    .x{
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.06);
-      color: var(--text);
-      border-radius: 12px;
-      padding:8px 10px;
-      cursor:pointer;
-      font-weight:1000;
-    }
-    .modalBody{padding:14px}
-    .form{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap:12px;
-    }
-    .field{
+    .input input, .input select, .input textarea{
       border:1px solid var(--line);
       background: rgba(255,255,255,.03);
-      border-radius: 16px;
-      padding:10px 12px;
-    }
-    .field label{
-      display:block;
-      font-weight:900;
-      font-size:12px;
-      color: rgba(255,255,255,.70);
-      margin-bottom:6px;
-    }
-    .field input, .field select{
-      width:100%;
-      border:0; outline:0;
-      background:transparent;
       color: var(--text);
-      font-weight:900;
-      font-size:14px;
+      border-radius: 14px;
+      padding:10px 12px;
+      outline:none;
+      font-weight:750;
     }
-    .modalActions{
-      margin-top:12px;
-      display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end;
+    .input textarea{min-height:72px; resize:vertical;}
+    .hint{
+      font-size:12px;
+      color: rgba(255,255,255,.50);
+      line-height:1.35;
+    }
+    .hr{height:1px; background: var(--line); margin:6px 0}
+    .okline{
+      display:flex; gap:10px; align-items:flex-start;
+      color: rgba(255,255,255,.75);
+      font-size:12px;
+      line-height:1.35;
+    }
+    .dot{
+      width:10px; height:10px; border-radius:999px;
+      margin-top:3px;
+      background: var(--ok);
+      box-shadow: 0 0 20px rgba(34,197,94,.25);
+      flex:0 0 auto;
     }
 
+    /* Toast */
     .toast{
       position:fixed; left:50%; bottom:18px; transform:translateX(-50%);
       background: rgba(18,10,34,.92);
@@ -307,15 +319,21 @@
       font-weight:900;
     }
 
-    @media (max-width:980px){
-      .card{grid-column: span 6;}
-      .two{grid-template-columns:1fr}
+    .footer{
+      margin-top:18px;
+      text-align:center;
+      color:rgba(255,255,255,.45);
+      font-size:12px;
     }
-    @media (max-width:760px){
-      .top{position:static}
-      .card{grid-column: span 12;}
-      .form{grid-template-columns:1fr}
+
+    @media (max-width: 980px){
+      .card{grid-column: span 6;}
+      .panel-body{grid-template-columns: 1fr; }
+    }
+    @media (max-width: 640px){
       h1{font-size:28px}
+      .card{grid-column: span 12;}
+      .top{position:static}
     }
   </style>
 </head>
@@ -324,120 +342,123 @@
     <header class="top">
       <div class="brand">
         <div class="logo">FX</div>
-        <div>Flux MC — Loja</div>
+        <div>Flux MC</div>
       </div>
       <nav class="nav">
-        <a class="chip" href="index.html">🏠 Início</a>
-        <a class="chip" href="#produtos">🛒 Produtos</a>
-        <a class="chip" href="#pix">⚡ Pix</a>
-        <a class="chip" href="https://discord.gg/qsZ65QJc" target="_blank" rel="noreferrer">💬 Discord</a>
+        <a class="chip" href="index.html">⬅ Voltar</a>
+        <a class="chip" href="https://discord.gg/qsZ65QJc" target="_blank" rel="noreferrer">Discord</a>
+        <button class="chip" id="filterAll">Todos</button>
+        <button class="chip" id="filterVip">VIP</button>
+        <button class="chip" id="filterKits">Kits</button>
+        <button class="chip" id="filterExtras">Extras</button>
       </nav>
     </header>
 
     <section class="hero">
       <div class="hero-inner">
-        <h1>Loja oficial — Flux MC</h1>
+        <h1>Loja Oficial — Flux MC</h1>
         <p class="sub">
-          Compra rápida por <b>Pix</b> e confirmação por <b>WhatsApp</b>.
-          Você paga, clica em “Finalizar no WhatsApp” e já manda o comprovante.
+          Compra por <b>PIX</b> (sem taxa). Você faz o pedido aqui, paga e o site já abre seu WhatsApp com a mensagem pronta.
+          <br/>⚡ Ativação: você envia o comprovante e seu nick do Minecraft.
         </p>
 
-        <div class="bar" id="produtos">
+        <div class="controls">
           <div class="search">
-            🔎 <input id="q" placeholder="Buscar (ex: vip, chave, fly…)" />
+            🔎 <input id="search" placeholder="Procurar produto (VIP, Mestre, spawner, unban...)" />
           </div>
-          <div style="display:flex; gap:10px; flex-wrap:wrap">
-            <div class="pill active" data-cat="todos">Todos</div>
-            <div class="pill" data-cat="vip">VIP</div>
-            <div class="pill" data-cat="itens">Itens</div>
-            <div class="pill" data-cat="cosmetico">Cosmético</div>
-          </div>
+          <button class="pill" id="btnHow">Como comprar</button>
+          <button class="pill" id="btnSupport">Suporte</button>
         </div>
       </div>
     </section>
 
     <section class="grid" id="grid"></section>
 
-    <section class="panel" id="pix">
-      <h2>Pagamento via Pix</h2>
-      <div class="two">
-        <div class="box">
-          <div class="row">
-            <p class="muted" style="margin:0"><b>Chave Pix</b> (copiar e colar):</p>
-            <button class="btn btn-ghost" id="copyPixBtn">📋 Copiar chave</button>
-          </div>
-          <div style="margin-top:10px">
-            <code class="inline" id="pixKey">098.636.509-27</code>
-          </div>
-          <p class="muted" style="margin-top:10px">
-            Depois do pagamento, clique em <b>Finalizar no WhatsApp</b> no produto e envie o comprovante.
-          </p>
-          <p class="small" style="margin:10px 0 0 0">
-            * “Direto pelo site” aqui funciona como checkout + Pix + envio automático da mensagem no WhatsApp.
-            Pra confirmar automático sem WhatsApp, só com gateway/integração paga (aí é outro projeto).
-          </p>
-        </div>
-
-        <div class="box">
-          <div class="row">
-            <p class="muted" style="margin:0"><b>WhatsApp (vendas)</b>:</p>
-            <button class="btn btn-ghost" id="copyWppBtn">📋 Copiar número</button>
-          </div>
-          <div style="margin-top:10px">
-            <code class="inline" id="wppText">+55 42 99909-5985</code>
-          </div>
-          <p class="muted" style="margin-top:10px">
-            O site já monta a mensagem com produto + nick + valor. Você só envia.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <div class="footer">© Flux MC — Loja (GitHub Pages)</div>
+    <div class="footer">© Flux MC — Loja (GitHub Pages). Pagamento via Pix + confirmação por WhatsApp/Discord.</div>
   </div>
 
   <!-- Modal -->
-  <div class="backdrop" id="backdrop" role="dialog" aria-modal="true">
-    <div class="modal">
-      <div class="modalTop">
-        <div class="modalTitle" id="mTitle">Finalizar</div>
-        <button class="x" id="closeBtn">✕</button>
+  <div class="modal" id="modal">
+    <div class="panel" role="dialog" aria-modal="true">
+      <div class="panel-head">
+        <div class="panel-title">
+          <span id="mTitle">Produto</span>
+          <span class="badge" id="mBadge">Categoria</span>
+        </div>
+        <button class="xbtn" id="close">Fechar ✕</button>
       </div>
-      <div class="modalBody">
-        <p class="muted" id="mDesc" style="margin-top:0"></p>
 
-        <div class="form">
-          <div class="field">
-            <label>Seu nick (Minecraft)</label>
-            <input id="nick" placeholder="Ex: JLZINXX" />
+      <div class="panel-body">
+        <!-- left -->
+        <div class="box">
+          <h3>Detalhes</h3>
+          <p id="mDesc">Descrição</p>
+
+          <div class="hr"></div>
+
+          <div class="kvs">
+            <div class="kv"><span>Preço</span> <b id="mPrice">R$ 0,00</b></div>
+            <div class="kv"><span>Duração</span> <b id="mDuration">—</b></div>
+            <div class="kv"><span>Entrega</span> <b>Ativação no servidor</b></div>
           </div>
-          <div class="field">
-            <label>Quantidade</label>
-            <select id="qty">
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-            </select>
+
+          <div class="hr"></div>
+
+          <div class="okline">
+            <span class="dot"></span>
+            <div>
+              <b>Sem pagar site</b>: você paga no Pix e manda o comprovante. Nós ativamos rapidinho.
+              (Se quiser automatizar 100% depois, aí precisa integração paga).
+            </div>
+          </div>
+
+          <div class="btn-line" style="margin-top:10px">
+            <button class="btn btn-ghost" id="copyPix">📋 Copiar chave Pix</button>
+            <button class="btn btn-primary" id="openWhats">📲 Finalizar no WhatsApp</button>
+          </div>
+
+          <div class="hint" style="margin-top:8px">
+            Dica: se o jogador não tiver WhatsApp, ele pode mandar o comprovante no Discord (canal de tickets).
           </div>
         </div>
 
-        <div class="box" style="margin-top:12px">
-          <div class="row">
-            <div>
-              <div class="small">Total</div>
-              <div class="price" id="total">R$ 0,00</div>
-            </div>
-            <div style="display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end">
-              <button class="btn btn-ghost" id="copyTotalBtn">📋 Copiar valor</button>
-              <button class="btn btn-ghost" id="copyPixBtn2">📋 Copiar Pix</button>
-              <button class="btn btn-primary" id="wppBtn">✅ Finalizar no WhatsApp</button>
-            </div>
-          </div>
-          <p class="small" style="margin:10px 0 0 0; color:rgba(255,255,255,.55)">
-            Dica: pagou no Pix → cola o comprovante na conversa e pronto.
+        <!-- right -->
+        <div class="box">
+          <h3>Checkout</h3>
+
+          <label class="input">
+            Nick do Minecraft (obrigatório)
+            <input id="nick" placeholder="Ex: JLZINXX" />
+          </label>
+
+          <label class="input">
+            Forma de entrega
+            <select id="delivery">
+              <option value="Servidor (ativação na conta)">Servidor (ativação na conta)</option>
+              <option value="Ticket no Discord">Ticket no Discord</option>
+              <option value="WhatsApp">WhatsApp</option>
+            </select>
+          </label>
+
+          <label class="input">
+            Observação (opcional)
+            <textarea id="obs" placeholder="Ex: Quero no Planeta Terra / Quero ativar hoje / etc"></textarea>
+          </label>
+
+          <div class="hr"></div>
+
+          <h3>Pix</h3>
+          <p class="small" style="margin:0">Chave Pix:</p>
+          <code class="inline" id="pixKey">098.636.509-27</code>
+
+          <p class="hint" style="margin:10px 0 0 0">
+            Depois de pagar, envie <b>comprovante</b> + <b>nick</b>. Se tiver fila, nós avisamos.
           </p>
+
+          <div class="btn-line" style="margin-top:12px">
+            <button class="btn btn-ghost" id="copyOrder">📄 Copiar pedido</button>
+            <a class="btn btn-ghost" href="https://discord.gg/qsZ65QJc" target="_blank" rel="noreferrer">💬 Abrir Discord</a>
+          </div>
         </div>
       </div>
     </div>
@@ -446,261 +467,347 @@
   <div class="toast" id="toast">Copiado!</div>
 
   <script>
-    // ========= CONFIG (SEUS DADOS) =========
+    // === CONFIG DO DONO ===
     const PIX_KEY = "098.636.509-27";
-    const WHATSAPP_NUMBER = "5542999095985"; // sem + e sem espaços
-    const CURRENCY = "BRL";
+    const WHATSAPP_NUMBER = "+5542999095985"; // seu número
+    const DISCORD_INVITE = "https://discord.gg/qsZ65QJc";
 
-    // ========= PRODUTOS (EDITA AQUI) =========
-    // Só mexe aqui pra adicionar/remover/alterar preço/descrição.
-    // Ordem = ordem que aparece na loja.
-    const PRODUCTS = [
+    // Preços de lançamento (mais barato no começo)
+    const products = [
+      // VIP
       {
-        id: "vip_flux_30d",
-        name: "VIP Flux (30 dias)",
+        id: "vip-1m",
+        cat: "VIP",
+        title: "VIP | 1 MÊS",
         price: 9.90,
-        cat: "vip",
-        tag: "VIP",
-        desc: "Tag VIP + benefícios no servidor por 30 dias."
+        duration: "30 dias",
+        desc: "VIP de entrada: cores no chat, /enderchest, homes e bônus básicos. Ideal pra começar no Flux."
       },
       {
-        id: "vip_flux_90d",
-        name: "VIP Flux (90 dias)",
+        id: "ultra-1m",
+        cat: "VIP",
+        title: "ULTRA | 1 MÊS",
+        price: 14.90,
+        duration: "30 dias",
+        desc: "ULTRA: mais homes, mais claim, vantagens melhores e kit ULTRA (/kit ultra)."
+      },
+      {
+        id: "mestre-1m",
+        cat: "VIP",
+        title: "MESTRE | 1 MÊS",
+        price: 19.90,
+        duration: "30 dias",
+        desc: "MESTRE: topo do servidor. Mais bônus, claim alto, kit MESTRE (/kit mestre) e destaque."
+      },
+
+      // Kits (15 dias)
+      {
+        id: "kit-berserker",
+        cat: "Kits",
+        title: "KIT BERSERKER | 15 DIAS",
+        price: 9.90,
+        duration: "15 dias (recarga 7d)",
+        desc: "Kit focado em dano e combate direto. Perfeito pra PvP e rush."
+      },
+      {
+        id: "kit-sentinela",
+        cat: "Kits",
+        title: "KIT SENTINELA | 15 DIAS",
+        price: 9.90,
+        duration: "15 dias (recarga 7d)",
+        desc: "Kit de distância/controle. Ideal pra vigiar e segurar território."
+      },
+      {
+        id: "kit-espectro",
+        cat: "Kits",
+        title: "KIT ESPECTRO | 15 DIAS",
+        price: 9.90,
+        duration: "15 dias (recarga 7d)",
+        desc: "Kit de mobilidade e invis/emboscada. Perfeito pra jogadas rápidas."
+      },
+      {
+        id: "kit-arcano",
+        cat: "Kits",
+        title: "KIT ARCANO | 15 DIAS",
+        price: 9.90,
+        duration: "15 dias (recarga 7d)",
+        desc: "Kit mágico/lendário. Combina itens raros e poções fortes."
+      },
+
+      // Extras
+      {
+        id: "spawners-2",
+        cat: "Extras",
+        title: "2 SPAWNERS (aleatórios)",
+        price: 5.90,
+        duration: "Entrega única",
+        desc: "Receba 2 spawners aleatórios na sua conta (produto único)."
+      },
+      {
+        id: "claim-500",
+        cat: "Extras",
+        title: "500 BLOCOS DE CLAIM",
+        price: 4.90,
+        duration: "Entrega única",
+        desc: "Ganha +500 blocos de claim para expandir/proteger sua base."
+      },
+      {
+        id: "unban",
+        cat: "Extras",
+        title: "UNBAN",
         price: 24.90,
-        cat: "vip",
-        tag: "VIP",
-        desc: "VIP por 3 meses (melhor custo/benefício)."
+        duration: "Entrega única",
+        desc: "Desbanimento do servidor. Compre apenas se você estiver banido."
       },
-      {
-        id: "fly_30d",
-        name: "Fly (30 dias)",
-        price: 7.90,
-        cat: "itens",
-        tag: "UTIL",
-        desc: "Ativa /fly por 30 dias (onde for permitido)."
-      },
-      {
-        id: "chaves_misteriosas",
-        name: "Chaves Misteriosas (x5)",
-        price: 6.50,
-        cat: "itens",
-        tag: "DROP",
-        desc: "5 chaves pra abrir recompensas (caixas/loot)."
-      },
-      {
-        id: "kit_start",
-        name: "Kit Start",
-        price: 4.50,
-        cat: "itens",
-        tag: "KIT",
-        desc: "Um kit pra começar mais forte (itens básicos + comida)."
-      },
-      {
-        id: "cosmetico_tag",
-        name: "Tag Colorida",
-        price: 3.00,
-        cat: "cosmetico",
-        tag: "STYLE",
-        desc: "Deixa seu nome/Tag mais estiloso (cores)."
-      }
     ];
 
-    // ========= UI =========
+    // UI
     const grid = document.getElementById("grid");
-    const q = document.getElementById("q");
-    const pills = [...document.querySelectorAll(".pill")];
-
-    const backdrop = document.getElementById("backdrop");
-    const closeBtn = document.getElementById("closeBtn");
-
-    const mTitle = document.getElementById("mTitle");
-    const mDesc = document.getElementById("mDesc");
-    const nick = document.getElementById("nick");
-    const qty = document.getElementById("qty");
-    const totalEl = document.getElementById("total");
-
-    const copyPixBtn = document.getElementById("copyPixBtn");
-    const copyPixBtn2 = document.getElementById("copyPixBtn2");
-    const copyWppBtn = document.getElementById("copyWppBtn");
-    const copyTotalBtn = document.getElementById("copyTotalBtn");
-    const wppBtn = document.getElementById("wppBtn");
-
-    const pixKeyEl = document.getElementById("pixKey");
-    const wppTextEl = document.getElementById("wppText");
-
+    const modal = document.getElementById("modal");
     const toast = document.getElementById("toast");
 
-    pixKeyEl.textContent = PIX_KEY;
-    wppTextEl.textContent = "+55 42 99909-5985";
+    const mTitle = document.getElementById("mTitle");
+    const mBadge = document.getElementById("mBadge");
+    const mDesc = document.getElementById("mDesc");
+    const mPrice = document.getElementById("mPrice");
+    const mDuration = document.getElementById("mDuration");
 
-    let activeCat = "todos";
-    let activeProduct = null;
+    const pixKeyEl = document.getElementById("pixKey");
+    pixKeyEl.textContent = PIX_KEY;
+
+    const nickEl = document.getElementById("nick");
+    const deliveryEl = document.getElementById("delivery");
+    const obsEl = document.getElementById("obs");
+
+    let currentProduct = null;
+    let currentFilter = "ALL";
 
     function money(v){
-      try{
-        return new Intl.NumberFormat("pt-BR", { style:"currency", currency: CURRENCY }).format(v);
-      }catch{
-        return "R$ " + String(v.toFixed(2)).replace(".", ",");
-      }
+      return v.toLocaleString("pt-BR", { style:"currency", currency:"BRL" });
     }
-
     function showToast(msg){
       toast.textContent = msg;
       toast.style.display = "block";
       clearTimeout(window.__t);
       window.__t = setTimeout(()=> toast.style.display="none", 1600);
     }
-
-    async function copyText(text, okMsg){
+    async function copyText(text){
       try{
         await navigator.clipboard.writeText(text);
-        showToast(okMsg || "Copiado!");
-      }catch{
+        showToast("Copiado!");
+      }catch(e){
         const ta = document.createElement("textarea");
         ta.value = text;
         document.body.appendChild(ta);
         ta.select();
         document.execCommand("copy");
         ta.remove();
-        showToast(okMsg || "Copiado!");
+        showToast("Copiado!");
       }
+    }
+
+    function setActiveChip(which){
+      document.querySelectorAll(".chip").forEach(c=>c.classList.remove("active"));
+      if(which) which.classList.add("active");
     }
 
     function render(){
-      const term = (q.value || "").trim().toLowerCase();
+      const q = (document.getElementById("search").value || "").trim().toLowerCase();
+      grid.innerHTML = "";
 
-      const list = PRODUCTS.filter(p => {
-        const inCat = activeCat === "todos" ? true : p.cat === activeCat;
-        const inSearch = !term ? true : (p.name + " " + p.desc + " " + p.tag).toLowerCase().includes(term);
-        return inCat && inSearch;
+      const list = products.filter(p=>{
+        const matchQ = !q || (p.title + " " + p.desc + " " + p.cat).toLowerCase().includes(q);
+        const matchF =
+          currentFilter === "ALL" ? true :
+          currentFilter === "VIP" ? p.cat === "VIP" :
+          currentFilter === "Kits" ? p.cat === "Kits" :
+          currentFilter === "Extras" ? p.cat === "Extras" :
+          true;
+        return matchQ && matchF;
       });
 
-      grid.innerHTML = list.map(p => `
-        <div class="card">
-          <span class="badge">✨ ${escapeHtml(p.tag)} • ${escapeHtml(catLabel(p.cat))}</span>
-          <div class="name">${escapeHtml(p.name)}</div>
-          <p class="desc">${escapeHtml(p.desc)}</p>
-
-          <div class="priceRow">
-            <div class="price">${money(p.price)}</div>
-            <button class="btn btn-primary" data-buy="${escapeHtml(p.id)}">Comprar</button>
-          </div>
-        </div>
-      `).join("");
-
-      [...document.querySelectorAll("[data-buy]")].forEach(btn => {
-        btn.addEventListener("click", () => {
-          const id = btn.getAttribute("data-buy");
-          const p = PRODUCTS.find(x => x.id === id);
-          if(!p) return;
-          openModal(p);
-        });
-      });
-    }
-
-    function catLabel(cat){
-      if(cat === "vip") return "VIP";
-      if(cat === "itens") return "Itens";
-      if(cat === "cosmetico") return "Cosmético";
-      return "Todos";
-    }
-
-    function escapeHtml(s){
-      return String(s)
-        .replaceAll("&","&amp;")
-        .replaceAll("<","&lt;")
-        .replaceAll(">","&gt;")
-        .replaceAll('"',"&quot;")
-        .replaceAll("'","&#039;");
-    }
-
-    function openModal(p){
-      activeProduct = p;
-      mTitle.textContent = "Finalizar: " + p.name;
-      mDesc.textContent = "Pagamento via Pix + envio do comprovante no WhatsApp.";
-      nick.value = "";
-      qty.value = "1";
-      updateTotal();
-      backdrop.style.display = "flex";
-      setTimeout(()=> nick.focus(), 50);
-    }
-
-    function closeModal(){
-      backdrop.style.display = "none";
-      activeProduct = null;
-    }
-
-    function updateTotal(){
-      if(!activeProduct) return;
-      const qn = Number(qty.value || 1);
-      const total = activeProduct.price * qn;
-      totalEl.textContent = money(total);
-      return total;
-    }
-
-    // Filters
-    pills.forEach(p => {
-      p.addEventListener("click", () => {
-        pills.forEach(x => x.classList.remove("active"));
-        p.classList.add("active");
-        activeCat = p.getAttribute("data-cat") || "todos";
-        render();
-      });
-    });
-
-    // Search
-    q.addEventListener("input", render);
-
-    // Modal close
-    closeBtn.addEventListener("click", closeModal);
-    backdrop.addEventListener("click", (e) => {
-      if(e.target === backdrop) closeModal();
-    });
-    document.addEventListener("keydown", (e) => {
-      if(e.key === "Escape" && backdrop.style.display === "flex") closeModal();
-    });
-
-    qty.addEventListener("change", updateTotal);
-
-    // Pix / WhatsApp copy buttons
-    copyPixBtn.addEventListener("click", () => copyText(PIX_KEY, "Chave Pix copiada!"));
-    copyPixBtn2.addEventListener("click", () => copyText(PIX_KEY, "Chave Pix copiada!"));
-    copyWppBtn.addEventListener("click", () => copyText("+" + WHATSAPP_NUMBER, "WhatsApp copiado!"));
-
-    copyTotalBtn.addEventListener("click", () => {
-      const total = updateTotal();
-      copyText(money(total), "Valor copiado!");
-    });
-
-    // WhatsApp checkout
-    wppBtn.addEventListener("click", () => {
-      if(!activeProduct) return;
-
-      const n = (nick.value || "").trim();
-      if(n.length < 3){
-        showToast("Coloca seu nick.");
-        nick.focus();
+      if(list.length === 0){
+        const empty = document.createElement("div");
+        empty.className = "card";
+        empty.style.gridColumn = "span 12";
+        empty.innerHTML = `
+          <h2 class="title">Nada encontrado</h2>
+          <p class="desc">Tenta pesquisar por: VIP, Mestre, spawner, claim, unban…</p>
+        `;
+        grid.appendChild(empty);
         return;
       }
 
-      const qn = Number(qty.value || 1);
-      const total = activeProduct.price * qn;
+      list.forEach(p=>{
+        const el = document.createElement("div");
+        el.className = "card";
+        el.innerHTML = `
+          <div class="card-top">
+            <div>
+              <div class="badge">${p.cat}</div>
+              <h2 class="title" style="margin-top:8px">${p.title}</h2>
+            </div>
+            <div class="badge">${p.duration}</div>
+          </div>
 
-      const msg =
-`🔥 *FLUX MC — COMPRA NA LOJA*
-✅ Produto: *${activeProduct.name}*
-🔢 Quantidade: *${qn}*
-👤 Nick: *${n}*
-💰 Total: *${money(total)}*
+          <p class="desc">${p.desc}</p>
 
-⚡ Pix (chave): *${PIX_KEY}*
-📎 Vou enviar o comprovante aqui.`;
+          <div class="price-row">
+            <div>
+              <div class="price">${money(p.price)}</div>
+              <div class="small">Pix • sem taxa</div>
+            </div>
+            <button class="btn btn-primary" data-buy="${p.id}">Comprar</button>
+          </div>
 
-      const url = "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(msg);
+          <div class="btn-line">
+            <button class="btn btn-ghost" data-details="${p.id}">Ver detalhes</button>
+            <button class="btn btn-ghost" data-copy="${p.id}">Copiar nome</button>
+          </div>
+        `;
+        grid.appendChild(el);
+      });
+
+      // wire
+      grid.querySelectorAll("[data-buy]").forEach(b=>{
+        b.addEventListener("click", ()=> openProduct(b.getAttribute("data-buy")));
+      });
+      grid.querySelectorAll("[data-details]").forEach(b=>{
+        b.addEventListener("click", ()=> openProduct(b.getAttribute("data-details")));
+      });
+      grid.querySelectorAll("[data-copy]").forEach(b=>{
+        const id = b.getAttribute("data-copy");
+        const p = products.find(x=>x.id===id);
+        b.addEventListener("click", ()=> copyText(p.title));
+      });
+    }
+
+    function openProduct(id){
+      const p = products.find(x=>x.id===id);
+      if(!p) return;
+      currentProduct = p;
+
+      mTitle.textContent = p.title;
+      mBadge.textContent = p.cat;
+      mDesc.textContent = p.desc;
+      mPrice.textContent = money(p.price);
+      mDuration.textContent = p.duration;
+
+      // reset form (não apaga se já estiver preenchido)
+      if(!nickEl.value) nickEl.value = "";
+      if(!obsEl.value) obsEl.value = "";
+
+      modal.classList.add("open");
+      nickEl.focus();
+    }
+
+    function closeModal(){
+      modal.classList.remove("open");
+    }
+
+    function buildOrderText(){
+      const nick = (nickEl.value || "").trim();
+      const obs = (obsEl.value || "").trim();
+      const delivery = deliveryEl.value;
+
+      const lines = [];
+      lines.push("🛒 *PEDIDO — FLUX MC*");
+      lines.push(`• Produto: ${currentProduct?.title || "-"}`);
+      lines.push(`• Valor: ${currentProduct ? money(currentProduct.price) : "-"}`);
+      lines.push(`• Nick: ${nick || "(não informado)"}`);
+      lines.push(`• Entrega: ${delivery}`);
+      if(obs) lines.push(`• Obs: ${obs}`);
+      lines.push("");
+      lines.push("✅ Pagamento via PIX");
+      lines.push(`• Chave Pix: ${PIX_KEY}`);
+      lines.push("");
+      lines.push("📎 Vou enviar o comprovante aqui.");
+      return lines.join("\n");
+    }
+
+    function openWhatsApp(){
+      if(!currentProduct){
+        showToast("Escolha um produto.");
+        return;
+      }
+      const nick = (nickEl.value || "").trim();
+      if(!nick){
+        showToast("Coloca seu nick primeiro.");
+        nickEl.focus();
+        return;
+      }
+      const msg = buildOrderText();
+      const url = `https://wa.me/${WHATSAPP_NUMBER.replace(/[^0-9]/g,"")}?text=${encodeURIComponent(msg)}`;
       window.open(url, "_blank", "noopener,noreferrer");
+    }
+
+    // Events
+    document.getElementById("search").addEventListener("input", render);
+
+    document.getElementById("close").addEventListener("click", closeModal);
+    modal.addEventListener("click", (e)=>{ if(e.target === modal) closeModal(); });
+    document.addEventListener("keydown", (e)=>{ if(e.key === "Escape") closeModal(); });
+
+    document.getElementById("copyPix").addEventListener("click", ()=> copyText(PIX_KEY));
+    document.getElementById("openWhats").addEventListener("click", openWhatsApp);
+
+    document.getElementById("copyOrder").addEventListener("click", ()=>{
+      if(!currentProduct) return;
+      const nick = (nickEl.value || "").trim();
+      if(!nick){
+        showToast("Coloca seu nick primeiro.");
+        nickEl.focus();
+        return;
+      }
+      copyText(buildOrderText());
     });
 
-    // Initial render
+    // Top chips filters
+    const fAll = document.getElementById("filterAll");
+    const fVip = document.getElementById("filterVip");
+    const fKits = document.getElementById("filterKits");
+    const fExtras = document.getElementById("filterExtras");
+
+    fAll.addEventListener("click", ()=>{
+      currentFilter = "ALL";
+      setActiveChip(fAll);
+      render();
+    });
+    fVip.addEventListener("click", ()=>{
+      currentFilter = "VIP";
+      setActiveChip(fVip);
+      render();
+    });
+    fKits.addEventListener("click", ()=>{
+      currentFilter = "Kits";
+      setActiveChip(fKits);
+      render();
+    });
+    fExtras.addEventListener("click", ()=>{
+      currentFilter = "Extras";
+      setActiveChip(fExtras);
+      render();
+    });
+
+    // How / Support buttons
+    document.getElementById("btnHow").addEventListener("click", ()=>{
+      currentFilter = "ALL";
+      setActiveChip(fAll);
+      openProduct("vip-1m");
+      mDesc.textContent =
+        "Como comprar (sem pagar nada):\n" +
+        "1) Escolhe o produto e coloca seu nick.\n" +
+        "2) Clica em 'Finalizar no WhatsApp'.\n" +
+        "3) Paga no Pix (chave aparece ali).\n" +
+        "4) Manda o comprovante e nós ativamos no servidor.";
+    });
+
+    document.getElementById("btnSupport").addEventListener("click", ()=>{
+      window.open(DISCORD_INVITE, "_blank", "noopener,noreferrer");
+    });
+
+    // Start
+    setActiveChip(fAll);
     render();
   </script>
 </body>
