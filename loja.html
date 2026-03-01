@@ -443,9 +443,9 @@
       </nav>
     </header>
 
-    <!-- ✅ BANNER (se trocar o arquivo, só muda o v= número) -->
+    <!-- Banner (se trocar o arquivo, muda o v=4 pra v=5 etc) -->
     <div class="shop-banner">
-      <img src="assets/banner.png?v=3" alt="Banner Flux MC" onerror="this.style.display='none'">
+      <img src="assets/banner.png?v=4" alt="Banner Flux MC" onerror="this.style.display='none'">
     </div>
 
     <section class="hero">
@@ -541,7 +541,7 @@
     const PIX_KEY = "098.636.509-27";
     const WHATSAPP_NUMBER = "+5542999095985";
 
-    // ===== PRODUTOS (COM IMAGENS CERTAS) =====
+    // ===== PRODUTOS (com as imagens da sua pasta assets) =====
     const products = [
       // VIPS
       {
@@ -611,7 +611,7 @@
 📦 Kit MESTRE: /kit mestre (se estiver configurado no servidor)`
       },
 
-      // KITS
+      // KITS (agora com imagens)
       {
         id:"kit-berserker",
         cat:"Kits",
@@ -686,7 +686,7 @@ Itens (exemplo/Resumo):
 - Poções fortes`
       },
 
-      // EXTRAS
+      // EXTRAS (agora com imagens)
       {
         id:"spawner-2",
         cat:"Extras",
@@ -752,9 +752,7 @@ Itens (exemplo/Resumo):
     let currentFilter = "ALL";
     let currentProduct = null;
 
-    function money(v){
-      return v.toLocaleString("pt-BR", { style:"currency", currency:"BRL" });
-    }
+    function money(v){ return v.toLocaleString("pt-BR", { style:"currency", currency:"BRL" }); }
 
     function showToast(msg){
       toast.textContent = msg;
@@ -764,17 +762,12 @@ Itens (exemplo/Resumo):
     }
 
     async function copyText(text){
-      try{
-        await navigator.clipboard.writeText(text);
-        showToast("Copiado!");
-      }catch(e){
+      try{ await navigator.clipboard.writeText(text); showToast("Copiado!"); }
+      catch(e){
         const ta = document.createElement("textarea");
-        ta.value = text;
-        document.body.appendChild(ta);
-        ta.select();
-        document.execCommand("copy");
-        ta.remove();
-        showToast("Copiado!");
+        ta.value = text; document.body.appendChild(ta);
+        ta.select(); document.execCommand("copy");
+        ta.remove(); showToast("Copiado!");
       }
     }
 
@@ -869,7 +862,6 @@ Itens (exemplo/Resumo):
       mDuration.textContent = p.duration || "—";
       mRecharge.textContent = p.recharge || "—";
       mStock.textContent = p.stock || "∞";
-
       mFull.innerHTML = (p.full || p.short || "").replace(/\n/g, "<br>");
 
       modal.classList.add("open");
@@ -922,13 +914,9 @@ Itens (exemplo/Resumo):
     document.getElementById("buyWhats").addEventListener("click", buyWhats);
 
     document.getElementById("btnPix").addEventListener("click", ()=> copyText(PIX_KEY));
-
-    document.getElementById("btnHow").addEventListener("click", ()=>{
-      showToast("1) Escolhe  2) Nick  3) Paga no Pix  4) Envia comprovante ✅");
-    });
+    document.getElementById("btnHow").addEventListener("click", ()=>{ showToast("1) Escolhe  2) Nick  3) Paga no Pix  4) Envia comprovante ✅"); });
 
     document.getElementById("search").addEventListener("input", render);
-
     render();
   </script>
 </body>
