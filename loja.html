@@ -78,8 +78,38 @@
       background: rgba(236,72,153,.10);
     }
 
-    .hero{
+    /* ===== BANNER BONITO (LOJA) ===== */
+    .shop-banner{
       margin-top:18px;
+      border:1px solid var(--line);
+      border-radius: 22px;
+      overflow:hidden;
+      background: rgba(255,255,255,.03);
+      box-shadow: var(--shadow);
+      position:relative;
+    }
+    .shop-banner:before{
+      content:"";
+      position:absolute; inset:0;
+      background:
+        radial-gradient(700px 280px at 20% 10%, rgba(139,92,246,.18), transparent 60%),
+        radial-gradient(700px 280px at 80% 20%, rgba(236,72,153,.14), transparent 60%);
+      pointer-events:none;
+    }
+    .shop-banner img{
+      width:100%;
+      height: 220px;
+      display:block;
+      object-fit: cover;
+      object-position: center;
+      filter: saturate(1.05) contrast(1.05);
+    }
+    @media (max-width:640px){
+      .shop-banner img{ height:160px; }
+    }
+
+    .hero{
+      margin-top:14px;
       padding:22px 18px;
       border-radius: var(--radius);
       border:1px solid var(--line);
@@ -409,6 +439,12 @@
       </nav>
     </header>
 
+    <!-- BANNER DA LOJA -->
+    <div class="shop-banner">
+      <img src="assets/banner.png" alt="Banner Flux MC"
+           onerror="this.style.display='none'">
+    </div>
+
     <section class="hero">
       <div class="hero-inner">
         <h1>Compre por PIX (rápido)</h1>
@@ -502,7 +538,9 @@
     const PIX_KEY = "098.636.509-27";
     const WHATSAPP_NUMBER = "+5542999095985";
 
-    // ===== PRODUTOS (valores diminuídos) =====
+    // ===== PRODUTOS =====
+    // VIP.png: se você quiser deixar minúsculo (ex: vpi.png),
+    // é só renomear o arquivo E trocar aqui em "img".
     const products = [
       // VIPS
       {
@@ -777,7 +815,10 @@ Itens (exemplo/Resumo):
         el.className = "card";
 
         const thumb = p.img
-          ? `<div class="thumb"><img src="${p.img}" alt="${p.title}"><div class="tag">${p.cat}</div></div>`
+          ? `<div class="thumb">
+               <img src="${p.img}" alt="${p.title}" onerror="this.style.display='none'">
+               <div class="tag">${p.cat}</div>
+             </div>`
           : `<div class="thumb"><div class="tag">${p.cat}</div></div>`;
 
         el.innerHTML = `
