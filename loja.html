@@ -1,103 +1,361 @@
 <!doctype html>
 <html lang="pt-BR">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Loja - Flux MC</title>
-<style>
-body{
-  margin:0;
-  font-family:Arial, sans-serif;
-  background:#0d0816;
-  color:white;
-}
-header{
-  text-align:center;
-  padding:40px 20px;
-  background:linear-gradient(135deg,#7c3aed,#ec4899);
-}
-h1{
-  margin:0;
-  font-size:40px;
-}
-.container{
-  max-width:1000px;
-  margin:40px auto;
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-  gap:20px;
-  padding:20px;
-}
-.card{
-  background:#1a1229;
-  border-radius:15px;
-  padding:20px;
-  text-align:center;
-  box-shadow:0 10px 30px rgba(0,0,0,0.4);
-}
-.card h2{
-  margin:10px 0;
-}
-.price{
-  font-size:24px;
-  font-weight:bold;
-  color:#a855f7;
-}
-button{
-  margin-top:15px;
-  padding:10px 20px;
-  border:none;
-  border-radius:10px;
-  background:linear-gradient(135deg,#7c3aed,#ec4899);
-  color:white;
-  font-weight:bold;
-  cursor:pointer;
-}
-button:hover{
-  opacity:0.9;
-}
-footer{
-  text-align:center;
-  padding:20px;
-  color:#aaa;
-}
-</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Flux MC — Loja</title>
+  <style>
+    :root{
+      --bg:#0b0712;
+      --card:#120a22;
+      --text:#f2eaff;
+      --muted:#b7a6d6;
+      --purple:#8b5cf6;
+      --pink:#ec4899;
+      --line: rgba(255,255,255,.10);
+      --shadow: 0 18px 60px rgba(0,0,0,.45);
+      --radius: 18px;
+      --max: 980px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background:
+        radial-gradient(900px 500px at 20% 10%, rgba(139,92,246,.28), transparent 65%),
+        radial-gradient(700px 450px at 80% 20%, rgba(236,72,153,.20), transparent 60%),
+        radial-gradient(900px 600px at 50% 100%, rgba(139,92,246,.18), transparent 70%),
+        var(--bg);
+      color:var(--text);
+      min-height:100vh;
+    }
+    a{color:inherit}
+    .wrap{max-width:var(--max); margin:0 auto; padding:28px 16px 44px;}
+    .top{
+      display:flex; gap:12px; align-items:center; justify-content:space-between;
+      padding:14px 14px;
+      border:1px solid var(--line);
+      background: rgba(18,10,34,.55);
+      backdrop-filter: blur(10px);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      position:sticky; top:12px;
+      z-index:5;
+    }
+    .brand{display:flex; gap:10px; align-items:center; font-weight:800; letter-spacing:.4px;}
+    .logo{
+      width:40px; height:40px; border-radius:14px;
+      background: linear-gradient(135deg, var(--purple), var(--pink));
+      display:grid; place-items:center;
+      box-shadow: 0 10px 30px rgba(139,92,246,.35);
+      font-weight:900;
+      color:#140a22;
+    }
+    .nav{display:flex; gap:10px; flex-wrap:wrap;}
+    .chip{
+      padding:10px 12px; border-radius:999px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.04);
+      text-decoration:none;
+      font-weight:650;
+      color:var(--muted);
+    }
+    .chip:hover{border-color:rgba(139,92,246,.55); color:var(--text)}
+    .hero{
+      margin-top:18px;
+      padding:24px 18px;
+      border-radius: var(--radius);
+      border:1px solid var(--line);
+      background: rgba(18,10,34,.45);
+      box-shadow: var(--shadow);
+      position:relative;
+      overflow:hidden;
+    }
+    .hero:before{
+      content:"";
+      position:absolute; inset:-2px;
+      background: radial-gradient(700px 260px at 30% 0%, rgba(139,92,246,.35), transparent 60%),
+                  radial-gradient(650px 240px at 80% 30%, rgba(236,72,153,.25), transparent 60%);
+      pointer-events:none;
+    }
+    .hero-inner{position:relative; display:grid; gap:10px;}
+    h1{margin:0; font-size:34px; line-height:1.05}
+    .sub{margin:0; color:var(--muted); font-size:15px; max-width:70ch}
+    .grid{
+      margin-top:14px;
+      display:grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap:14px;
+    }
+    .card{
+      grid-column: span 6;
+      padding:16px;
+      border-radius: var(--radius);
+      border:1px solid var(--line);
+      background: rgba(18,10,34,.40);
+      box-shadow: var(--shadow);
+    }
+    .card h2{margin:0 0 10px 0; font-size:18px}
+    .card p{margin:0; color:var(--muted)}
+    .prod{
+      display:grid;
+      gap:10px;
+    }
+    .prod-item{
+      border:1px solid var(--line);
+      border-radius:16px;
+      background: rgba(255,255,255,.03);
+      padding:12px;
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:10px;
+    }
+    .prod-title{font-weight:900}
+    .price{
+      font-weight:900;
+      padding:6px 10px;
+      border-radius:999px;
+      background: rgba(139,92,246,.18);
+      border:1px solid rgba(139,92,246,.35);
+      white-space:nowrap;
+    }
+    .btn{
+      border:0; cursor:pointer; text-decoration:none;
+      padding:12px 14px; border-radius:14px;
+      font-weight:900;
+      display:inline-flex; gap:10px; align-items:center; justify-content:center;
+      transition: transform .05s ease;
+    }
+    .btn:active{transform: translateY(1px)}
+    .btn-primary{
+      background: linear-gradient(135deg, var(--purple), var(--pink));
+      color:#140a22;
+      box-shadow: 0 14px 40px rgba(139,92,246,.25);
+    }
+    .btn-ghost{
+      background: rgba(255,255,255,.06);
+      border:1px solid var(--line);
+      color:var(--text);
+    }
+    .row{display:flex; gap:10px; align-items:center; justify-content:space-between; flex-wrap:wrap}
+    label{display:block; font-weight:800; margin:10px 0 6px}
+    input, select, textarea{
+      width:100%;
+      padding:12px 12px;
+      border-radius:14px;
+      border:1px solid var(--line);
+      background: rgba(0,0,0,.25);
+      color:var(--text);
+      outline:none;
+    }
+    textarea{min-height:90px; resize:vertical}
+    .hint{font-size:12px; color:rgba(255,255,255,.55); margin-top:6px}
+    code.inline{
+      background: rgba(255,255,255,.06);
+      border:1px solid var(--line);
+      padding:6px 10px;
+      border-radius:12px;
+      font-weight:900;
+      letter-spacing:.3px;
+      display:inline-block;
+      word-break:break-all;
+    }
+    .toast{
+      position:fixed; left:50%; bottom:18px; transform:translateX(-50%);
+      background: rgba(18,10,34,.92);
+      border:1px solid var(--line);
+      padding:10px 12px;
+      border-radius:999px;
+      color:var(--text);
+      display:none;
+      box-shadow: var(--shadow);
+      z-index:10;
+    }
+    .footer{margin-top:18px; text-align:center; color:rgba(255,255,255,.45); font-size:12px}
+    @media (max-width:760px){
+      .card{grid-column: span 12;}
+      .top{position:static}
+      h1{font-size:30px}
+    }
+  </style>
 </head>
 <body>
+  <div class="wrap">
+    <header class="top">
+      <div class="brand">
+        <div class="logo">FX</div>
+        <div>Flux MC — Loja</div>
+      </div>
+      <nav class="nav">
+        <a class="chip" href="index.html">⬅ Voltar</a>
+        <a class="chip" href="#produtos">Produtos</a>
+        <a class="chip" href="#pix">Pix</a>
+        <a class="chip" href="#confirmar">Confirmar</a>
+      </nav>
+    </header>
 
-<header>
-<h1>Loja Oficial Flux MC</h1>
-<p>Adquira benefícios exclusivos e evolua no servidor</p>
-</header>
+    <section class="hero">
+      <div class="hero-inner">
+        <h1>Compre pelo Pix</h1>
+        <p class="sub">
+          Pague no Pix e envie o comprovante. A liberação é feita pela staff.
+        </p>
+      </div>
+    </section>
 
-<div class="container">
+    <section class="grid">
+      <div class="card" id="produtos">
+        <h2>Produtos</h2>
 
-<div class="card">
-<h2>VIP</h2>
-<p>Tag exclusiva + Kit VIP</p>
-<div class="price">R$10</div>
-<button onclick="window.location.href='https://discord.gg/qsZ65QJc'">Comprar</button>
-</div>
+        <div class="prod" style="margin-top:10px">
+          <div class="prod-item">
+            <div>
+              <div class="prod-title">VIP Flux — 30 dias</div>
+              <div class="hint">Tag VIP + benefícios no servidor</div>
+            </div>
+            <div class="price">R$ 9,90</div>
+          </div>
 
-<div class="card">
-<h2>VIP+</h2>
-<p>Benefícios VIP + bônus especiais</p>
-<div class="price">R$20</div>
-<button onclick="window.location.href='https://discord.gg/qsZ65QJc'">Comprar</button>
-</div>
+          <div class="prod-item">
+            <div>
+              <div class="prod-title">VIP Flux — 60 dias</div>
+              <div class="hint">Mais tempo + prioridade</div>
+            </div>
+            <div class="price">R$ 17,90</div>
+          </div>
 
-<div class="card">
-<h2>Coins 10k</h2>
-<p>10.000 moedas no servidor</p>
-<div class="price">R$5</div>
-<button onclick="window.location.href='https://discord.gg/qsZ65QJc'">Comprar</button>
-</div>
+          <div class="prod-item">
+            <div>
+              <div class="prod-title">Kit VIP</div>
+              <div class="hint">Itens/recursos (ajustar depois)</div>
+            </div>
+            <div class="price">R$ 4,90</div>
+          </div>
+        </div>
 
-</div>
+        <div class="hint" style="margin-top:10px">
+          Você pode mudar nomes e preços depois.
+        </div>
+      </div>
 
-<footer>
-© Flux MC - Todos os direitos reservados
-</footer>
+      <div class="card" id="pix">
+        <div class="row">
+          <h2>Pagamento Pix</h2>
+          <button class="btn btn-ghost" id="copyPixBtn">📋 Copiar chave</button>
+        </div>
 
+        <p style="margin-top:8px">
+          Chave Pix:
+          <br/>
+          <code class="inline" id="pixKey">SUA_CHAVE_PIX_AQUI</code>
+        </p>
+
+        <div class="hint" style="margin-top:10px">
+          Troque “SUA_CHAVE_PIX_AQUI” pela sua chave Pix.
+        </div>
+      </div>
+
+      <div class="card" id="confirmar">
+        <h2>Confirmar compra</h2>
+
+        <label for="nick">Seu nick no Minecraft</label>
+        <input id="nick" placeholder="Ex: JLZINXX" />
+
+        <label for="produto">Produto</label>
+        <select id="produto">
+          <option>VIP Flux — 30 dias (R$ 9,90)</option>
+          <option>VIP Flux — 60 dias (R$ 17,90)</option>
+          <option>Kit VIP (R$ 4,90)</option>
+        </select>
+
+        <label for="obs">Observação (opcional)</label>
+        <textarea id="obs" placeholder="Ex: meu Discord é ..."></textarea>
+
+        <div class="row" style="margin-top:12px">
+          <button class="btn btn-primary" id="btnZap">✅ Já paguei (WhatsApp)</button>
+          <a class="btn btn-ghost" href="https://discord.gg/qsZ65QJc" target="_blank" rel="noreferrer">💬 Abrir Discord</a>
+        </div>
+
+        <div class="hint" style="margin-top:10px">
+          Envie o comprovante no WhatsApp/Discord.
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Regras da loja</h2>
+        <p>• Comprovante obrigatório • Entrega depende da staff • Sem estorno após entrega.</p>
+      </div>
+    </section>
+
+    <div class="footer">© Flux MC — Loja oficial</div>
+  </div>
+
+  <div class="toast" id="toast">Copiado!</div>
+
+  <script>
+    const toast = document.getElementById("toast");
+    const pixKeyEl = document.getElementById("pixKey");
+
+    function showToast(msg){
+      toast.textContent = msg;
+      toast.style.display = "block";
+      clearTimeout(window.__t);
+      window.__t = setTimeout(()=> toast.style.display="none", 1700);
+    }
+
+    async function copyText(text){
+      try{
+        await navigator.clipboard.writeText(text);
+        return true;
+      }catch(e){
+        const ta = document.createElement("textarea");
+        ta.value = text;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand("copy");
+        ta.remove();
+        return true;
+      }
+    }
+
+    document.getElementById("copyPixBtn").addEventListener("click", async ()=>{
+      const key = (pixKeyEl.textContent || "").trim();
+      if(!key || key === "SUA_CHAVE_PIX_AQUI"){
+        showToast("Troque pela sua chave Pix!");
+        return;
+      }
+      await copyText(key);
+      showToast("Chave Pix copiada!");
+    });
+
+    // Coloque seu número aqui com DDI 55. Ex: 5511999999999
+    const WHATSAPP_NUMBER = "55SEUNUMEROAQUI";
+
+    document.getElementById("btnZap").addEventListener("click", ()=>{
+      const nick = (document.getElementById("nick").value || "").trim();
+      const produto = document.getElementById("produto").value;
+      const obs = (document.getElementById("obs").value || "").trim();
+
+      if(!nick){
+        showToast("Falta seu nick!");
+        return;
+      }
+      if(WHATSAPP_NUMBER.includes("SEUNUMERO")){
+        showToast("Coloque seu número no WHATSAPP_NUMBER!");
+        return;
+      }
+
+      const msg =
+`[FLUX MC - COMPRA]
+Nick: ${nick}
+Produto: ${produto}
+Obs: ${obs ? obs : "-"}
+Envio o comprovante aqui.`;
+
+      const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
+      window.open(url, "_blank");
+    });
+  </script>
 </body>
 </html>
