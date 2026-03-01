@@ -1,231 +1,707 @@
 <!doctype html>
 <html lang="pt-BR">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Flux MC — Loja</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Flux MC — Loja</title>
+  <style>
+    :root{
+      --bg:#0b0712;
+      --card:#120a22;
+      --text:#f2eaff;
+      --muted:#b7a6d6;
+      --purple:#8b5cf6;
+      --pink:#ec4899;
+      --line: rgba(255,255,255,.10);
+      --shadow: 0 18px 60px rgba(0,0,0,.45);
+      --radius: 18px;
+      --max: 1050px;
+      --ok:#22c55e;
+      --warn:#f59e0b;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background:
+        radial-gradient(900px 500px at 20% 10%, rgba(139,92,246,.28), transparent 65%),
+        radial-gradient(700px 450px at 80% 20%, rgba(236,72,153,.20), transparent 60%),
+        radial-gradient(900px 600px at 50% 100%, rgba(139,92,246,.18), transparent 70%),
+        var(--bg);
+      color:var(--text);
+      min-height:100vh;
+    }
+    a{color:inherit}
+    .wrap{max-width:var(--max); margin:0 auto; padding:28px 16px 54px;}
+    .top{
+      display:flex; gap:12px; align-items:center; justify-content:space-between;
+      padding:14px 14px;
+      border:1px solid var(--line);
+      background: rgba(18,10,34,.55);
+      backdrop-filter: blur(10px);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      position:sticky; top:12px; z-index:5;
+    }
+    .brand{display:flex; gap:10px; align-items:center; font-weight:900; letter-spacing:.4px;}
+    .logo{
+      width:40px; height:40px; border-radius:14px;
+      background: linear-gradient(135deg, var(--purple), var(--pink));
+      display:grid; place-items:center;
+      box-shadow: 0 10px 30px rgba(139,92,246,.35);
+      font-weight:1000;
+      color:#140a22;
+    }
+    .nav{display:flex; gap:10px; flex-wrap:wrap; align-items:center}
+    .chip{
+      padding:10px 12px; border-radius:999px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.04);
+      text-decoration:none;
+      font-weight:750;
+      color:var(--muted);
+      display:inline-flex; gap:8px; align-items:center;
+    }
+    .chip:hover{border-color:rgba(139,92,246,.55); color:var(--text)}
+    .hero{
+      margin-top:18px;
+      padding:22px 18px;
+      border-radius: var(--radius);
+      border:1px solid var(--line);
+      background: rgba(18,10,34,.45);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      position:relative;
+    }
+    .hero:before{
+      content:"";
+      position:absolute; inset:-2px;
+      background: radial-gradient(700px 260px at 20% 0%, rgba(139,92,246,.35), transparent 60%),
+                  radial-gradient(650px 240px at 85% 30%, rgba(236,72,153,.22), transparent 60%);
+      pointer-events:none;
+    }
+    .hero-inner{position:relative; display:grid; gap:10px;}
+    h1{margin:0; font-size:32px; line-height:1.05}
+    .sub{margin:0; color:var(--muted); font-size:14px; max-width:70ch}
+    .bar{
+      margin-top:14px;
+      display:flex; gap:10px; flex-wrap:wrap; align-items:center; justify-content:space-between;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.03);
+      border-radius: 16px;
+      padding:10px 10px;
+    }
+    .search{
+      flex:1;
+      min-width:220px;
+      display:flex; gap:8px; align-items:center;
+      border:1px solid var(--line);
+      background: rgba(18,10,34,.35);
+      border-radius: 14px;
+      padding:10px 12px;
+    }
+    .search input{
+      width:100%;
+      border:0;
+      outline:0;
+      background:transparent;
+      color:var(--text);
+      font-weight:700;
+    }
+    .pill{
+      border:1px solid var(--line);
+      background: rgba(18,10,34,.35);
+      border-radius: 999px;
+      padding:10px 12px;
+      color:var(--muted);
+      font-weight:800;
+      cursor:pointer;
+      user-select:none;
+    }
+    .pill.active{
+      border-color: rgba(139,92,246,.65);
+      color: var(--text);
+      box-shadow: 0 14px 35px rgba(139,92,246,.18);
+    }
 
-<style>
-:root{
---bg:#0b0712;
---card:#120a22;
---text:#f2eaff;
---muted:#b7a6d6;
---purple:#8b5cf6;
---pink:#ec4899;
---line: rgba(255,255,255,.10);
---shadow: 0 18px 60px rgba(0,0,0,.45);
---radius: 18px;
---max: 980px;
-}
-*{box-sizing:border-box}
-body{
-margin:0;
-font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-background:
-radial-gradient(900px 500px at 20% 10%, rgba(139,92,246,.28), transparent 65%),
-radial-gradient(700px 450px at 80% 20%, rgba(236,72,153,.20), transparent 60%),
-radial-gradient(900px 600px at 50% 100%, rgba(139,92,246,.18), transparent 70%),
-var(--bg);
-color:var(--text);
-min-height:100vh;
-}
-.wrap{max-width:var(--max); margin:0 auto; padding:28px 16px 44px;}
-.top{
-display:flex; justify-content:space-between; align-items:center;
-padding:14px;
-border:1px solid var(--line);
-background: rgba(18,10,34,.55);
-border-radius: var(--radius);
-box-shadow: var(--shadow);
-}
-.logo{
-width:40px; height:40px; border-radius:14px;
-background: linear-gradient(135deg, var(--purple), var(--pink));
-display:grid; place-items:center;
-font-weight:900;
-color:#140a22;
-}
-.nav{display:flex; gap:10px;}
-.chip{
-padding:10px 12px;
-border-radius:999px;
-border:1px solid var(--line);
-background: rgba(255,255,255,.04);
-text-decoration:none;
-color:var(--muted);
-font-weight:700;
-}
-.hero{
-margin-top:18px;
-padding:24px;
-border-radius: var(--radius);
-border:1px solid var(--line);
-background: rgba(18,10,34,.45);
-box-shadow: var(--shadow);
-}
-h1{margin:0 0 10px 0}
-.grid{
-margin-top:16px;
-display:grid;
-grid-template-columns: 1fr 1fr;
-gap:14px;
-}
-.card{
-padding:16px;
-border-radius: var(--radius);
-border:1px solid var(--line);
-background: rgba(18,10,34,.40);
-box-shadow: var(--shadow);
-}
-.prod-item{
-display:flex;
-justify-content:space-between;
-margin-bottom:10px;
-}
-.price{
-font-weight:900;
-background: rgba(139,92,246,.18);
-padding:6px 10px;
-border-radius:999px;
-}
-.btn{
-padding:12px 14px;
-border-radius:14px;
-border:0;
-font-weight:900;
-cursor:pointer;
-}
-.btn-primary{
-background: linear-gradient(135deg, var(--purple), var(--pink));
-color:#140a22;
-}
-code{
-background: rgba(255,255,255,.06);
-padding:6px 10px;
-border-radius:12px;
-font-weight:900;
-display:inline-block;
-margin-top:6px;
-}
-input, select{
-width:100%;
-padding:12px;
-border-radius:14px;
-border:1px solid var(--line);
-background: rgba(0,0,0,.25);
-color:white;
-margin-top:6px;
-}
-.footer{
-margin-top:20px;
-text-align:center;
-font-size:12px;
-opacity:.5;
-}
-@media(max-width:760px){
-.grid{grid-template-columns:1fr;}
-}
-</style>
+    .grid{
+      margin-top:16px;
+      display:grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap:14px;
+    }
+    .card{
+      grid-column: span 4;
+      padding:14px;
+      border-radius: var(--radius);
+      border:1px solid var(--line);
+      background: rgba(18,10,34,.40);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      position:relative;
+    }
+    .card:before{
+      content:"";
+      position:absolute; inset:-2px;
+      background: radial-gradient(400px 180px at 20% 0%, rgba(139,92,246,.18), transparent 60%),
+                  radial-gradient(400px 180px at 90% 30%, rgba(236,72,153,.12), transparent 60%);
+      pointer-events:none;
+      opacity:.9;
+    }
+    .card > *{position:relative}
+    .badge{
+      display:inline-flex; gap:8px; align-items:center;
+      font-weight:900; font-size:12px;
+      padding:7px 10px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.04);
+      color: var(--muted);
+    }
+    .name{margin:10px 0 6px 0; font-size:18px; font-weight:1000}
+    .desc{margin:0; color:var(--muted); font-size:13px; line-height:1.35}
+    .priceRow{
+      margin-top:10px;
+      display:flex; align-items:center; justify-content:space-between; gap:10px;
+      border-top:1px solid rgba(255,255,255,.08);
+      padding-top:10px;
+    }
+    .price{
+      font-weight:1000;
+      letter-spacing:.2px;
+      font-size:16px;
+    }
+    .btn{
+      border:0; cursor:pointer; text-decoration:none;
+      padding:10px 12px; border-radius:14px;
+      font-weight:950;
+      display:inline-flex; gap:10px; align-items:center; justify-content:center;
+      transition: transform .05s ease;
+      white-space:nowrap;
+    }
+    .btn:active{transform: translateY(1px)}
+    .btn-primary{
+      background: linear-gradient(135deg, var(--purple), var(--pink));
+      color:#140a22;
+      box-shadow: 0 14px 40px rgba(139,92,246,.25);
+    }
+    .btn-ghost{
+      background: rgba(255,255,255,.06);
+      border:1px solid var(--line);
+      color:var(--text);
+    }
+
+    .panel{
+      margin-top:16px;
+      border-radius: var(--radius);
+      border:1px solid var(--line);
+      background: rgba(18,10,34,.45);
+      box-shadow: var(--shadow);
+      padding:14px;
+    }
+    .panel h2{margin:0 0 10px 0; font-size:16px}
+    .two{
+      display:grid;
+      grid-template-columns: 1.3fr .9fr;
+      gap:12px;
+    }
+    .box{
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.03);
+      border-radius: 16px;
+      padding:12px;
+    }
+    .muted{color:var(--muted); font-size:13px; line-height:1.35; margin:0}
+    code.inline{
+      background: rgba(255,255,255,.06);
+      border:1px solid var(--line);
+      padding:6px 10px;
+      border-radius:12px;
+      font-weight:900;
+      letter-spacing:.3px;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      word-break:break-all;
+    }
+    .row{display:flex; gap:10px; align-items:center; justify-content:space-between; flex-wrap:wrap}
+    .small{font-size:12px; color:rgba(255,255,255,.55)}
+    .footer{margin-top:18px; text-align:center; color:rgba(255,255,255,.45); font-size:12px}
+
+    /* Modal */
+    .backdrop{
+      position:fixed; inset:0;
+      background: rgba(0,0,0,.62);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding:16px;
+      z-index:50;
+    }
+    .modal{
+      width:min(720px, 100%);
+      border-radius: 20px;
+      border:1px solid var(--line);
+      background: rgba(18,10,34,.92);
+      box-shadow: 0 24px 80px rgba(0,0,0,.60);
+      overflow:hidden;
+    }
+    .modalTop{
+      padding:14px 14px;
+      display:flex; align-items:center; justify-content:space-between; gap:10px;
+      border-bottom:1px solid rgba(255,255,255,.08);
+      background: rgba(255,255,255,.02);
+    }
+    .modalTitle{font-weight:1000}
+    .x{
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.06);
+      color: var(--text);
+      border-radius: 12px;
+      padding:8px 10px;
+      cursor:pointer;
+      font-weight:1000;
+    }
+    .modalBody{padding:14px}
+    .form{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:12px;
+    }
+    .field{
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.03);
+      border-radius: 16px;
+      padding:10px 12px;
+    }
+    .field label{
+      display:block;
+      font-weight:900;
+      font-size:12px;
+      color: rgba(255,255,255,.70);
+      margin-bottom:6px;
+    }
+    .field input, .field select{
+      width:100%;
+      border:0; outline:0;
+      background:transparent;
+      color: var(--text);
+      font-weight:900;
+      font-size:14px;
+    }
+    .modalActions{
+      margin-top:12px;
+      display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end;
+    }
+
+    .toast{
+      position:fixed; left:50%; bottom:18px; transform:translateX(-50%);
+      background: rgba(18,10,34,.92);
+      border:1px solid var(--line);
+      padding:10px 12px;
+      border-radius:999px;
+      color:var(--text);
+      display:none;
+      box-shadow: var(--shadow);
+      z-index:60;
+      font-weight:900;
+    }
+
+    @media (max-width:980px){
+      .card{grid-column: span 6;}
+      .two{grid-template-columns:1fr}
+    }
+    @media (max-width:760px){
+      .top{position:static}
+      .card{grid-column: span 12;}
+      .form{grid-template-columns:1fr}
+      h1{font-size:28px}
+    }
+  </style>
 </head>
-
 <body>
-<div class="wrap">
+  <div class="wrap">
+    <header class="top">
+      <div class="brand">
+        <div class="logo">FX</div>
+        <div>Flux MC — Loja</div>
+      </div>
+      <nav class="nav">
+        <a class="chip" href="index.html">🏠 Início</a>
+        <a class="chip" href="#produtos">🛒 Produtos</a>
+        <a class="chip" href="#pix">⚡ Pix</a>
+        <a class="chip" href="https://discord.gg/qsZ65QJc" target="_blank" rel="noreferrer">💬 Discord</a>
+      </nav>
+    </header>
 
-<header class="top">
-<div style="display:flex;align-items:center;gap:10px;">
-<div class="logo">FX</div>
-<div><strong>Flux MC — Loja</strong></div>
-</div>
-<div class="nav">
-<a class="chip" href="index.html">⬅ Voltar</a>
-</div>
-</header>
+    <section class="hero">
+      <div class="hero-inner">
+        <h1>Loja oficial — Flux MC</h1>
+        <p class="sub">
+          Compra rápida por <b>Pix</b> e confirmação por <b>WhatsApp</b>.
+          Você paga, clica em “Finalizar no WhatsApp” e já manda o comprovante.
+        </p>
 
-<section class="hero">
-<h1>Comprar pelo Pix</h1>
-<p>Pague no Pix e envie o comprovante para liberação.</p>
-</section>
+        <div class="bar" id="produtos">
+          <div class="search">
+            🔎 <input id="q" placeholder="Buscar (ex: vip, chave, fly…)" />
+          </div>
+          <div style="display:flex; gap:10px; flex-wrap:wrap">
+            <div class="pill active" data-cat="todos">Todos</div>
+            <div class="pill" data-cat="vip">VIP</div>
+            <div class="pill" data-cat="itens">Itens</div>
+            <div class="pill" data-cat="cosmetico">Cosmético</div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-<section class="grid">
+    <section class="grid" id="grid"></section>
 
-<div class="card">
-<h2>Produtos</h2>
+    <section class="panel" id="pix">
+      <h2>Pagamento via Pix</h2>
+      <div class="two">
+        <div class="box">
+          <div class="row">
+            <p class="muted" style="margin:0"><b>Chave Pix</b> (copiar e colar):</p>
+            <button class="btn btn-ghost" id="copyPixBtn">📋 Copiar chave</button>
+          </div>
+          <div style="margin-top:10px">
+            <code class="inline" id="pixKey">098.636.509-27</code>
+          </div>
+          <p class="muted" style="margin-top:10px">
+            Depois do pagamento, clique em <b>Finalizar no WhatsApp</b> no produto e envie o comprovante.
+          </p>
+          <p class="small" style="margin:10px 0 0 0">
+            * “Direto pelo site” aqui funciona como checkout + Pix + envio automático da mensagem no WhatsApp.
+            Pra confirmar automático sem WhatsApp, só com gateway/integração paga (aí é outro projeto).
+          </p>
+        </div>
 
-<div class="prod-item">
-<div>VIP 30 dias</div>
-<div class="price">R$ 9,90</div>
-</div>
+        <div class="box">
+          <div class="row">
+            <p class="muted" style="margin:0"><b>WhatsApp (vendas)</b>:</p>
+            <button class="btn btn-ghost" id="copyWppBtn">📋 Copiar número</button>
+          </div>
+          <div style="margin-top:10px">
+            <code class="inline" id="wppText">+55 42 99909-5985</code>
+          </div>
+          <p class="muted" style="margin-top:10px">
+            O site já monta a mensagem com produto + nick + valor. Você só envia.
+          </p>
+        </div>
+      </div>
+    </section>
 
-<div class="prod-item">
-<div>VIP 60 dias</div>
-<div class="price">R$ 17,90</div>
-</div>
+    <div class="footer">© Flux MC — Loja (GitHub Pages)</div>
+  </div>
 
-<div class="prod-item">
-<div>Kit VIP</div>
-<div class="price">R$ 4,90</div>
-</div>
+  <!-- Modal -->
+  <div class="backdrop" id="backdrop" role="dialog" aria-modal="true">
+    <div class="modal">
+      <div class="modalTop">
+        <div class="modalTitle" id="mTitle">Finalizar</div>
+        <button class="x" id="closeBtn">✕</button>
+      </div>
+      <div class="modalBody">
+        <p class="muted" id="mDesc" style="margin-top:0"></p>
 
-</div>
+        <div class="form">
+          <div class="field">
+            <label>Seu nick (Minecraft)</label>
+            <input id="nick" placeholder="Ex: JLZINXX" />
+          </div>
+          <div class="field">
+            <label>Quantidade</label>
+            <select id="qty">
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+            </select>
+          </div>
+        </div>
 
-<div class="card">
-<h2>Pix</h2>
-Chave Pix:
-<code id="pixKey">098.636.509-27</code>
-<br><br>
-<button class="btn btn-primary" onclick="copyPix()">Copiar chave Pix</button>
-</div>
+        <div class="box" style="margin-top:12px">
+          <div class="row">
+            <div>
+              <div class="small">Total</div>
+              <div class="price" id="total">R$ 0,00</div>
+            </div>
+            <div style="display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end">
+              <button class="btn btn-ghost" id="copyTotalBtn">📋 Copiar valor</button>
+              <button class="btn btn-ghost" id="copyPixBtn2">📋 Copiar Pix</button>
+              <button class="btn btn-primary" id="wppBtn">✅ Finalizar no WhatsApp</button>
+            </div>
+          </div>
+          <p class="small" style="margin:10px 0 0 0; color:rgba(255,255,255,.55)">
+            Dica: pagou no Pix → cola o comprovante na conversa e pronto.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
 
-<div class="card">
-<h2>Confirmar compra</h2>
+  <div class="toast" id="toast">Copiado!</div>
 
-<label>Seu Nick</label>
-<input id="nick" placeholder="Ex: JLZINXX">
+  <script>
+    // ========= CONFIG (SEUS DADOS) =========
+    const PIX_KEY = "098.636.509-27";
+    const WHATSAPP_NUMBER = "5542999095985"; // sem + e sem espaços
+    const CURRENCY = "BRL";
 
-<label>Produto</label>
-<select id="produto">
-<option>VIP 30 dias</option>
-<option>VIP 60 dias</option>
-<option>Kit VIP</option>
-</select>
+    // ========= PRODUTOS (EDITA AQUI) =========
+    // Só mexe aqui pra adicionar/remover/alterar preço/descrição.
+    // Ordem = ordem que aparece na loja.
+    const PRODUCTS = [
+      {
+        id: "vip_flux_30d",
+        name: "VIP Flux (30 dias)",
+        price: 9.90,
+        cat: "vip",
+        tag: "VIP",
+        desc: "Tag VIP + benefícios no servidor por 30 dias."
+      },
+      {
+        id: "vip_flux_90d",
+        name: "VIP Flux (90 dias)",
+        price: 24.90,
+        cat: "vip",
+        tag: "VIP",
+        desc: "VIP por 3 meses (melhor custo/benefício)."
+      },
+      {
+        id: "fly_30d",
+        name: "Fly (30 dias)",
+        price: 7.90,
+        cat: "itens",
+        tag: "UTIL",
+        desc: "Ativa /fly por 30 dias (onde for permitido)."
+      },
+      {
+        id: "chaves_misteriosas",
+        name: "Chaves Misteriosas (x5)",
+        price: 6.50,
+        cat: "itens",
+        tag: "DROP",
+        desc: "5 chaves pra abrir recompensas (caixas/loot)."
+      },
+      {
+        id: "kit_start",
+        name: "Kit Start",
+        price: 4.50,
+        cat: "itens",
+        tag: "KIT",
+        desc: "Um kit pra começar mais forte (itens básicos + comida)."
+      },
+      {
+        id: "cosmetico_tag",
+        name: "Tag Colorida",
+        price: 3.00,
+        cat: "cosmetico",
+        tag: "STYLE",
+        desc: "Deixa seu nome/Tag mais estiloso (cores)."
+      }
+    ];
 
-<br><br>
-<button class="btn btn-primary" onclick="enviarZap()">Já paguei</button>
+    // ========= UI =========
+    const grid = document.getElementById("grid");
+    const q = document.getElementById("q");
+    const pills = [...document.querySelectorAll(".pill")];
 
-</div>
+    const backdrop = document.getElementById("backdrop");
+    const closeBtn = document.getElementById("closeBtn");
 
-</section>
+    const mTitle = document.getElementById("mTitle");
+    const mDesc = document.getElementById("mDesc");
+    const nick = document.getElementById("nick");
+    const qty = document.getElementById("qty");
+    const totalEl = document.getElementById("total");
 
-<div class="footer">© Flux MC — Loja oficial</div>
-</div>
+    const copyPixBtn = document.getElementById("copyPixBtn");
+    const copyPixBtn2 = document.getElementById("copyPixBtn2");
+    const copyWppBtn = document.getElementById("copyWppBtn");
+    const copyTotalBtn = document.getElementById("copyTotalBtn");
+    const wppBtn = document.getElementById("wppBtn");
 
-<script>
-const WHATSAPP_NUMBER = "5542999095985";
+    const pixKeyEl = document.getElementById("pixKey");
+    const wppTextEl = document.getElementById("wppText");
 
-function copyPix(){
-navigator.clipboard.writeText("098.636.509-27");
-alert("Chave Pix copiada!");
-}
+    const toast = document.getElementById("toast");
 
-function enviarZap(){
-const nick = document.getElementById("nick").value;
-const produto = document.getElementById("produto").value;
+    pixKeyEl.textContent = PIX_KEY;
+    wppTextEl.textContent = "+55 42 99909-5985";
 
-if(!nick){
-alert("Coloque seu nick!");
-return;
-}
+    let activeCat = "todos";
+    let activeProduct = null;
 
-const msg = `[FLUX MC - COMPRA]
-Nick: ${nick}
-Produto: ${produto}
-Envio o comprovante aqui.`;
+    function money(v){
+      try{
+        return new Intl.NumberFormat("pt-BR", { style:"currency", currency: CURRENCY }).format(v);
+      }catch{
+        return "R$ " + String(v.toFixed(2)).replace(".", ",");
+      }
+    }
 
-const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
-window.open(url, "_blank");
-}
-</script>
+    function showToast(msg){
+      toast.textContent = msg;
+      toast.style.display = "block";
+      clearTimeout(window.__t);
+      window.__t = setTimeout(()=> toast.style.display="none", 1600);
+    }
 
+    async function copyText(text, okMsg){
+      try{
+        await navigator.clipboard.writeText(text);
+        showToast(okMsg || "Copiado!");
+      }catch{
+        const ta = document.createElement("textarea");
+        ta.value = text;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand("copy");
+        ta.remove();
+        showToast(okMsg || "Copiado!");
+      }
+    }
+
+    function render(){
+      const term = (q.value || "").trim().toLowerCase();
+
+      const list = PRODUCTS.filter(p => {
+        const inCat = activeCat === "todos" ? true : p.cat === activeCat;
+        const inSearch = !term ? true : (p.name + " " + p.desc + " " + p.tag).toLowerCase().includes(term);
+        return inCat && inSearch;
+      });
+
+      grid.innerHTML = list.map(p => `
+        <div class="card">
+          <span class="badge">✨ ${escapeHtml(p.tag)} • ${escapeHtml(catLabel(p.cat))}</span>
+          <div class="name">${escapeHtml(p.name)}</div>
+          <p class="desc">${escapeHtml(p.desc)}</p>
+
+          <div class="priceRow">
+            <div class="price">${money(p.price)}</div>
+            <button class="btn btn-primary" data-buy="${escapeHtml(p.id)}">Comprar</button>
+          </div>
+        </div>
+      `).join("");
+
+      [...document.querySelectorAll("[data-buy]")].forEach(btn => {
+        btn.addEventListener("click", () => {
+          const id = btn.getAttribute("data-buy");
+          const p = PRODUCTS.find(x => x.id === id);
+          if(!p) return;
+          openModal(p);
+        });
+      });
+    }
+
+    function catLabel(cat){
+      if(cat === "vip") return "VIP";
+      if(cat === "itens") return "Itens";
+      if(cat === "cosmetico") return "Cosmético";
+      return "Todos";
+    }
+
+    function escapeHtml(s){
+      return String(s)
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+    }
+
+    function openModal(p){
+      activeProduct = p;
+      mTitle.textContent = "Finalizar: " + p.name;
+      mDesc.textContent = "Pagamento via Pix + envio do comprovante no WhatsApp.";
+      nick.value = "";
+      qty.value = "1";
+      updateTotal();
+      backdrop.style.display = "flex";
+      setTimeout(()=> nick.focus(), 50);
+    }
+
+    function closeModal(){
+      backdrop.style.display = "none";
+      activeProduct = null;
+    }
+
+    function updateTotal(){
+      if(!activeProduct) return;
+      const qn = Number(qty.value || 1);
+      const total = activeProduct.price * qn;
+      totalEl.textContent = money(total);
+      return total;
+    }
+
+    // Filters
+    pills.forEach(p => {
+      p.addEventListener("click", () => {
+        pills.forEach(x => x.classList.remove("active"));
+        p.classList.add("active");
+        activeCat = p.getAttribute("data-cat") || "todos";
+        render();
+      });
+    });
+
+    // Search
+    q.addEventListener("input", render);
+
+    // Modal close
+    closeBtn.addEventListener("click", closeModal);
+    backdrop.addEventListener("click", (e) => {
+      if(e.target === backdrop) closeModal();
+    });
+    document.addEventListener("keydown", (e) => {
+      if(e.key === "Escape" && backdrop.style.display === "flex") closeModal();
+    });
+
+    qty.addEventListener("change", updateTotal);
+
+    // Pix / WhatsApp copy buttons
+    copyPixBtn.addEventListener("click", () => copyText(PIX_KEY, "Chave Pix copiada!"));
+    copyPixBtn2.addEventListener("click", () => copyText(PIX_KEY, "Chave Pix copiada!"));
+    copyWppBtn.addEventListener("click", () => copyText("+" + WHATSAPP_NUMBER, "WhatsApp copiado!"));
+
+    copyTotalBtn.addEventListener("click", () => {
+      const total = updateTotal();
+      copyText(money(total), "Valor copiado!");
+    });
+
+    // WhatsApp checkout
+    wppBtn.addEventListener("click", () => {
+      if(!activeProduct) return;
+
+      const n = (nick.value || "").trim();
+      if(n.length < 3){
+        showToast("Coloca seu nick.");
+        nick.focus();
+        return;
+      }
+
+      const qn = Number(qty.value || 1);
+      const total = activeProduct.price * qn;
+
+      const msg =
+`🔥 *FLUX MC — COMPRA NA LOJA*
+✅ Produto: *${activeProduct.name}*
+🔢 Quantidade: *${qn}*
+👤 Nick: *${n}*
+💰 Total: *${money(total)}*
+
+⚡ Pix (chave): *${PIX_KEY}*
+📎 Vou enviar o comprovante aqui.`;
+
+      const url = "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(msg);
+      window.open(url, "_blank", "noopener,noreferrer");
+    });
+
+    // Initial render
+    render();
+  </script>
 </body>
 </html>
