@@ -198,6 +198,7 @@
       border-bottom:1px solid var(--line);
       position:relative;
     }
+    /* deixa imagem bonita e “centralizada” */
     .thumb img{
       width:100%;
       height:100%;
@@ -443,9 +444,9 @@
       </nav>
     </header>
 
-    <!-- Banner (se trocar o arquivo, muda o v=4 pra v=5 etc) -->
+    <!-- BANNER DA LOJA -->
     <div class="shop-banner">
-      <img src="assets/banner.png?v=4" alt="Banner Flux MC" onerror="this.style.display='none'">
+      <img id="bannerImg" alt="Banner Flux MC" onerror="this.style.display='none'">
     </div>
 
     <section class="hero">
@@ -537,21 +538,19 @@
   <div class="toast" id="toast">Copiado!</div>
 
   <script>
+    // ===== BANNER (mude o número quando trocar banner.png) =====
+    const BANNER_V = "1"; // <- trocou banner? muda pra 2, 3, 4...
+    document.getElementById("bannerImg").src = "assets/banner.png?v=" + BANNER_V;
+
     // ===== SEUS DADOS =====
     const PIX_KEY = "098.636.509-27";
     const WHATSAPP_NUMBER = "+5542999095985";
 
-    // ===== PRODUTOS (com as imagens da sua pasta assets) =====
+    // ===== PRODUTOS (COM IMAGENS) =====
     const products = [
       // VIPS
       {
-        id:"vip-1m",
-        cat:"VIP",
-        title:"VIP | 1 MÊS",
-        price: 4.00,
-        duration:"30 dias",
-        recharge:"—",
-        stock:"∞",
+        id:"vip-1m", cat:"VIP", title:"VIP | 1 MÊS", price: 4.00, duration:"30 dias", recharge:"—", stock:"∞",
         img:"assets/vip.png",
         short:"VIP baratinho pra começar: cores, enderchest, homes e bônus.",
         full:
@@ -569,13 +568,7 @@
 - Não é permitido transferir VIP`
       },
       {
-        id:"ultra-1m",
-        cat:"VIP",
-        title:"ULTRA | 1 MÊS",
-        price: 6.00,
-        duration:"30 dias",
-        recharge:"—",
-        stock:"∞",
+        id:"ultra-1m", cat:"VIP", title:"ULTRA | 1 MÊS", price: 6.00, duration:"30 dias", recharge:"—", stock:"∞",
         img:"assets/ultra.png",
         short:"Mais forte que VIP: /back, mais homes, mais claim e bônus.",
         full:
@@ -590,13 +583,7 @@
 📦 Kit ULTRA: /kit ultra (se estiver configurado no servidor)`
       },
       {
-        id:"mestre-1m",
-        cat:"VIP",
-        title:"MESTRE | 1 MÊS",
-        price: 8.00,
-        duration:"30 dias",
-        recharge:"—",
-        stock:"∞",
+        id:"mestre-1m", cat:"VIP", title:"MESTRE | 1 MÊS", price: 8.00, duration:"30 dias", recharge:"—", stock:"∞",
         img:"assets/mestre.png",
         short:"Topo do servidor: kit bruto e bônus máximos.",
         full:
@@ -611,19 +598,12 @@
 📦 Kit MESTRE: /kit mestre (se estiver configurado no servidor)`
       },
 
-      // KITS (agora com imagens)
+      // KITS (AGORA COM IMAGEM)
       {
-        id:"kit-berserker",
-        cat:"Kits",
-        title:"KIT BERSERKER",
-        price: 4.00,
-        duration:"Entrega única",
-        recharge:"—",
-        stock:"∞",
+        id:"kit-berserker", cat:"Kits", title:"KIT BERSERKER", price: 4.00, duration:"Entrega única", recharge:"—", stock:"∞",
         img:"assets/kitberserker.png",
         short:"Combate direto: kit focado em dano e resistência.",
-        full:
-`🟠 KIT BERSERKER
+        full:`🟠 KIT BERSERKER
 Entrega única (sem recarga)
 Itens (exemplo/Resumo):
 - Machado Netherita encantado
@@ -632,17 +612,10 @@ Itens (exemplo/Resumo):
 - Tridente`
       },
       {
-        id:"kit-sentinela",
-        cat:"Kits",
-        title:"KIT SENTINELA",
-        price: 4.00,
-        duration:"Entrega única",
-        recharge:"—",
-        stock:"∞",
+        id:"kit-sentinela", cat:"Kits", title:"KIT SENTINELA", price: 4.00, duration:"Entrega única", recharge:"—", stock:"∞",
         img:"assets/kitsentinela.png",
         short:"Controle à distância + utilidade.",
-        full:
-`🟩 KIT SENTINELA
+        full:`🟩 KIT SENTINELA
 Entrega única (sem recarga)
 Itens (exemplo/Resumo):
 - Arco + espada
@@ -650,17 +623,10 @@ Itens (exemplo/Resumo):
 - Poções e utilidades`
       },
       {
-        id:"kit-espectro",
-        cat:"Kits",
-        title:"KIT ESPECTRO",
-        price: 4.00,
-        duration:"Entrega única",
-        recharge:"—",
-        stock:"∞",
+        id:"kit-espectro", cat:"Kits", title:"KIT ESPECTRO", price: 4.00, duration:"Entrega única", recharge:"—", stock:"∞",
         img:"assets/kitespectro.png",
         short:"Mobilidade e invisibilidade (kit agressivo).",
-        full:
-`⚫ KIT ESPECTRO
+        full:`⚫ KIT ESPECTRO
 Entrega única (sem recarga)
 Itens (exemplo/Resumo):
 - Lâmina/Arco
@@ -668,17 +634,10 @@ Itens (exemplo/Resumo):
 - Poções (agilidade/visão/ocultação)`
       },
       {
-        id:"kit-arcano",
-        cat:"Kits",
-        title:"KIT ARCANO",
-        price: 4.00,
-        duration:"Entrega única",
-        recharge:"—",
-        stock:"∞",
+        id:"kit-arcano", cat:"Kits", title:"KIT ARCANO", price: 4.00, duration:"Entrega única", recharge:"—", stock:"∞",
         img:"assets/kitarcano.png",
         short:"Kit mágico lendário com itens raros.",
-        full:
-`🟣 KIT ARCANO
+        full:`🟣 KIT ARCANO
 Entrega única (sem recarga)
 Itens (exemplo/Resumo):
 - Lâmina + tridente
@@ -686,39 +645,21 @@ Itens (exemplo/Resumo):
 - Poções fortes`
       },
 
-      // EXTRAS (agora com imagens)
+      // EXTRAS (AGORA COM IMAGEM)
       {
-        id:"spawner-2",
-        cat:"Extras",
-        title:"2 SPAWNERS",
-        price: 3.00,
-        duration:"Entrega única",
-        recharge:"—",
-        stock:"∞",
+        id:"spawner-2", cat:"Extras", title:"2 SPAWNERS", price: 3.00, duration:"Entrega única", recharge:"—", stock:"∞",
         img:"assets/spawners.png",
         short:"Recebe 2 spawners aleatórios na sua conta.",
         full:"Ao comprar este produto você irá receber 2 spawners aleatórios na sua conta."
       },
       {
-        id:"claim-500",
-        cat:"Extras",
-        title:"500 BLOCOS DE CLAIM",
-        price: 2.00,
-        duration:"Entrega única",
-        recharge:"—",
-        stock:"∞",
+        id:"claim-500", cat:"Extras", title:"500 BLOCOS DE CLAIM", price: 2.00, duration:"Entrega única", recharge:"—", stock:"∞",
         img:"assets/blocosclaim.png",
         short:"Ganha 500 blocos de claim.",
         full:"Ao comprar esse produto você ganhará 500 blocos de claim."
       },
       {
-        id:"unban",
-        cat:"Extras",
-        title:"UNBAN",
-        price: 10.00,
-        duration:"Entrega única",
-        recharge:"—",
-        stock:"∞",
+        id:"unban", cat:"Extras", title:"UNBAN", price: 10.00, duration:"Entrega única", recharge:"—", stock:"∞",
         img:"assets/unban.png",
         short:"Desbanimento do servidor.",
         full:"Ao comprar você será desbanido do nosso servidor. (Compre apenas se você estiver banido)"
