@@ -18,7 +18,6 @@
       --purple:#8b5cf6;
       --pink:#ec4899;
       --blue:#60a5fa;
-      --ok:#22c55e;
 
       --max: 1120px;
     }
@@ -39,7 +38,6 @@
     a{color:inherit}
     .wrap{max-width:var(--max); margin:0 auto; padding:26px 16px 44px;}
 
-    /* Top bar */
     .top{
       display:flex; gap:12px; align-items:center; justify-content:space-between;
       padding:14px 14px;
@@ -80,7 +78,6 @@
       background: rgba(236,72,153,.10);
     }
 
-    /* Hero */
     .hero{
       margin-top:18px;
       padding:22px 18px;
@@ -100,9 +97,8 @@
     }
     .hero-inner{position:relative; display:grid; gap:10px;}
     h1{margin:0; font-size:32px; line-height:1.05}
-    .sub{margin:0; color:var(--muted); font-size:14px; max-width:80ch}
+    .sub{margin:0; color:var(--muted); font-size:14px; max-width:90ch}
 
-    /* Controls */
     .controls{
       margin-top:12px;
       display:flex;
@@ -145,7 +141,6 @@
     .pill:hover{border-color:rgba(139,92,246,.55)}
     .pill small{color:rgba(255,255,255,.65); font-weight:800}
 
-    /* Grid */
     .grid{
       margin-top:14px;
       display:grid;
@@ -268,7 +263,6 @@
       font-size:12px;
     }
 
-    /* Modal */
     .modal{
       position:fixed; inset:0;
       background: rgba(0,0,0,.60);
@@ -417,15 +411,15 @@
 
     <section class="hero">
       <div class="hero-inner">
-        <h1>Compre por PIX (rápido e bonito)</h1>
+        <h1>Compre por PIX (rápido)</h1>
         <p class="sub">
-          Você escolhe o produto, coloca seu nick, paga no Pix e o site já abre seu WhatsApp com a mensagem pronta.
-          <br>✅ Ativação após enviar comprovante.
+          Escolha o produto, coloque seu nick e clique em comprar.
+          O site abre o WhatsApp com a mensagem pronta + sua chave Pix pra você pagar e mandar o comprovante.
         </p>
 
         <div class="controls">
           <div class="search">
-            🔎 <input id="search" placeholder="Pesquisar: mestre, vip, spawner, unban..." />
+            🔎 <input id="search" placeholder="Pesquisar: mestre, vip, spawner, kit, unban, claim..." />
           </div>
 
           <button class="pill" id="btnPix">
@@ -444,7 +438,6 @@
     <div class="footer">© Flux MC — Loja no GitHub Pages • Pagamento via Pix + confirmação por WhatsApp/Discord</div>
   </div>
 
-  <!-- MODAL -->
   <div class="modal" id="modal">
     <div class="panel" role="dialog" aria-modal="true">
       <div class="panel-head">
@@ -457,18 +450,18 @@
 
       <div class="panel-body">
         <div class="box">
-          <h3>Descrição completa</h3>
+          <h3>Descrição</h3>
           <p id="mFull"></p>
 
           <div class="kvs">
             <div class="kv"><span>Preço</span> <b id="mPrice">R$ 0,00</b></div>
-            <div class="kv"><span>Duração</span> <b id="mDuration">—</b></div>
+            <div class="kv"><span>Entrega</span> <b id="mDuration">—</b></div>
             <div class="kv"><span>Recarga</span> <b id="mRecharge">—</b></div>
             <div class="kv"><span>Estoque</span> <b id="mStock">∞</b></div>
           </div>
 
           <div class="hint">
-            Se você quiser, depois eu deixo com “desconto de lançamento” automático (tipo -20%) sem você refazer produto por produto.
+            Quer deixar “auto-entrega” no servidor? Aí já vira outro nível (precisa plugin/bot do Minecraft).
           </div>
         </div>
 
@@ -508,50 +501,20 @@
     // ===== SEUS DADOS =====
     const PIX_KEY = "098.636.509-27";
     const WHATSAPP_NUMBER = "+5542999095985";
-    const DISCORD_INVITE = "https://discord.gg/qsZ65QJc";
 
-    // ===== PRODUTOS (do seu print) =====
+    // ===== PRODUTOS (ajustados) =====
     const products = [
       // VIPS
-      {
-        id:"ultra-1m",
-        cat:"VIP",
-        title:"ULTRA | 1 MÊS",
-        price: 17.50,
-        duration:"30 dias",
-        recharge:"a cada 7 dias",
-        stock:"∞",
-        img:"assets/ultra.png",
-        short:"Kit ULTRA (/kit ultra) + vantagens avançadas.",
-        full:
-`⭐ Vantagens do ULTRA
-✓ Comando /back (voltar ao local da morte quando quiser)
-✓ Cores personalizadas no chat
-✓ Até 30 homes
-✓ Acesso ao /enderchest
-✓ +200 blocos de claim
-✓ 50% chance de obter spawners ao quebrar com Silk Touch
-
-📦 Kit ULTRA: /kit ultra
-🔁 Recarga: a cada 7 dias
-
-🧰 Itens (resumo):
-- Armadura Netherita encantada
-- Espada Netherita encantada
-- Arco encantado
-- Maçãs douradas e pérolas do fim
-- Poções (velocidade/força/cura)`
-      },
       {
         id:"vip-1m",
         cat:"VIP",
         title:"VIP | 1 MÊS",
-        price: 12.00,
+        price: 7.00,
         duration:"30 dias",
-        recharge:"a cada 7 dias",
+        recharge:"—",
         stock:"∞",
         img:"assets/vip.png",
-        short:"VIP equilibrado: cores, enderchest, homes e bônus.",
+        short:"VIP baratinho pra começar: cores, enderchest, homes e bônus.",
         full:
 `🔒 Vantagens do VIP
 ✓ Até 8 homes
@@ -559,10 +522,7 @@
 ✓ /enderchest
 ✓ +80 blocos de claim
 ✓ Chance aumentada de drops especiais ao minerar
-✓ Acesso a cosméticos exclusivos e comandos especiais
-
-📦 Kit VIP: /kit vip
-🔁 Recarga: a cada 7 dias
+✓ Acesso a cosméticos e comandos especiais
 
 ℹ️ Importante:
 - VIP válido por 30 dias
@@ -570,12 +530,33 @@
 - Não é permitido transferir VIP`
       },
       {
+        id:"ultra-1m",
+        cat:"VIP",
+        title:"ULTRA | 1 MÊS",
+        price: 10.00,
+        duration:"30 dias",
+        recharge:"—",
+        stock:"∞",
+        img:"assets/ultra.png",
+        short:"Mais forte que VIP: /back, mais homes, mais claim e bônus.",
+        full:
+`⭐ Vantagens do ULTRA
+✓ Comando /back
+✓ Cores personalizadas no chat
+✓ Até 30 homes
+✓ Acesso ao /enderchest
+✓ +200 blocos de claim
+✓ Chance de obter spawners ao quebrar com Silk Touch
+
+📦 Kit ULTRA: /kit ultra (se estiver configurado no servidor)`
+      },
+      {
         id:"mestre-1m",
         cat:"VIP",
         title:"MESTRE | 1 MÊS",
-        price: 24.00,
+        price: 15.00,
         duration:"30 dias",
-        recharge:"7 dias",
+        recharge:"—",
         stock:"∞",
         img:"assets/mestre.png",
         short:"Topo do servidor: kit bruto e bônus máximos.",
@@ -586,17 +567,84 @@
 ✓ Até 50 homes
 ✓ /enderchest
 ✓ +300 blocos de claim
-✓ 100% chance de drop de spawner minerando com Silk Touch
+✓ Chance alta de drop de spawner com Silk Touch (se estiver ativo no server)
 
-📦 Kit MESTRE: /kit mestre
-🔁 Recarga: 7 dias
+📦 Kit MESTRE: /kit mestre (se estiver configurado no servidor)`
+      },
 
-🧰 Itens (resumo):
-- Armadura Netherita encantada
-- Espada/Arco/Tridente
-- Picareta e machado
-- Maçãs douradas, pérolas místicas
-- Poções fortes (velocidade/força/cura/invisibilidade)`
+      // KITS (AGORA SEM 15 DIAS / SEM RECARGA)
+      {
+        id:"kit-berserker",
+        cat:"Kits",
+        title:"KIT BERSERKER",
+        price: 9.90,
+        duration:"Entrega única",
+        recharge:"—",
+        stock:"∞",
+        img:"",
+        short:"Combate direto: kit focado em dano e resistência.",
+        full:
+`🟠 KIT BERSERKER
+Entrega única (sem recarga)
+Itens (exemplo/Resumo):
+- Machado Netherita encantado
+- Armadura/itens de combate
+- Besta + flechas
+- Tridente`
+      },
+      {
+        id:"kit-sentinela",
+        cat:"Kits",
+        title:"KIT SENTINELA",
+        price: 9.90,
+        duration:"Entrega única",
+        recharge:"—",
+        stock:"∞",
+        img:"",
+        short:"Controle à distância + utilidade.",
+        full:
+`🟩 KIT SENTINELA
+Entrega única (sem recarga)
+Itens (exemplo/Resumo):
+- Arco + espada
+- Armadura
+- Poções e utilidades`
+      },
+      {
+        id:"kit-espectro",
+        cat:"Kits",
+        title:"KIT ESPECTRO",
+        price: 9.90,
+        duration:"Entrega única",
+        recharge:"—",
+        stock:"∞",
+        img:"",
+        short:"Mobilidade e invisibilidade (kit agressivo).",
+        full:
+`⚫ KIT ESPECTRO
+Entrega única (sem recarga)
+Itens (exemplo/Resumo):
+- Lâmina/Arco
+- Armadura
+- Poções (agilidade/visão/ocultação)`
+      },
+      {
+        id:"kit-arcano",
+        cat:"Kits",
+        title:"KIT ARCANO",
+        price: 9.90,
+        duration:"Entrega única",
+        recharge:"—",
+        stock:"∞",
+        img:"",
+        short:"Kit mágico lendário com itens raros.",
+        full:
+`🟣 KIT ARCANO
+Entrega única (sem recarga)
+Itens (exemplo/Resumo):
+- Lâmina + tridente
+- Itens raros
+- Poções fortes`
       },
 
       // EXTRAS
@@ -604,7 +652,7 @@
         id:"spawner-2",
         cat:"Extras",
         title:"2 SPAWNERS",
-        price: 7.50,
+        price: 5.00,
         duration:"Entrega única",
         recharge:"—",
         stock:"∞",
@@ -616,7 +664,7 @@
         id:"claim-500",
         cat:"Extras",
         title:"500 BLOCOS DE CLAIM",
-        price: 7.00,
+        price: 4.00,
         duration:"Entrega única",
         recharge:"—",
         stock:"∞",
@@ -628,102 +676,13 @@
         id:"unban",
         cat:"Extras",
         title:"UNBAN",
-        price: 30.00,
+        price: 20.00,
         duration:"Entrega única",
         recharge:"—",
         stock:"∞",
         img:"",
         short:"Desbanimento do servidor.",
         full:"Ao comprar você será desbanido do nosso servidor. (Compre apenas se você estiver banido)"
-      },
-
-      // KITS 15 dias (do print)
-      {
-        id:"kit-berserker",
-        cat:"Kits",
-        title:"KIT BERSERKER (15 dias)",
-        price: 13.75,
-        duration:"15 dias",
-        recharge:"7 dias",
-        stock:"∞",
-        img:"",
-        short:"Combate direto: resistência e dano esmagador.",
-        full:
-`🟠 Kit BERSERKER 
-
-Criado para combatentes que avançam sem medo.
-Itens (resumo):
-- Machado Netherita encantado
-- Escudo
-- Armadura Netherita encantada
-- Besta + Flechas
-- Tridente
-Preço do print: 13,75`
-      },
-      {
-        id:"kit-sentinela",
-        cat:"Kits",
-        title:"KIT SENTINELA (15 dias)",
-        price: 13.75,
-        duration:"15 dias",
-        recharge:"7 dias",
-        stock:"∞",
-        img:"",
-        short:"Controle à distância + poções de movimento/visão.",
-        full:
-`🟩 Kit SENTINELA
-
-Para quem controla o campo à distância.
-Itens (resumo):
-- Arco e Espada
-- Armadura Netherita encantada
-- Poções (deslocamento, poder, olhos noturnos)
-- Munição e itens extras
-Preço do print: 13,75`
-      },
-      {
-        id:"kit-espectro",
-        cat:"Kits",
-        title:"KIT ESPECTRO (15 dias)",
-        price: 13.75,
-        duration:"15 dias",
-        recharge:"7 dias",
-        stock:"∞",
-        img:"",
-        short:"Mobilidade e invisibilidade para emboscadas.",
-        full:
-`⚫ Kit ESPECTRO
-
-Domina ataque invisível e retirada rápida.
-Itens (resumo):
-- Lâmina Fantasma
-- Arco das Trevas
-- Armadura Netherita encantada
-- Poções (agilidade, fôlego aquático, visão sombria, ocultação)
-Preço do print: 13,75`
-      },
-      {
-        id:"kit-arcano",
-        cat:"Kits",
-        title:"KIT ARCANO (15 dias)",
-        price: 13.75,
-        duration:"15 dias",
-        recharge:"7 dias",
-        stock:"∞",
-        img:"",
-        short:"Kit mágico lendário com itens raros e poções fortes.",
-        full:
-`🟣 Kit ARCANO
-
-Voltado aos mestres das artes ocultas.
-Itens (resumo):
-- Lâmina Arcana
-- Tridente dos Elementos
-- Machado do Abismo
-- Foco Arcano (decorativo)
-- Olhos profanos e itens raros
-- Poções (força e invisibilidade)
-Preço do print: 13,75`
       },
     ];
 
@@ -829,7 +788,7 @@ Preço do print: 13,75`
 
             <div class="meta">
               <span class="badge">${p.duration}</span>
-              <span class="badge">${p.recharge ? ("Recarga: " + p.recharge) : "—"}</span>
+              <span class="badge">${p.recharge && p.recharge!=="—" ? ("Recarga: " + p.recharge) : "Sem recarga"}</span>
             </div>
 
             <div class="meta">
@@ -869,7 +828,6 @@ Preço do print: 13,75`
       mRecharge.textContent = p.recharge || "—";
       mStock.textContent = p.stock || "∞";
 
-      // quebras de linha bonitinhas
       mFull.innerHTML = (p.full || p.short || "").replace(/\n/g, "<br>");
 
       modal.classList.add("open");
@@ -909,13 +867,11 @@ Preço do print: 13,75`
       window.open(url, "_blank", "noopener,noreferrer");
     }
 
-    // Filters
     fAll.addEventListener("click", ()=>{ currentFilter="ALL"; setActive(fAll); render(); });
     fVip.addEventListener("click", ()=>{ currentFilter="VIP"; setActive(fVip); render(); });
     fKits.addEventListener("click", ()=>{ currentFilter="Kits"; setActive(fKits); render(); });
     fExtras.addEventListener("click", ()=>{ currentFilter="Extras"; setActive(fExtras); render(); });
 
-    // Modal / Buttons
     document.getElementById("close").addEventListener("click", closeModal);
     modal.addEventListener("click", (e)=>{ if(e.target===modal) closeModal(); });
     document.addEventListener("keydown", (e)=>{ if(e.key==="Escape") closeModal(); });
@@ -931,7 +887,6 @@ Preço do print: 13,75`
 
     document.getElementById("search").addEventListener("input", render);
 
-    // Start
     render();
   </script>
 </body>
