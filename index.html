@@ -40,6 +40,7 @@
       border-radius: var(--radius);
       box-shadow: var(--shadow);
       position:sticky; top:12px;
+      z-index:10;
     }
     .brand{display:flex; gap:10px; align-items:center; font-weight:800; letter-spacing:.4px;}
     .logo{
@@ -48,6 +49,7 @@
       display:grid; place-items:center;
       box-shadow: 0 10px 30px rgba(139,92,246,.35);
       font-weight:900;
+      color:#140a22;
     }
     .nav{display:flex; gap:10px; flex-wrap:wrap;}
     .chip{
@@ -55,7 +57,7 @@
       border:1px solid var(--line);
       background: rgba(255,255,255,.04);
       text-decoration:none;
-      font-weight:650;
+      font-weight:700;
       color:var(--muted);
     }
     .chip:hover{border-color:rgba(139,92,246,.55); color:var(--text)}
@@ -78,14 +80,15 @@
     }
     .hero-inner{position:relative; display:grid; gap:14px;}
     h1{margin:0; font-size:40px; line-height:1.05}
-    .sub{margin:0; color:var(--muted); font-size:16px; max-width:62ch}
+    .sub{margin:0; color:var(--muted); font-size:16px; max-width:70ch}
     .cta{display:flex; gap:12px; flex-wrap:wrap; margin-top:6px}
     .btn{
       border:0; cursor:pointer; text-decoration:none;
       padding:12px 14px; border-radius:14px;
-      font-weight:800;
+      font-weight:900;
       display:inline-flex; gap:10px; align-items:center;
       transition: transform .05s ease;
+      user-select:none;
     }
     .btn:active{transform: translateY(1px)}
     .btn-primary{
@@ -98,6 +101,7 @@
       border:1px solid var(--line);
       color:var(--text);
     }
+    .btn-ghost:hover{border-color:rgba(139,92,246,.55)}
     .grid{
       margin-top:16px;
       display:grid;
@@ -113,17 +117,25 @@
       box-shadow: var(--shadow);
     }
     .card h2{margin:0 0 8px 0; font-size:18px}
-    .card p{margin:0; color:var(--muted)}
+    .card p{margin:0; color:var(--muted); line-height:1.45}
     .row{display:flex; gap:10px; align-items:center; justify-content:space-between; flex-wrap:wrap}
     code.inline{
       background: rgba(255,255,255,.06);
       border:1px solid var(--line);
       padding:6px 10px;
       border-radius:12px;
-      font-weight:800;
+      font-weight:900;
       letter-spacing:.3px;
+      word-break: break-word;
     }
     .small{font-size:13px; color:var(--muted)}
+    .list{
+      margin:0;
+      padding-left:18px;
+      color:var(--muted);
+      line-height:1.55;
+    }
+    .list li{margin:6px 0}
     .footer{margin-top:18px; text-align:center; color:rgba(255,255,255,.45); font-size:12px}
     .toast{
       position:fixed; left:50%; bottom:18px; transform:translateX(-50%);
@@ -134,6 +146,8 @@
       color:var(--text);
       display:none;
       box-shadow: var(--shadow);
+      font-weight:900;
+      z-index:30;
     }
     @media (max-width:760px){
       h1{font-size:34px}
@@ -150,7 +164,6 @@
         <div>Flux MC</div>
       </div>
 
-      <!-- MENU DO TOPO (AQUI TEM A LOJA) -->
       <nav class="nav">
         <a class="chip" href="#ip">IP</a>
         <a class="chip" href="#discord">Discord</a>
@@ -162,17 +175,20 @@
     <section class="hero">
       <div class="hero-inner">
         <h1>Flux MC</h1>
-        <p class="sub">Entre, jogue e evolua. SMP + Planeta Terra, eventos e muito mais. Clique no botão pra copiar o IP e entrar rapidão.</p>
+        <p class="sub">
+          Entre, jogue e evolua. SMP + Planeta Terra, eventos, ranks e muito mais.
+          Copie o IP e entre rapidão.
+        </p>
 
         <div class="cta">
           <button class="btn btn-primary" id="copyIpBtn">📋 Copiar IP</button>
-          <a class="btn btn-ghost" id="discordBtn" href="https://discord.gg/qsZ65QJc" target="_blank" rel="noreferrer">💬 Entrar no Discord</a>
-
-          <!-- BOTÃO DA LOJA -->
+          <a class="btn btn-ghost" href="https://discord.gg/qsZ65QJc" target="_blank" rel="noreferrer">💬 Entrar no Discord</a>
           <a class="btn btn-primary" href="loja.html">🛒 Abrir Loja</a>
         </div>
 
-        <div class="small">IP atual: <code class="inline" id="ipText">fluxmc.blazehosting.com.br</code></div>
+        <div class="small">
+          IP atual: <code class="inline" id="ipText">fluxmc.blazehosting.com.br</code>
+        </div>
       </div>
     </section>
 
@@ -182,8 +198,12 @@
           <h2>IP do Servidor</h2>
           <button class="btn btn-ghost" id="copyIpBtn2">Copiar</button>
         </div>
-        <p>Use esse IP no Minecraft (Java): <code class="inline">fluxmc.blazehosting.com.br</code></p>
-        <p class="small">Se precisar, depois a gente coloca o “:porta” também.</p>
+        <p>
+          Minecraft Java: <code class="inline">fluxmc.blazehosting.com.br</code>
+        </p>
+        <p class="small" style="margin-top:8px;">
+          Dica: se você estiver no celular, copie o IP e cole na hora de adicionar servidor.
+        </p>
       </div>
 
       <div class="card" id="discord">
@@ -191,23 +211,38 @@
           <h2>Discord</h2>
           <a class="btn btn-primary" href="https://discord.gg/qsZ65QJc" target="_blank" rel="noreferrer">Entrar</a>
         </div>
-        <p>Fique por dentro das atualizações, eventos e suporte.</p>
+        <p>
+          Atualizações, eventos, suporte e novidades do servidor em primeira mão.
+        </p>
       </div>
 
       <div class="card" id="regras">
         <h2>Regras rápidas</h2>
-        <p>• Sem hacks / xray • Respeito no chat • Sem flood • Sem roubo (se for permitido/nao permitido, a gente ajusta)</p>
-        <p class="small">Você me diz as regras certas e eu deixo perfeito.</p>
+        <ul class="list">
+          <li>Proibido hacks, x-ray e qualquer trapaça.</li>
+          <li>Respeito no chat: sem ofensas, racismo ou provocações.</li>
+          <li>Sem flood/spam.</li>
+          <li>Golpes/roubos só são permitidos se estiverem liberados nas regras oficiais do Discord.</li>
+          <li>Decisão final da staff em casos de abuso/exploit.</li>
+        </ul>
       </div>
 
       <div class="card">
         <h2>O que tem no Flux?</h2>
-        <p>• SMP • Planeta Terra • Parkour • Eventos • Sistema de ranks (se você quiser)</p>
-        <p class="small">Depois colocamos imagens, loja, VIP e o que você quiser.</p>
+        <ul class="list">
+          <li>SMP com progressão e economia.</li>
+          <li>Planeta Terra (exploração e territórios).</li>
+          <li>Eventos valendo prêmios.</li>
+          <li>Parkour e desafios.</li>
+          <li>Sistema de ranks e benefícios (VIP).</li>
+        </ul>
+        <p class="small" style="margin-top:10px;">
+          Quer apoiar o servidor? Confira a loja e os VIPs.
+        </p>
       </div>
     </section>
 
-    <div class="footer">© Flux MC — feito com GitHub Pages</div>
+    <div class="footer">© Flux MC — GitHub Pages</div>
   </div>
 
   <div class="toast" id="toast">IP copiado!</div>
