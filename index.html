@@ -176,33 +176,40 @@
       <div class="hero-inner">
         <h1>Flux MC</h1>
         <p class="sub">
-          Entre, jogue e evolua. SMP + Planeta Terra, eventos, ranks e muito mais.
-          Copie o IP e entre rapidão.
+          Entre, jogue e evolua no Flux MC. Eventos, ranks, desafios e muito mais.
+          Copie o IP e conecte-se agora.
         </p>
 
         <div class="cta">
-          <button class="btn btn-primary" id="copyIpBtn">📋 Copiar IP</button>
+          <button class="btn btn-primary" id="copyJavaBtn">📋 Copiar IP (Java)</button>
+          <button class="btn btn-ghost" id="copyBedrockBtn">📱 Copiar IP (Bedrock)</button>
           <a class="btn btn-ghost" href="https://discord.gg/qsZ65QJc" target="_blank" rel="noreferrer">💬 Entrar no Discord</a>
           <a class="btn btn-primary" href="loja.html">🛒 Abrir Loja</a>
         </div>
 
         <div class="small">
-          IP atual: <code class="inline" id="ipText">fluxmc.blazehosting.com.br</code>
+          Java: <code class="inline" id="javaText">fluxmc.blazehosting.com.br</code>
+          &nbsp;•&nbsp; Bedrock: <code class="inline" id="bedrockText">sd-br5.blazebr.com</code>
+          <span class="small"> : </span><code class="inline" id="bedrockPortText">26084</code>
         </div>
       </div>
     </section>
 
     <section class="grid">
       <div class="card" id="ip">
-        <div class="row">
-          <h2>IP do Servidor</h2>
-          <button class="btn btn-ghost" id="copyIpBtn2">Copiar</button>
-        </div>
+        <h2>Informações do Servidor</h2>
+
+        <p style="margin-top:10px;"><strong>🖥 Java Edition</strong></p>
+        <p>IP: <code class="inline">fluxmc.blazehosting.com.br</code></p>
+
+        <p style="margin-top:16px;"><strong>📱 Bedrock Edition</strong></p>
         <p>
-          Minecraft Java: <code class="inline">fluxmc.blazehosting.com.br</code>
+          IP: <code class="inline">sd-br5.blazebr.com</code><br>
+          Porta: <code class="inline">26084</code>
         </p>
-        <p class="small" style="margin-top:8px;">
-          Dica: se você estiver no celular, copie o IP e cole na hora de adicionar servidor.
+
+        <p class="small" style="margin-top:10px;">
+          Dica: no Bedrock, preenche o IP e a porta certinho.
         </p>
       </div>
 
@@ -230,11 +237,11 @@
       <div class="card">
         <h2>O que tem no Flux?</h2>
         <ul class="list">
-          <li>SMP com progressão e economia.</li>
-          <li>Planeta Terra (exploração e territórios).</li>
-          <li>Eventos valendo prêmios.</li>
-          <li>Parkour e desafios.</li>
+          <li>Eventos e desafios.</li>
+          <li>Planeta Terra.</li>
+          <li>Parkour.</li>
           <li>Sistema de ranks e benefícios (VIP).</li>
+          <li>Economia e progressão.</li>
         </ul>
         <p class="small" style="margin-top:10px;">
           Quer apoiar o servidor? Confira a loja e os VIPs.
@@ -245,10 +252,13 @@
     <div class="footer">© Flux MC — GitHub Pages</div>
   </div>
 
-  <div class="toast" id="toast">IP copiado!</div>
+  <div class="toast" id="toast">Copiado!</div>
 
   <script>
-    const ip = "fluxmc.blazehosting.com.br";
+    const JAVA_IP = "fluxmc.blazehosting.com.br";
+    const BEDROCK_IP = "sd-br5.blazebr.com";
+    const BEDROCK_PORT = "26084";
+
     const toast = document.getElementById("toast");
 
     function showToast(msg){
@@ -258,23 +268,23 @@
       window.__t = setTimeout(()=> toast.style.display="none", 1600);
     }
 
-    async function copyIp(){
+    async function copyText(text, label){
       try{
-        await navigator.clipboard.writeText(ip);
-        showToast("IP copiado: " + ip);
+        await navigator.clipboard.writeText(text);
+        showToast((label ? label + " " : "") + "copiado!");
       }catch(e){
         const ta = document.createElement("textarea");
-        ta.value = ip;
+        ta.value = text;
         document.body.appendChild(ta);
         ta.select();
         document.execCommand("copy");
         ta.remove();
-        showToast("IP copiado: " + ip);
+        showToast((label ? label + " " : "") + "copiado!");
       }
     }
 
-    document.getElementById("copyIpBtn").addEventListener("click", copyIp);
-    document.getElementById("copyIpBtn2").addEventListener("click", copyIp);
+    document.getElementById("copyJavaBtn").addEventListener("click", ()=> copyText(JAVA_IP, "IP Java"));
+    document.getElementById("copyBedrockBtn").addEventListener("click", ()=> copyText(BEDROCK_IP + ":" + BEDROCK_PORT, "IP Bedrock"));
   </script>
 </body>
 </html>
