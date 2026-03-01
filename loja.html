@@ -4,49 +4,55 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Flux MC — Loja</title>
+
   <style>
     :root{
-      --bg:#0b0712;
+      --bg:#070510;
       --card:#120a22;
-      --text:#f2eaff;
+      --text:#f4efff;
       --muted:#b7a6d6;
+      --line: rgba(255,255,255,.10);
+      --shadow: 0 22px 70px rgba(0,0,0,.55);
+      --radius: 18px;
+
       --purple:#8b5cf6;
       --pink:#ec4899;
-      --line: rgba(255,255,255,.10);
-      --shadow: 0 18px 60px rgba(0,0,0,.45);
-      --radius: 18px;
-      --max: 1100px;
-      --ok: #22c55e;
-      --warn:#f59e0b;
+      --blue:#60a5fa;
+      --ok:#22c55e;
+
+      --max: 1120px;
     }
+
     *{box-sizing:border-box}
     body{
       margin:0;
       font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       background:
-        radial-gradient(900px 500px at 20% 10%, rgba(139,92,246,.28), transparent 65%),
-        radial-gradient(700px 450px at 80% 20%, rgba(236,72,153,.20), transparent 60%),
-        radial-gradient(900px 600px at 50% 100%, rgba(139,92,246,.18), transparent 70%),
+        radial-gradient(900px 520px at 18% 12%, rgba(139,92,246,.30), transparent 65%),
+        radial-gradient(820px 520px at 84% 18%, rgba(236,72,153,.22), transparent 60%),
+        radial-gradient(900px 700px at 50% 105%, rgba(96,165,250,.16), transparent 70%),
         var(--bg);
       color:var(--text);
       min-height:100vh;
     }
+
     a{color:inherit}
-    .wrap{max-width:var(--max); margin:0 auto; padding:28px 16px 44px;}
+    .wrap{max-width:var(--max); margin:0 auto; padding:26px 16px 44px;}
 
     /* Top bar */
     .top{
       display:flex; gap:12px; align-items:center; justify-content:space-between;
       padding:14px 14px;
       border:1px solid var(--line);
-      background: rgba(18,10,34,.55);
+      background: rgba(18,10,34,.58);
       backdrop-filter: blur(10px);
       border-radius: var(--radius);
       box-shadow: var(--shadow);
       position:sticky; top:12px;
       z-index:10;
     }
-    .brand{display:flex; gap:10px; align-items:center; font-weight:900; letter-spacing:.4px;}
+
+    .brand{display:flex; gap:10px; align-items:center; font-weight:950; letter-spacing:.4px;}
     .logo{
       width:40px; height:40px; border-radius:14px;
       background: linear-gradient(135deg, var(--purple), var(--pink));
@@ -55,15 +61,17 @@
       font-weight:1000;
       color:#140a22;
     }
+
     .nav{display:flex; gap:10px; flex-wrap:wrap; align-items:center;}
     .chip{
       padding:10px 12px; border-radius:999px;
       border:1px solid var(--line);
       background: rgba(255,255,255,.04);
       text-decoration:none;
-      font-weight:700;
+      font-weight:800;
       color:var(--muted);
       cursor:pointer;
+      user-select:none;
     }
     .chip:hover{border-color:rgba(139,92,246,.55); color:var(--text)}
     .chip.active{
@@ -75,10 +83,10 @@
     /* Hero */
     .hero{
       margin-top:18px;
-      padding:26px 18px;
+      padding:22px 18px;
       border-radius: var(--radius);
       border:1px solid var(--line);
-      background: rgba(18,10,34,.45);
+      background: rgba(18,10,34,.46);
       box-shadow: var(--shadow);
       position:relative;
       overflow:hidden;
@@ -86,17 +94,17 @@
     .hero:before{
       content:"";
       position:absolute; inset:-2px;
-      background: radial-gradient(700px 260px at 30% 0%, rgba(139,92,246,.35), transparent 60%),
-                  radial-gradient(650px 240px at 80% 30%, rgba(236,72,153,.25), transparent 60%);
+      background: radial-gradient(760px 260px at 25% 0%, rgba(139,92,246,.38), transparent 60%),
+                  radial-gradient(700px 240px at 85% 28%, rgba(236,72,153,.28), transparent 60%);
       pointer-events:none;
     }
     .hero-inner{position:relative; display:grid; gap:10px;}
-    h1{margin:0; font-size:34px; line-height:1.05}
-    .sub{margin:0; color:var(--muted); font-size:15px; max-width:75ch}
+    h1{margin:0; font-size:32px; line-height:1.05}
+    .sub{margin:0; color:var(--muted); font-size:14px; max-width:80ch}
 
     /* Controls */
     .controls{
-      margin-top:14px;
+      margin-top:12px;
       display:flex;
       gap:10px;
       flex-wrap:wrap;
@@ -110,7 +118,7 @@
       gap:10px;
       align-items:center;
       border:1px solid var(--line);
-      background: rgba(255,255,255,.04);
+      background: rgba(255,255,255,.05);
       border-radius: 999px;
       padding:10px 12px;
     }
@@ -121,18 +129,21 @@
       background:transparent;
       color:var(--text);
       font-size:14px;
+      font-weight:700;
     }
     .pill{
       padding:9px 12px;
       border-radius:999px;
       border:1px solid var(--line);
-      background: rgba(255,255,255,.04);
-      color:var(--muted);
-      font-weight:800;
+      background: rgba(255,255,255,.05);
+      color:var(--text);
+      font-weight:900;
       cursor:pointer;
       white-space:nowrap;
+      user-select:none;
     }
-    .pill:hover{border-color:rgba(139,92,246,.55); color:var(--text)}
+    .pill:hover{border-color:rgba(139,92,246,.55)}
+    .pill small{color:rgba(255,255,255,.65); font-weight:800}
 
     /* Grid */
     .grid{
@@ -141,43 +152,101 @@
       grid-template-columns: repeat(12, 1fr);
       gap:14px;
     }
+
     .card{
       grid-column: span 4;
-      padding:16px;
-      border-radius: var(--radius);
+      border-radius: 22px;
       border:1px solid var(--line);
-      background: rgba(18,10,34,.40);
+      background: rgba(18,10,34,.42);
       box-shadow: var(--shadow);
+      overflow:hidden;
+      display:grid;
+      min-height: 320px;
+    }
+
+    .thumb{
+      height: 150px;
+      background:
+        radial-gradient(520px 240px at 20% 30%, rgba(139,92,246,.55), transparent 60%),
+        radial-gradient(420px 220px at 80% 25%, rgba(236,72,153,.45), transparent 55%),
+        rgba(255,255,255,.04);
+      border-bottom:1px solid var(--line);
+      position:relative;
+    }
+    .thumb img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+    }
+    .thumb .tag{
+      position:absolute;
+      left:12px; top:12px;
+      padding:7px 10px;
+      border-radius: 999px;
+      border:1px solid var(--line);
+      background: rgba(0,0,0,.25);
+      font-weight:1000;
+      font-size:12px;
+      color: rgba(255,255,255,.85);
+      backdrop-filter: blur(8px);
+    }
+
+    .content{
+      padding:14px 14px 14px;
       display:grid;
       gap:10px;
-      min-height: 210px;
     }
-    .card-top{display:flex; gap:12px; align-items:flex-start; justify-content:space-between;}
+
+    .title{
+      margin:0;
+      font-size:16px;
+      font-weight:1000;
+      letter-spacing:.2px;
+    }
+    .mini{
+      margin:0;
+      color: var(--muted);
+      font-size:13px;
+      line-height:1.35;
+    }
+
+    .meta{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:space-between;
+    }
     .badge{
-      font-size:12px;
-      font-weight:900;
       padding:6px 10px;
-      border-radius:999px;
+      border-radius: 999px;
       border:1px solid var(--line);
       background: rgba(255,255,255,.04);
-      color: var(--muted);
+      color: rgba(255,255,255,.75);
+      font-weight:900;
+      font-size:12px;
     }
-    .title{margin:0; font-size:16px; font-weight:950;}
-    .desc{margin:0; color:var(--muted); font-size:13px; line-height:1.35}
-    .price-row{display:flex; gap:10px; align-items:center; justify-content:space-between; flex-wrap:wrap;}
     .price{
       font-weight:1000;
       font-size:18px;
-      letter-spacing:.2px;
     }
-    .small{font-size:12px; color:rgba(255,255,255,.55)}
+
+    .btnrow{display:flex; gap:10px; flex-wrap:wrap;}
     .btn{
-      border:0; cursor:pointer; text-decoration:none;
-      padding:11px 12px; border-radius:14px;
-      font-weight:950;
-      display:inline-flex; gap:10px; align-items:center; justify-content:center;
-      transition: transform .05s ease;
+      border:0;
+      cursor:pointer;
+      padding:11px 12px;
+      border-radius: 14px;
+      font-weight:1000;
+      display:inline-flex;
+      gap:10px;
+      align-items:center;
+      justify-content:center;
       user-select:none;
+      transition: transform .05s ease;
+      flex: 1;
+      min-width: 130px;
     }
     .btn:active{transform: translateY(1px)}
     .btn-primary{
@@ -190,13 +259,19 @@
       border:1px solid var(--line);
       color:var(--text);
     }
-    .btn-line{display:flex; gap:10px; flex-wrap:wrap}
-    .btn-line .btn{flex:1; min-width:130px;}
+    .btn-ghost:hover{border-color:rgba(236,72,153,.55)}
+
+    .footer{
+      margin-top:18px;
+      text-align:center;
+      color:rgba(255,255,255,.45);
+      font-size:12px;
+    }
 
     /* Modal */
     .modal{
       position:fixed; inset:0;
-      background: rgba(0,0,0,.55);
+      background: rgba(0,0,0,.60);
       display:none;
       align-items:center;
       justify-content:center;
@@ -205,10 +280,10 @@
     }
     .modal.open{display:flex;}
     .panel{
-      width:min(920px, 100%);
+      width:min(980px, 100%);
       border-radius: 22px;
       border:1px solid var(--line);
-      background: rgba(18,10,34,.92);
+      background: rgba(18,10,34,.94);
       box-shadow: var(--shadow);
       overflow:hidden;
     }
@@ -224,33 +299,38 @@
     .panel-title{
       display:flex; gap:10px; align-items:center;
       font-weight:1000;
+      flex-wrap:wrap;
     }
     .xbtn{
       border:1px solid var(--line);
-      background: rgba(255,255,255,.04);
+      background: rgba(255,255,255,.05);
       color:var(--text);
       border-radius: 14px;
       padding:10px 12px;
       cursor:pointer;
-      font-weight:950;
+      font-weight:1000;
     }
     .xbtn:hover{border-color:rgba(236,72,153,.55)}
+
     .panel-body{
       padding:16px;
       display:grid;
       grid-template-columns: 1.1fr .9fr;
       gap:14px;
     }
+
     .box{
       border:1px solid var(--line);
-      background: rgba(255,255,255,.03);
+      background: rgba(255,255,255,.04);
       border-radius: 18px;
       padding:14px;
       display:grid;
       gap:10px;
     }
+
     .box h3{margin:0; font-size:14px}
     .box p{margin:0; color:var(--muted); font-size:13px; line-height:1.4}
+
     .kvs{display:grid; gap:8px}
     .kv{
       display:flex; gap:10px; justify-content:space-between; align-items:center;
@@ -260,52 +340,37 @@
       padding:10px 12px;
       font-size:13px;
     }
-    code.inline{
-      background: rgba(255,255,255,.06);
-      border:1px solid var(--line);
-      padding:6px 10px;
-      border-radius:12px;
-      font-weight:900;
-      letter-spacing:.3px;
-      word-break: break-word;
-    }
+
     .input{
       display:grid; gap:6px;
       font-size:13px;
       color:var(--muted);
-      font-weight:800;
+      font-weight:900;
     }
-    .input input, .input select, .input textarea{
+    .input input, .input textarea{
       border:1px solid var(--line);
       background: rgba(255,255,255,.03);
       color: var(--text);
       border-radius: 14px;
       padding:10px 12px;
       outline:none;
-      font-weight:750;
+      font-weight:800;
     }
-    .input textarea{min-height:72px; resize:vertical;}
-    .hint{
-      font-size:12px;
-      color: rgba(255,255,255,.50);
-      line-height:1.35;
-    }
-    .hr{height:1px; background: var(--line); margin:6px 0}
-    .okline{
-      display:flex; gap:10px; align-items:flex-start;
-      color: rgba(255,255,255,.75);
-      font-size:12px;
-      line-height:1.35;
-    }
-    .dot{
-      width:10px; height:10px; border-radius:999px;
-      margin-top:3px;
-      background: var(--ok);
-      box-shadow: 0 0 20px rgba(34,197,94,.25);
-      flex:0 0 auto;
+    .input textarea{min-height:70px; resize:vertical;}
+
+    code.inline{
+      background: rgba(255,255,255,.06);
+      border:1px solid var(--line);
+      padding:6px 10px;
+      border-radius:12px;
+      font-weight:1000;
+      letter-spacing:.3px;
+      word-break: break-word;
+      color: rgba(255,255,255,.92);
     }
 
-    /* Toast */
+    .hint{font-size:12px; color:rgba(255,255,255,.55); line-height:1.35}
+
     .toast{
       position:fixed; left:50%; bottom:18px; transform:translateX(-50%);
       background: rgba(18,10,34,.92);
@@ -316,19 +381,12 @@
       display:none;
       box-shadow: var(--shadow);
       z-index:60;
-      font-weight:900;
-    }
-
-    .footer{
-      margin-top:18px;
-      text-align:center;
-      color:rgba(255,255,255,.45);
-      font-size:12px;
+      font-weight:1000;
     }
 
     @media (max-width: 980px){
       .card{grid-column: span 6;}
-      .panel-body{grid-template-columns: 1fr; }
+      .panel-body{grid-template-columns: 1fr;}
     }
     @media (max-width: 640px){
       h1{font-size:28px}
@@ -337,92 +395,83 @@
     }
   </style>
 </head>
+
 <body>
   <div class="wrap">
     <header class="top">
       <div class="brand">
         <div class="logo">FX</div>
-        <div>Flux MC</div>
+        <div>Flux MC — Loja</div>
       </div>
+
       <nav class="nav">
         <a class="chip" href="index.html">⬅ Voltar</a>
         <a class="chip" href="https://discord.gg/qsZ65QJc" target="_blank" rel="noreferrer">Discord</a>
-        <button class="chip" id="filterAll">Todos</button>
-        <button class="chip" id="filterVip">VIP</button>
-        <button class="chip" id="filterKits">Kits</button>
-        <button class="chip" id="filterExtras">Extras</button>
+
+        <button class="chip active" id="fAll">Todos</button>
+        <button class="chip" id="fVip">VIP</button>
+        <button class="chip" id="fKits">Kits</button>
+        <button class="chip" id="fExtras">Extras</button>
       </nav>
     </header>
 
     <section class="hero">
       <div class="hero-inner">
-        <h1>Loja Oficial — Flux MC</h1>
+        <h1>Compre por PIX (rápido e bonito)</h1>
         <p class="sub">
-          Compra por <b>PIX</b> (sem taxa). Você faz o pedido aqui, paga e o site já abre seu WhatsApp com a mensagem pronta.
-          <br/>⚡ Ativação: você envia o comprovante e seu nick do Minecraft.
+          Você escolhe o produto, coloca seu nick, paga no Pix e o site já abre seu WhatsApp com a mensagem pronta.
+          <br>✅ Ativação após enviar comprovante.
         </p>
 
         <div class="controls">
           <div class="search">
-            🔎 <input id="search" placeholder="Procurar produto (VIP, Mestre, spawner, unban...)" />
+            🔎 <input id="search" placeholder="Pesquisar: mestre, vip, spawner, unban..." />
           </div>
-          <button class="pill" id="btnHow">Como comprar</button>
-          <button class="pill" id="btnSupport">Suporte</button>
+
+          <button class="pill" id="btnPix">
+            PIX <small>(copiar chave)</small>
+          </button>
+
+          <button class="pill" id="btnHow">
+            Como comprar
+          </button>
         </div>
       </div>
     </section>
 
     <section class="grid" id="grid"></section>
 
-    <div class="footer">© Flux MC — Loja (GitHub Pages). Pagamento via Pix + confirmação por WhatsApp/Discord.</div>
+    <div class="footer">© Flux MC — Loja no GitHub Pages • Pagamento via Pix + confirmação por WhatsApp/Discord</div>
   </div>
 
-  <!-- Modal -->
+  <!-- MODAL -->
   <div class="modal" id="modal">
     <div class="panel" role="dialog" aria-modal="true">
       <div class="panel-head">
         <div class="panel-title">
           <span id="mTitle">Produto</span>
-          <span class="badge" id="mBadge">Categoria</span>
+          <span class="badge" id="mCat">Categoria</span>
         </div>
         <button class="xbtn" id="close">Fechar ✕</button>
       </div>
 
       <div class="panel-body">
-        <!-- left -->
         <div class="box">
-          <h3>Detalhes</h3>
-          <p id="mDesc">Descrição</p>
-
-          <div class="hr"></div>
+          <h3>Descrição completa</h3>
+          <p id="mFull"></p>
 
           <div class="kvs">
             <div class="kv"><span>Preço</span> <b id="mPrice">R$ 0,00</b></div>
             <div class="kv"><span>Duração</span> <b id="mDuration">—</b></div>
-            <div class="kv"><span>Entrega</span> <b>Ativação no servidor</b></div>
+            <div class="kv"><span>Recarga</span> <b id="mRecharge">—</b></div>
+            <div class="kv"><span>Estoque</span> <b id="mStock">∞</b></div>
           </div>
 
-          <div class="hr"></div>
-
-          <div class="okline">
-            <span class="dot"></span>
-            <div>
-              <b>Sem pagar site</b>: você paga no Pix e manda o comprovante. Nós ativamos rapidinho.
-              (Se quiser automatizar 100% depois, aí precisa integração paga).
-            </div>
-          </div>
-
-          <div class="btn-line" style="margin-top:10px">
-            <button class="btn btn-ghost" id="copyPix">📋 Copiar chave Pix</button>
-            <button class="btn btn-primary" id="openWhats">📲 Finalizar no WhatsApp</button>
-          </div>
-
-          <div class="hint" style="margin-top:8px">
-            Dica: se o jogador não tiver WhatsApp, ele pode mandar o comprovante no Discord (canal de tickets).
+          <div class="hint">
+            Se você quiser, depois eu deixo com “desconto de lançamento” automático (tipo -20%) sem você refazer produto por produto.
           </div>
         </div>
 
-        <!-- right -->
         <div class="box">
           <h3>Checkout</h3>
 
@@ -432,32 +481,21 @@
           </label>
 
           <label class="input">
-            Forma de entrega
-            <select id="delivery">
-              <option value="Servidor (ativação na conta)">Servidor (ativação na conta)</option>
-              <option value="Ticket no Discord">Ticket no Discord</option>
-              <option value="WhatsApp">WhatsApp</option>
-            </select>
-          </label>
-
-          <label class="input">
             Observação (opcional)
-            <textarea id="obs" placeholder="Ex: Quero no Planeta Terra / Quero ativar hoje / etc"></textarea>
+            <textarea id="obs" placeholder="Ex: Quero ativar hoje / Planeta Terra / etc"></textarea>
           </label>
-
-          <div class="hr"></div>
 
           <h3>Pix</h3>
-          <p class="small" style="margin:0">Chave Pix:</p>
-          <code class="inline" id="pixKey">098.636.509-27</code>
+          <p class="hint" style="margin:0">Chave Pix:</p>
+          <code class="inline" id="pixKey"></code>
 
-          <p class="hint" style="margin:10px 0 0 0">
-            Depois de pagar, envie <b>comprovante</b> + <b>nick</b>. Se tiver fila, nós avisamos.
-          </p>
+          <div class="btnrow" style="margin-top:12px">
+            <button class="btn btn-ghost" id="copyPix">📋 Copiar Pix</button>
+            <button class="btn btn-primary" id="buyWhats">📲 Comprar no WhatsApp</button>
+          </div>
 
-          <div class="btn-line" style="margin-top:12px">
-            <button class="btn btn-ghost" id="copyOrder">📄 Copiar pedido</button>
-            <a class="btn btn-ghost" href="https://discord.gg/qsZ65QJc" target="_blank" rel="noreferrer">💬 Abrir Discord</a>
+          <div class="hint" style="margin-top:10px">
+            Depois de pagar: mande <b>comprovante</b> + <b>nick</b>.
           </div>
         </div>
       </div>
@@ -467,130 +505,270 @@
   <div class="toast" id="toast">Copiado!</div>
 
   <script>
-    // === CONFIG DO DONO ===
+    // ===== SEUS DADOS =====
     const PIX_KEY = "098.636.509-27";
-    const WHATSAPP_NUMBER = "+5542999095985"; // seu número
+    const WHATSAPP_NUMBER = "+5542999095985";
     const DISCORD_INVITE = "https://discord.gg/qsZ65QJc";
 
-    // Preços de lançamento (mais barato no começo)
+    // ===== PRODUTOS (do seu print) =====
     const products = [
-      // VIP
+      // VIPS
       {
-        id: "vip-1m",
-        cat: "VIP",
-        title: "VIP | 1 MÊS",
-        price: 9.90,
-        duration: "30 dias",
-        desc: "VIP de entrada: cores no chat, /enderchest, homes e bônus básicos. Ideal pra começar no Flux."
+        id:"ultra-1m",
+        cat:"VIP",
+        title:"ULTRA | 1 MÊS",
+        price: 17.50,
+        duration:"30 dias",
+        recharge:"a cada 7 dias",
+        stock:"∞",
+        img:"assets/ultra.png",
+        short:"Kit ULTRA (/kit ultra) + vantagens avançadas.",
+        full:
+`⭐ Vantagens do ULTRA
+✓ Comando /back (voltar ao local da morte quando quiser)
+✓ Cores personalizadas no chat
+✓ Até 30 homes
+✓ Acesso ao /enderchest
+✓ +200 blocos de claim
+✓ 50% chance de obter spawners ao quebrar com Silk Touch
+
+📦 Kit ULTRA: /kit ultra
+🔁 Recarga: a cada 7 dias
+
+🧰 Itens (resumo):
+- Armadura Netherita encantada
+- Espada Netherita encantada
+- Arco encantado
+- Maçãs douradas e pérolas do fim
+- Poções (velocidade/força/cura)`
       },
       {
-        id: "ultra-1m",
-        cat: "VIP",
-        title: "ULTRA | 1 MÊS",
-        price: 14.90,
-        duration: "30 dias",
-        desc: "ULTRA: mais homes, mais claim, vantagens melhores e kit ULTRA (/kit ultra)."
+        id:"vip-1m",
+        cat:"VIP",
+        title:"VIP | 1 MÊS",
+        price: 12.00,
+        duration:"30 dias",
+        recharge:"a cada 7 dias",
+        stock:"∞",
+        img:"assets/vip.png",
+        short:"VIP equilibrado: cores, enderchest, homes e bônus.",
+        full:
+`🔒 Vantagens do VIP
+✓ Até 8 homes
+✓ Cores no chat
+✓ /enderchest
+✓ +80 blocos de claim
+✓ Chance aumentada de drops especiais ao minerar
+✓ Acesso a cosméticos exclusivos e comandos especiais
+
+📦 Kit VIP: /kit vip
+🔁 Recarga: a cada 7 dias
+
+ℹ️ Importante:
+- VIP válido por 30 dias
+- Benefícios ativados no servidor
+- Não é permitido transferir VIP`
       },
       {
-        id: "mestre-1m",
-        cat: "VIP",
-        title: "MESTRE | 1 MÊS",
-        price: 19.90,
-        duration: "30 dias",
-        desc: "MESTRE: topo do servidor. Mais bônus, claim alto, kit MESTRE (/kit mestre) e destaque."
+        id:"mestre-1m",
+        cat:"VIP",
+        title:"MESTRE | 1 MÊS",
+        price: 24.00,
+        duration:"30 dias",
+        recharge:"7 dias",
+        stock:"∞",
+        img:"assets/mestre.png",
+        short:"Topo do servidor: kit bruto e bônus máximos.",
+        full:
+`👑 MESTRE
+✓ /back liberado
+✓ Cores no chat
+✓ Até 50 homes
+✓ /enderchest
+✓ +300 blocos de claim
+✓ 100% chance de drop de spawner minerando com Silk Touch
+
+📦 Kit MESTRE: /kit mestre
+🔁 Recarga: 7 dias
+
+🧰 Itens (resumo):
+- Armadura Netherita encantada
+- Espada/Arco/Tridente
+- Picareta e machado
+- Maçãs douradas, pérolas místicas
+- Poções fortes (velocidade/força/cura/invisibilidade)`
       },
 
-      // Kits (15 dias)
+      // EXTRAS
       {
-        id: "kit-berserker",
-        cat: "Kits",
-        title: "KIT BERSERKER | 15 DIAS",
-        price: 9.90,
-        duration: "15 dias (recarga 7d)",
-        desc: "Kit focado em dano e combate direto. Perfeito pra PvP e rush."
+        id:"spawner-2",
+        cat:"Extras",
+        title:"2 SPAWNERS",
+        price: 7.50,
+        duration:"Entrega única",
+        recharge:"—",
+        stock:"∞",
+        img:"",
+        short:"Recebe 2 spawners aleatórios na sua conta.",
+        full:"Ao comprar este produto você irá receber 2 spawners aleatórios na sua conta."
       },
       {
-        id: "kit-sentinela",
-        cat: "Kits",
-        title: "KIT SENTINELA | 15 DIAS",
-        price: 9.90,
-        duration: "15 dias (recarga 7d)",
-        desc: "Kit de distância/controle. Ideal pra vigiar e segurar território."
+        id:"claim-500",
+        cat:"Extras",
+        title:"500 BLOCOS DE CLAIM",
+        price: 7.00,
+        duration:"Entrega única",
+        recharge:"—",
+        stock:"∞",
+        img:"",
+        short:"Ganha 500 blocos de claim.",
+        full:"Ao comprar esse produto você ganhará 500 blocos de claim."
       },
       {
-        id: "kit-espectro",
-        cat: "Kits",
-        title: "KIT ESPECTRO | 15 DIAS",
-        price: 9.90,
-        duration: "15 dias (recarga 7d)",
-        desc: "Kit de mobilidade e invis/emboscada. Perfeito pra jogadas rápidas."
-      },
-      {
-        id: "kit-arcano",
-        cat: "Kits",
-        title: "KIT ARCANO | 15 DIAS",
-        price: 9.90,
-        duration: "15 dias (recarga 7d)",
-        desc: "Kit mágico/lendário. Combina itens raros e poções fortes."
+        id:"unban",
+        cat:"Extras",
+        title:"UNBAN",
+        price: 30.00,
+        duration:"Entrega única",
+        recharge:"—",
+        stock:"∞",
+        img:"",
+        short:"Desbanimento do servidor.",
+        full:"Ao comprar você será desbanido do nosso servidor. (Compre apenas se você estiver banido)"
       },
 
-      // Extras
+      // KITS 15 dias (do print)
       {
-        id: "spawners-2",
-        cat: "Extras",
-        title: "2 SPAWNERS (aleatórios)",
-        price: 5.90,
-        duration: "Entrega única",
-        desc: "Receba 2 spawners aleatórios na sua conta (produto único)."
+        id:"kit-berserker",
+        cat:"Kits",
+        title:"KIT BERSERKER (15 dias)",
+        price: 13.75,
+        duration:"15 dias",
+        recharge:"7 dias",
+        stock:"∞",
+        img:"",
+        short:"Combate direto: resistência e dano esmagador.",
+        full:
+`🟠 Kit BERSERKER (15 dias de acesso)
+🔁 Recarga: 7 dias
+
+Criado para combatentes que avançam sem medo.
+Itens (resumo):
+- Machado Netherita encantado
+- Escudo
+- Armadura Netherita encantada
+- Besta + Flechas
+- Tridente
+Preço do print: 13,75`
       },
       {
-        id: "claim-500",
-        cat: "Extras",
-        title: "500 BLOCOS DE CLAIM",
-        price: 4.90,
-        duration: "Entrega única",
-        desc: "Ganha +500 blocos de claim para expandir/proteger sua base."
+        id:"kit-sentinela",
+        cat:"Kits",
+        title:"KIT SENTINELA (15 dias)",
+        price: 13.75,
+        duration:"15 dias",
+        recharge:"7 dias",
+        stock:"∞",
+        img:"",
+        short:"Controle à distância + poções de movimento/visão.",
+        full:
+`🟩 Kit SENTINELA (15 dias de acesso)
+🔁 Recarga: 7 dias
+
+Para quem controla o campo à distância.
+Itens (resumo):
+- Arco e Espada
+- Armadura Netherita encantada
+- Poções (deslocamento, poder, olhos noturnos)
+- Munição e itens extras
+Preço do print: 13,75`
       },
       {
-        id: "unban",
-        cat: "Extras",
-        title: "UNBAN",
-        price: 24.90,
-        duration: "Entrega única",
-        desc: "Desbanimento do servidor. Compre apenas se você estiver banido."
+        id:"kit-espectro",
+        cat:"Kits",
+        title:"KIT ESPECTRO (15 dias)",
+        price: 13.75,
+        duration:"15 dias",
+        recharge:"7 dias",
+        stock:"∞",
+        img:"",
+        short:"Mobilidade e invisibilidade para emboscadas.",
+        full:
+`⚫ Kit ESPECTRO (15 dias de acesso)
+🔁 Recarga: 7 dias
+
+Domina ataque invisível e retirada rápida.
+Itens (resumo):
+- Lâmina Fantasma
+- Arco das Trevas
+- Armadura Netherita encantada
+- Poções (agilidade, fôlego aquático, visão sombria, ocultação)
+Preço do print: 13,75`
+      },
+      {
+        id:"kit-arcano",
+        cat:"Kits",
+        title:"KIT ARCANO (15 dias)",
+        price: 13.75,
+        duration:"15 dias",
+        recharge:"7 dias",
+        stock:"∞",
+        img:"",
+        short:"Kit mágico lendário com itens raros e poções fortes.",
+        full:
+`🟣 Kit ARCANO (15 dias de acesso)
+🔁 Recarga: 7 dias
+
+Voltado aos mestres das artes ocultas.
+Itens (resumo):
+- Lâmina Arcana
+- Tridente dos Elementos
+- Machado do Abismo
+- Foco Arcano (decorativo)
+- Olhos profanos e itens raros
+- Poções (força e invisibilidade)
+Preço do print: 13,75`
       },
     ];
 
-    // UI
+    // ===== UI =====
     const grid = document.getElementById("grid");
     const modal = document.getElementById("modal");
     const toast = document.getElementById("toast");
 
+    const fAll = document.getElementById("fAll");
+    const fVip = document.getElementById("fVip");
+    const fKits = document.getElementById("fKits");
+    const fExtras = document.getElementById("fExtras");
+
     const mTitle = document.getElementById("mTitle");
-    const mBadge = document.getElementById("mBadge");
-    const mDesc = document.getElementById("mDesc");
+    const mCat = document.getElementById("mCat");
+    const mFull = document.getElementById("mFull");
     const mPrice = document.getElementById("mPrice");
     const mDuration = document.getElementById("mDuration");
+    const mRecharge = document.getElementById("mRecharge");
+    const mStock = document.getElementById("mStock");
 
     const pixKeyEl = document.getElementById("pixKey");
-    pixKeyEl.textContent = PIX_KEY;
-
     const nickEl = document.getElementById("nick");
-    const deliveryEl = document.getElementById("delivery");
     const obsEl = document.getElementById("obs");
 
-    let currentProduct = null;
+    pixKeyEl.textContent = PIX_KEY;
+
     let currentFilter = "ALL";
+    let currentProduct = null;
 
     function money(v){
       return v.toLocaleString("pt-BR", { style:"currency", currency:"BRL" });
     }
+
     function showToast(msg){
       toast.textContent = msg;
       toast.style.display = "block";
       clearTimeout(window.__t);
       window.__t = setTimeout(()=> toast.style.display="none", 1600);
     }
+
     async function copyText(text){
       try{
         await navigator.clipboard.writeText(text);
@@ -606,9 +784,9 @@
       }
     }
 
-    function setActiveChip(which){
-      document.querySelectorAll(".chip").forEach(c=>c.classList.remove("active"));
-      if(which) which.classList.add("active");
+    function setActive(btn){
+      [fAll,fVip,fKits,fExtras].forEach(x=>x.classList.remove("active"));
+      btn.classList.add("active");
     }
 
     function render(){
@@ -616,23 +794,24 @@
       grid.innerHTML = "";
 
       const list = products.filter(p=>{
-        const matchQ = !q || (p.title + " " + p.desc + " " + p.cat).toLowerCase().includes(q);
+        const matchQ = !q || (p.title + " " + p.short + " " + p.cat).toLowerCase().includes(q);
         const matchF =
-          currentFilter === "ALL" ? true :
-          currentFilter === "VIP" ? p.cat === "VIP" :
-          currentFilter === "Kits" ? p.cat === "Kits" :
-          currentFilter === "Extras" ? p.cat === "Extras" :
-          true;
+          currentFilter==="ALL" ? true :
+          currentFilter==="VIP" ? p.cat==="VIP" :
+          currentFilter==="Kits" ? p.cat==="Kits" :
+          currentFilter==="Extras" ? p.cat==="Extras" : true;
         return matchQ && matchF;
       });
 
-      if(list.length === 0){
+      if(list.length===0){
         const empty = document.createElement("div");
         empty.className = "card";
         empty.style.gridColumn = "span 12";
         empty.innerHTML = `
-          <h2 class="title">Nada encontrado</h2>
-          <p class="desc">Tenta pesquisar por: VIP, Mestre, spawner, claim, unban…</p>
+          <div class="content">
+            <h2 class="title">Nada encontrado</h2>
+            <p class="mini">Tenta pesquisar: VIP, Mestre, Spawner, Kit, Unban, Claim…</p>
+          </div>
         `;
         grid.appendChild(empty);
         return;
@@ -641,44 +820,44 @@
       list.forEach(p=>{
         const el = document.createElement("div");
         el.className = "card";
+
+        const thumb = p.img
+          ? `<div class="thumb"><img src="${p.img}" alt="${p.title}"><div class="tag">${p.cat}</div></div>`
+          : `<div class="thumb"><div class="tag">${p.cat}</div></div>`;
+
         el.innerHTML = `
-          <div class="card-top">
-            <div>
-              <div class="badge">${p.cat}</div>
-              <h2 class="title" style="margin-top:8px">${p.title}</h2>
+          ${thumb}
+          <div class="content">
+            <h2 class="title">${p.title}</h2>
+            <p class="mini">${p.short}</p>
+
+            <div class="meta">
+              <span class="badge">${p.duration}</span>
+              <span class="badge">${p.recharge ? ("Recarga: " + p.recharge) : "—"}</span>
             </div>
-            <div class="badge">${p.duration}</div>
-          </div>
 
-          <p class="desc">${p.desc}</p>
-
-          <div class="price-row">
-            <div>
-              <div class="price">${money(p.price)}</div>
-              <div class="small">Pix • sem taxa</div>
+            <div class="meta">
+              <div>
+                <div class="price">${money(p.price)}</div>
+                <div class="mini" style="margin-top:2px;color:rgba(255,255,255,.55)">Pix • sem taxa</div>
+              </div>
+              <span class="badge">Estoque: ${p.stock}</span>
             </div>
-            <button class="btn btn-primary" data-buy="${p.id}">Comprar</button>
-          </div>
 
-          <div class="btn-line">
-            <button class="btn btn-ghost" data-details="${p.id}">Ver detalhes</button>
-            <button class="btn btn-ghost" data-copy="${p.id}">Copiar nome</button>
+            <div class="btnrow">
+              <button class="btn btn-ghost" data-details="${p.id}">Ver detalhes</button>
+              <button class="btn btn-primary" data-buy="${p.id}">Comprar</button>
+            </div>
           </div>
         `;
         grid.appendChild(el);
       });
 
-      // wire
-      grid.querySelectorAll("[data-buy]").forEach(b=>{
-        b.addEventListener("click", ()=> openProduct(b.getAttribute("data-buy")));
-      });
       grid.querySelectorAll("[data-details]").forEach(b=>{
         b.addEventListener("click", ()=> openProduct(b.getAttribute("data-details")));
       });
-      grid.querySelectorAll("[data-copy]").forEach(b=>{
-        const id = b.getAttribute("data-copy");
-        const p = products.find(x=>x.id===id);
-        b.addEventListener("click", ()=> copyText(p.title));
+      grid.querySelectorAll("[data-buy]").forEach(b=>{
+        b.addEventListener("click", ()=> openProduct(b.getAttribute("data-buy")));
       });
     }
 
@@ -688,34 +867,30 @@
       currentProduct = p;
 
       mTitle.textContent = p.title;
-      mBadge.textContent = p.cat;
-      mDesc.textContent = p.desc;
+      mCat.textContent = p.cat;
       mPrice.textContent = money(p.price);
-      mDuration.textContent = p.duration;
+      mDuration.textContent = p.duration || "—";
+      mRecharge.textContent = p.recharge || "—";
+      mStock.textContent = p.stock || "∞";
 
-      // reset form (não apaga se já estiver preenchido)
-      if(!nickEl.value) nickEl.value = "";
-      if(!obsEl.value) obsEl.value = "";
+      // quebras de linha bonitinhas
+      mFull.innerHTML = (p.full || p.short || "").replace(/\n/g, "<br>");
 
       modal.classList.add("open");
       nickEl.focus();
     }
 
-    function closeModal(){
-      modal.classList.remove("open");
-    }
+    function closeModal(){ modal.classList.remove("open"); }
 
     function buildOrderText(){
       const nick = (nickEl.value || "").trim();
       const obs = (obsEl.value || "").trim();
-      const delivery = deliveryEl.value;
 
       const lines = [];
       lines.push("🛒 *PEDIDO — FLUX MC*");
       lines.push(`• Produto: ${currentProduct?.title || "-"}`);
       lines.push(`• Valor: ${currentProduct ? money(currentProduct.price) : "-"}`);
       lines.push(`• Nick: ${nick || "(não informado)"}`);
-      lines.push(`• Entrega: ${delivery}`);
       if(obs) lines.push(`• Obs: ${obs}`);
       lines.push("");
       lines.push("✅ Pagamento via PIX");
@@ -725,11 +900,8 @@
       return lines.join("\n");
     }
 
-    function openWhatsApp(){
-      if(!currentProduct){
-        showToast("Escolha um produto.");
-        return;
-      }
+    function buyWhats(){
+      if(!currentProduct) return;
       const nick = (nickEl.value || "").trim();
       if(!nick){
         showToast("Coloca seu nick primeiro.");
@@ -741,73 +913,29 @@
       window.open(url, "_blank", "noopener,noreferrer");
     }
 
-    // Events
-    document.getElementById("search").addEventListener("input", render);
+    // Filters
+    fAll.addEventListener("click", ()=>{ currentFilter="ALL"; setActive(fAll); render(); });
+    fVip.addEventListener("click", ()=>{ currentFilter="VIP"; setActive(fVip); render(); });
+    fKits.addEventListener("click", ()=>{ currentFilter="Kits"; setActive(fKits); render(); });
+    fExtras.addEventListener("click", ()=>{ currentFilter="Extras"; setActive(fExtras); render(); });
 
+    // Modal / Buttons
     document.getElementById("close").addEventListener("click", closeModal);
-    modal.addEventListener("click", (e)=>{ if(e.target === modal) closeModal(); });
-    document.addEventListener("keydown", (e)=>{ if(e.key === "Escape") closeModal(); });
+    modal.addEventListener("click", (e)=>{ if(e.target===modal) closeModal(); });
+    document.addEventListener("keydown", (e)=>{ if(e.key==="Escape") closeModal(); });
 
     document.getElementById("copyPix").addEventListener("click", ()=> copyText(PIX_KEY));
-    document.getElementById("openWhats").addEventListener("click", openWhatsApp);
+    document.getElementById("buyWhats").addEventListener("click", buyWhats);
 
-    document.getElementById("copyOrder").addEventListener("click", ()=>{
-      if(!currentProduct) return;
-      const nick = (nickEl.value || "").trim();
-      if(!nick){
-        showToast("Coloca seu nick primeiro.");
-        nickEl.focus();
-        return;
-      }
-      copyText(buildOrderText());
-    });
+    document.getElementById("btnPix").addEventListener("click", ()=> copyText(PIX_KEY));
 
-    // Top chips filters
-    const fAll = document.getElementById("filterAll");
-    const fVip = document.getElementById("filterVip");
-    const fKits = document.getElementById("filterKits");
-    const fExtras = document.getElementById("filterExtras");
-
-    fAll.addEventListener("click", ()=>{
-      currentFilter = "ALL";
-      setActiveChip(fAll);
-      render();
-    });
-    fVip.addEventListener("click", ()=>{
-      currentFilter = "VIP";
-      setActiveChip(fVip);
-      render();
-    });
-    fKits.addEventListener("click", ()=>{
-      currentFilter = "Kits";
-      setActiveChip(fKits);
-      render();
-    });
-    fExtras.addEventListener("click", ()=>{
-      currentFilter = "Extras";
-      setActiveChip(fExtras);
-      render();
-    });
-
-    // How / Support buttons
     document.getElementById("btnHow").addEventListener("click", ()=>{
-      currentFilter = "ALL";
-      setActiveChip(fAll);
-      openProduct("vip-1m");
-      mDesc.textContent =
-        "Como comprar (sem pagar nada):\n" +
-        "1) Escolhe o produto e coloca seu nick.\n" +
-        "2) Clica em 'Finalizar no WhatsApp'.\n" +
-        "3) Paga no Pix (chave aparece ali).\n" +
-        "4) Manda o comprovante e nós ativamos no servidor.";
+      showToast("1) Escolhe  2) Nick  3) Paga no Pix  4) Envia comprovante ✅");
     });
 
-    document.getElementById("btnSupport").addEventListener("click", ()=>{
-      window.open(DISCORD_INVITE, "_blank", "noopener,noreferrer");
-    });
+    document.getElementById("search").addEventListener("input", render);
 
     // Start
-    setActiveChip(fAll);
     render();
   </script>
 </body>
