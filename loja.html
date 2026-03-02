@@ -1,866 +1,363 @@
 <!doctype html>
 <html lang="pt-BR">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>FLUX MC — Loja</title>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Loja — Flux MC</title>
 
-  <style>
-    :root{
-      --bg:#070510;
-      --card:#120a22;
-      --text:#f4efff;
-      --muted:#b7a6d6;
-      --line: rgba(255,255,255,.10);
-      --shadow: 0 22px 70px rgba(0,0,0,.55);
-      --radius: 18px;
+<style>
+:root{
+--bg:#0b0712;
+--card:#120a22;
+--text:#f2eaff;
+--muted:#b7a6d6;
+--purple:#8b5cf6;
+--pink:#ec4899;
+--line:rgba(255,255,255,.10);
+--shadow:0 18px 60px rgba(0,0,0,.45);
+--radius:18px;
+--max:1100px;
+}
 
-      --purple:#8b5cf6;
-      --pink:#ec4899;
-      --blue:#60a5fa;
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+margin:0;
+font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+background:
+radial-gradient(900px 500px at 20% 10%,rgba(139,92,246,.28),transparent 65%),
+radial-gradient(700px 450px at 80% 20%,rgba(236,72,153,.20),transparent 60%),
+radial-gradient(900px 600px at 50% 100%,rgba(139,92,246,.18),transparent 70%),
+var(--bg);
+color:var(--text);
+min-height:100vh;
+}
 
-      --max: 1120px;
-    }
+.wrap{max-width:var(--max);margin:0 auto;padding:28px 16px 56px;}
 
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      background:
-        radial-gradient(900px 520px at 18% 12%, rgba(139,92,246,.30), transparent 65%),
-        radial-gradient(820px 520px at 84% 18%, rgba(236,72,153,.22), transparent 60%),
-        radial-gradient(900px 700px at 50% 105%, rgba(96,165,250,.16), transparent 70%),
-        var(--bg);
-      color:var(--text);
-      min-height:100vh;
-    }
+.top{
+display:flex;gap:12px;align-items:center;justify-content:space-between;
+padding:14px;
+border:1px solid var(--line);
+background:rgba(18,10,34,.55);
+backdrop-filter:blur(10px);
+border-radius:var(--radius);
+box-shadow:var(--shadow);
+position:sticky;top:12px;z-index:10;
+}
 
-    a{color:inherit}
-    .wrap{max-width:var(--max); margin:0 auto; padding:26px 16px 44px;}
+.brand{display:flex;gap:12px;align-items:center;font-weight:900;letter-spacing:.4px;}
+.logo{
+width:48px;height:48px;border-radius:16px;overflow:hidden;
+display:flex;align-items:center;justify-content:center;
+box-shadow:0 10px 30px rgba(139,92,246,.35);
+}
+.logo img{width:100%;height:100%;object-fit:cover;display:block;}
 
-    .top{
-      display:flex; gap:12px; align-items:center; justify-content:space-between;
-      padding:14px 14px;
-      border:1px solid var(--line);
-      background: rgba(18,10,34,.58);
-      backdrop-filter: blur(10px);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      position:sticky; top:12px;
-      z-index:10;
-    }
+.nav{display:flex;gap:10px;flex-wrap:wrap;align-items:center;}
+.chip{
+padding:10px 12px;border-radius:999px;
+border:1px solid var(--line);
+background:rgba(255,255,255,.04);
+text-decoration:none;font-weight:800;color:var(--muted);
+}
+.chip:hover{border-color:rgba(139,92,246,.55);color:var(--text)}
 
-    .brand{display:flex; gap:10px; align-items:center; font-weight:950; letter-spacing:.4px;}
-    .logo{
-      width:40px; height:40px; border-radius:14px;
-      background: linear-gradient(135deg, var(--purple), var(--pink));
-      display:grid; place-items:center;
-      box-shadow: 0 10px 30px rgba(139,92,246,.35);
-      font-weight:1000;
-      color:#140a22;
-    }
+.hero{
+margin-top:16px;
+padding:18px;
+border-radius:var(--radius);
+border:1px solid var(--line);
+background:rgba(18,10,34,.45);
+box-shadow:var(--shadow);
+display:grid;
+gap:10px;
+}
+.hero h1{margin:0;font-size:34px}
+.hero p{margin:0;color:var(--muted)}
+.hero .row{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:6px}
 
-    .nav{display:flex; gap:10px; flex-wrap:wrap; align-items:center;}
-    .chip{
-      padding:10px 12px; border-radius:999px;
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.04);
-      text-decoration:none;
-      font-weight:800;
-      color:var(--muted);
-      cursor:pointer;
-      user-select:none;
-    }
-    .chip:hover{border-color:rgba(139,92,246,.55); color:var(--text)}
-    .chip.active{
-      border-color: rgba(236,72,153,.55);
-      color: var(--text);
-      background: rgba(236,72,153,.10);
-    }
+.btn{
+border:0;cursor:pointer;text-decoration:none;
+padding:12px 14px;border-radius:14px;
+font-weight:1000;display:inline-flex;gap:10px;align-items:center;
+}
+.btn-primary{background:linear-gradient(135deg,var(--purple),var(--pink));color:#140a22;}
+.btn-ghost{background:rgba(255,255,255,.06);border:1px solid var(--line);color:var(--text);}
 
-    /* ===== BANNER BONITO (LOJA) ===== */
-    .shop-banner{
-      margin-top:18px;
-      border:1px solid var(--line);
-      border-radius: 22px;
-      overflow:hidden;
-      background: rgba(255,255,255,.03);
-      box-shadow: var(--shadow);
-      position:relative;
-    }
-    .shop-banner:before{
-      content:"";
-      position:absolute; inset:0;
-      background:
-        radial-gradient(700px 280px at 20% 10%, rgba(139,92,246,.18), transparent 60%),
-        radial-gradient(700px 280px at 80% 20%, rgba(236,72,153,.14), transparent 60%);
-      pointer-events:none;
-    }
-    .shop-banner img{
-      width:100%;
-      height: 220px;
-      display:block;
-      object-fit: cover;
-      object-position: center;
-      filter: saturate(1.05) contrast(1.05);
-    }
-    @media (max-width:640px){
-      .shop-banner img{ height:160px; }
-    }
+.section{
+margin-top:16px;
+padding:18px;
+border-radius:var(--radius);
+border:1px solid var(--line);
+background:rgba(18,10,34,.35);
+box-shadow:var(--shadow);
+}
+.section h2{margin:0 0 6px 0;font-size:22px}
+.section p{margin:0;color:var(--muted)}
 
-    .hero{
-      margin-top:14px;
-      padding:22px 18px;
-      border-radius: var(--radius);
-      border:1px solid var(--line);
-      background: rgba(18,10,34,.46);
-      box-shadow: var(--shadow);
-      position:relative;
-      overflow:hidden;
-    }
-    .hero:before{
-      content:"";
-      position:absolute; inset:-2px;
-      background: radial-gradient(760px 260px at 25% 0%, rgba(139,92,246,.38), transparent 60%),
-                  radial-gradient(700px 240px at 85% 28%, rgba(236,72,153,.28), transparent 60%);
-      pointer-events:none;
-    }
-    .hero-inner{position:relative; display:grid; gap:10px;}
-    h1{margin:0; font-size:32px; line-height:1.05}
-    .sub{margin:0; color:var(--muted); font-size:14px; max-width:90ch}
+.grid{
+margin-top:14px;
+display:grid;
+grid-template-columns:repeat(3,minmax(0,1fr));
+gap:14px;
+}
+@media(max-width:980px){ .grid{grid-template-columns:repeat(2,minmax(0,1fr));}}
+@media(max-width:640px){ .grid{grid-template-columns:1fr;} .top{position:static;} }
 
-    .controls{
-      margin-top:12px;
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      align-items:center;
-      justify-content:space-between;
-    }
-    .search{
-      flex:1;
-      min-width:240px;
-      display:flex;
-      gap:10px;
-      align-items:center;
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.05);
-      border-radius: 999px;
-      padding:10px 12px;
-    }
-    .search input{
-      width:100%;
-      border:0;
-      outline:none;
-      background:transparent;
-      color:var(--text);
-      font-size:14px;
-      font-weight:700;
-    }
-    .pill{
-      padding:9px 12px;
-      border-radius:999px;
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.05);
-      color:var(--text);
-      font-weight:900;
-      cursor:pointer;
-      white-space:nowrap;
-      user-select:none;
-    }
-    .pill:hover{border-color:rgba(139,92,246,.55)}
-    .pill small{color:rgba(255,255,255,.65); font-weight:800}
-
-    .grid{
-      margin-top:14px;
-      display:grid;
-      grid-template-columns: repeat(12, 1fr);
-      gap:14px;
-    }
-
-    .card{
-      grid-column: span 4;
-      border-radius: 22px;
-      border:1px solid var(--line);
-      background: rgba(18,10,34,.42);
-      box-shadow: var(--shadow);
-      overflow:hidden;
-      display:grid;
-      min-height: 320px;
-    }
-
-    .thumb{
-      height: 150px;
-      background:
-        radial-gradient(520px 240px at 20% 30%, rgba(139,92,246,.55), transparent 60%),
-        radial-gradient(420px 220px at 80% 25%, rgba(236,72,153,.45), transparent 55%),
-        rgba(255,255,255,.04);
-      border-bottom:1px solid var(--line);
-      position:relative;
-    }
-
-    /* deixa imagem bonita e “centralizada” */
-    .thumb img{
-      width:100%;
-      height:100%;
-      object-fit:contain;
-      object-position:center;
-      padding:16px;
-      display:block;
-      background: rgba(0,0,0,.12);
-    }
-
-    .thumb .tag{
-      position:absolute;
-      left:12px; top:12px;
-      padding:7px 10px;
-      border-radius: 999px;
-      border:1px solid var(--line);
-      background: rgba(0,0,0,.25);
-      font-weight:1000;
-      font-size:12px;
-      color: rgba(255,255,255,.85);
-      backdrop-filter: blur(8px);
-      z-index:2;
-    }
-
-    .content{
-      padding:14px 14px 14px;
-      display:grid;
-      gap:10px;
-    }
-
-    .title{
-      margin:0;
-      font-size:16px;
-      font-weight:1000;
-      letter-spacing:.2px;
-    }
-    .mini{
-      margin:0;
-      color: var(--muted);
-      font-size:13px;
-      line-height:1.35;
-    }
-
-    .meta{
-      display:flex;
-      gap:8px;
-      flex-wrap:wrap;
-      align-items:center;
-      justify-content:space-between;
-    }
-    .badge{
-      padding:6px 10px;
-      border-radius: 999px;
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.04);
-      color: rgba(255,255,255,.75);
-      font-weight:900;
-      font-size:12px;
-    }
-    .price{
-      font-weight:1000;
-      font-size:18px;
-    }
-
-    .btnrow{display:flex; gap:10px; flex-wrap:wrap;}
-    .btn{
-      border:0;
-      cursor:pointer;
-      padding:11px 12px;
-      border-radius: 14px;
-      font-weight:1000;
-      display:inline-flex;
-      gap:10px;
-      align-items:center;
-      justify-content:center;
-      user-select:none;
-      transition: transform .05s ease;
-      flex: 1;
-      min-width: 130px;
-    }
-    .btn:active{transform: translateY(1px)}
-    .btn-primary{
-      background: linear-gradient(135deg, var(--purple), var(--pink));
-      color:#140a22;
-      box-shadow: 0 14px 40px rgba(139,92,246,.25);
-    }
-    .btn-ghost{
-      background: rgba(255,255,255,.06);
-      border:1px solid var(--line);
-      color:var(--text);
-    }
-    .btn-ghost:hover{border-color:rgba(236,72,153,.55)}
-
-    .footer{
-      margin-top:18px;
-      text-align:center;
-      color:rgba(255,255,255,.45);
-      font-size:12px;
-    }
-
-    .modal{
-      position:fixed; inset:0;
-      background: rgba(0,0,0,.60);
-      display:none;
-      align-items:center;
-      justify-content:center;
-      padding:18px;
-      z-index:50;
-    }
-    .modal.open{display:flex;}
-    .panel{
-      width:min(980px, 100%);
-      border-radius: 22px;
-      border:1px solid var(--line);
-      background: rgba(18,10,34,.94);
-      box-shadow: var(--shadow);
-      overflow:hidden;
-    }
-    .panel-head{
-      display:flex;
-      gap:12px;
-      align-items:center;
-      justify-content:space-between;
-      padding:14px 16px;
-      border-bottom:1px solid var(--line);
-      background: rgba(255,255,255,.03);
-    }
-    .panel-title{
-      display:flex; gap:10px; align-items:center;
-      font-weight:1000;
-      flex-wrap:wrap;
-    }
-    .xbtn{
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.05);
-      color:var(--text);
-      border-radius: 14px;
-      padding:10px 12px;
-      cursor:pointer;
-      font-weight:1000;
-    }
-    .xbtn:hover{border-color:rgba(236,72,153,.55)}
-
-    .panel-body{
-      padding:16px;
-      display:grid;
-      grid-template-columns: 1.1fr .9fr;
-      gap:14px;
-    }
-
-    .box{
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.04);
-      border-radius: 18px;
-      padding:14px;
-      display:grid;
-      gap:10px;
-    }
-
-    .box h3{margin:0; font-size:14px}
-    .box p{margin:0; color:var(--muted); font-size:13px; line-height:1.4}
-
-    .kvs{display:grid; gap:8px}
-    .kv{
-      display:flex; gap:10px; justify-content:space-between; align-items:center;
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.03);
-      border-radius: 14px;
-      padding:10px 12px;
-      font-size:13px;
-    }
-
-    .input{
-      display:grid; gap:6px;
-      font-size:13px;
-      color:var(--muted);
-      font-weight:900;
-    }
-    .input input, .input textarea{
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.03);
-      color: var(--text);
-      border-radius: 14px;
-      padding:10px 12px;
-      outline:none;
-      font-weight:800;
-    }
-    .input textarea{min-height:70px; resize:vertical;}
-
-    code.inline{
-      background: rgba(255,255,255,.06);
-      border:1px solid var(--line);
-      padding:6px 10px;
-      border-radius:12px;
-      font-weight:1000;
-      letter-spacing:.3px;
-      word-break: break-word;
-      color: rgba(255,255,255,.92);
-    }
-
-    .hint{font-size:12px; color:rgba(255,255,255,.55); line-height:1.35}
-
-    .toast{
-      position:fixed; left:50%; bottom:18px; transform:translateX(-50%);
-      background: rgba(18,10,34,.92);
-      border:1px solid var(--line);
-      padding:10px 12px;
-      border-radius:999px;
-      color:var(--text);
-      display:none;
-      box-shadow: var(--shadow);
-      z-index:60;
-      font-weight:1000;
-    }
-
-    @media (max-width: 980px){
-      .card{grid-column: span 6;}
-      .panel-body{grid-template-columns: 1fr;}
-    }
-    @media (max-width: 640px){
-      h1{font-size:28px}
-      .card{grid-column: span 12;}
-      .top{position:static}
-    }
-  </style>
+.card{
+border-radius:18px;
+border:1px solid var(--line);
+background:rgba(255,255,255,.03);
+overflow:hidden;
+box-shadow:0 10px 40px rgba(0,0,0,.35);
+display:flex;
+flex-direction:column;
+min-height:290px;
+}
+.thumb{
+height:150px;
+background:rgba(0,0,0,.25);
+display:flex;
+align-items:center;
+justify-content:center;
+position:relative;
+}
+.thumb img{
+width:100%;
+height:100%;
+object-fit:cover;
+display:block;
+}
+.card-body{
+padding:14px;
+display:grid;
+gap:8px;
+flex:1;
+}
+.badge{
+display:inline-flex;
+align-items:center;
+gap:8px;
+padding:6px 10px;
+border-radius:999px;
+border:1px solid var(--line);
+background:rgba(255,255,255,.04);
+color:var(--muted);
+font-weight:900;
+font-size:12px;
+width:max-content;
+}
+.title{margin:0;font-size:18px}
+.desc{margin:0;color:var(--muted);font-size:14px;line-height:1.35}
+.price{
+margin-top:auto;
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:10px;
+}
+.money{font-weight:1000}
+.buy{
+padding:10px 12px;border-radius:12px;
+font-weight:1000;
+border:1px solid var(--line);
+background:linear-gradient(135deg,rgba(139,92,246,.9),rgba(236,72,153,.85));
+color:#140a22;
+text-decoration:none;
+}
+.buy:hover{filter:brightness(1.05)}
+.note{margin-top:10px;color:rgba(255,255,255,.55);font-size:12px;line-height:1.4}
+.footer{margin-top:30px;text-align:center;color:rgba(255,255,255,.45);font-size:12px}
+</style>
 </head>
 
 <body>
-  <div class="wrap">
-    <header class="top">
-      <div class="brand">
-        <div class="logo">FX</div>
-        <div>Flux MC — Loja</div>
-      </div>
+<div class="wrap">
 
-      <nav class="nav">
-        <a class="chip" href="index.html">⬅ Voltar</a>
-        <a class="chip" href="https://discord.gg/qsZ65QJc" target="_blank" rel="noreferrer">Discord</a>
-
-        <button class="chip active" id="fAll">Todos</button>
-        <button class="chip" id="fVip">VIP</button>
-        <button class="chip" id="fKits">Kits</button>
-        <button class="chip" id="fExtras">Extras</button>
-      </nav>
-    </header>
-
-    <!-- BANNER DA LOJA -->
-    <div class="shop-banner">
-      <img id="bannerImg" alt="Banner Flux MC" onerror="this.style.display='none'">
-    </div>
-
-    <section class="hero">
-      <div class="hero-inner">
-        <h1>Compre por PIX (rápido)</h1>
-        <p class="sub">
-          Escolha o produto, coloque seu nick e clique em comprar.
-          O site abre o WhatsApp com a mensagem pronta + sua chave Pix pra você pagar e mandar o comprovante.
-        </p>
-
-        <div class="controls">
-          <div class="search">
-            🔎 <input id="search" placeholder="Pesquisar: mestre, vip, spawner, kit, unban, claim..." />
-          </div>
-
-          <button class="pill" id="btnPix">
-            PIX <small>(copiar chave)</small>
-          </button>
-
-          <button class="pill" id="btnHow">
-            Como comprar
-          </button>
-        </div>
-      </div>
-    </section>
-
-    <section class="grid" id="grid"></section>
-
-    <div class="footer">© Flux MC — Loja no GitHub Pages • Pagamento via Pix + confirmação por WhatsApp/Discord</div>
+<header class="top">
+  <div class="brand">
+    <div class="logo"><img src="assets/logo.png?v=2" alt="Flux MC"></div>
+    <div>Flux MC — Loja</div>
   </div>
 
-  <div class="modal" id="modal">
-    <div class="panel" role="dialog" aria-modal="true">
-      <div class="panel-head">
-        <div class="panel-title">
-          <span id="mTitle">Produto</span>
-          <span class="badge" id="mCat">Categoria</span>
+  <nav class="nav">
+    <a class="chip" href="index.html">🏠 Início</a>
+    <a class="chip" href="#vips">VIPs</a>
+    <a class="chip" href="#kits">Kits</a>
+    <a class="chip" href="#extras">Extras</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <h1>🛒 Loja do Flux MC</h1>
+  <p>Compre VIPs, kits e extras. Entrega rápida (geralmente em minutos).</p>
+  <div class="row">
+    <a class="btn btn-primary" href="https://discord.gg/qsZ65QJc" target="_blank" rel="noreferrer">💬 Comprar pelo Discord</a>
+    <a class="btn btn-ghost" href="index.html">⬅️ Voltar pro site</a>
+  </div>
+  <div class="note">
+    <b>Como comprar:</b> clique em “Comprar” → vai pro Discord. Você manda print do item + seu nick.
+  </div>
+</section>
+
+<section class="section" id="vips">
+  <h2>💎 VIPs</h2>
+  <p>Apoie o servidor e ganhe vantagens.</p>
+
+  <div class="grid">
+    <div class="card">
+      <div class="thumb"><img src="assets/vip.png" alt="VIP"></div>
+      <div class="card-body">
+        <div class="badge">⭐ VIP</div>
+        <h3 class="title">VIP</h3>
+        <p class="desc">Benefícios básicos + comandos e tags.</p>
+        <div class="price">
+          <div class="money">R$ ??</div>
+          <a class="buy" href="https://discord.gg/qsZ65QJc" target="_blank" rel="noreferrer">Comprar</a>
         </div>
-        <button class="xbtn" id="close">Fechar ✕</button>
       </div>
+    </div>
 
-      <div class="panel-body">
-        <div class="box">
-          <h3>Descrição</h3>
-          <p id="mFull"></p>
-
-          <div class="kvs">
-            <div class="kv"><span>Preço</span> <b id="mPrice">R$ 0,00</b></div>
-            <div class="kv"><span>Entrega</span> <b id="mDuration">—</b></div>
-            <div class="kv"><span>Recarga</span> <b id="mRecharge">—</b></div>
-            <div class="kv"><span>Estoque</span> <b id="mStock">∞</b></div>
-          </div>
-
-          <div class="hint">
-            Quer deixar “auto-entrega” no servidor? Aí já vira outro nível (precisa plugin/bot do Minecraft).
-          </div>
+    <div class="card">
+      <div class="thumb"><img src="assets/ultra.png" alt="Ultra"></div>
+      <div class="card-body">
+        <div class="badge">⚡ ULTRA</div>
+        <h3 class="title">Ultra</h3>
+        <p class="desc">Mais vantagens, mais comandos, mais destaque.</p>
+        <div class="price">
+          <div class="money">R$ ??</div>
+          <a class="buy" href="https://discord.gg/qsZ65QJc" target="_blank" rel="noreferrer">Comprar</a>
         </div>
+      </div>
+    </div>
 
-        <div class="box">
-          <h3>Checkout</h3>
-
-          <label class="input">
-            Nick do Minecraft (obrigatório)
-            <input id="nick" placeholder="Ex: JLZINXX" />
-          </label>
-
-          <label class="input">
-            Observação (opcional)
-            <textarea id="obs" placeholder="Ex: Quero ativar hoje / Planeta Terra / etc"></textarea>
-          </label>
-
-          <h3>Pix</h3>
-          <p class="hint" style="margin:0">Chave Pix:</p>
-          <code class="inline" id="pixKey"></code>
-
-          <div class="btnrow" style="margin-top:12px">
-            <button class="btn btn-ghost" id="copyPix">📋 Copiar Pix</button>
-            <button class="btn btn-primary" id="buyWhats">📲 Comprar no WhatsApp</button>
-          </div>
-
-          <div class="hint" style="margin-top:10px">
-            Depois de pagar: mande <b>comprovante</b> + <b>nick</b>.
-          </div>
+    <div class="card">
+      <div class="thumb"><img src="assets/mestre.png" alt="Mestre"></div>
+      <div class="card-body">
+        <div class="badge">👑 MESTRE</div>
+        <h3 class="title">Mestre</h3>
+        <p class="desc">Topo da loja. Benefícios máximos e prioridade.</p>
+        <div class="price">
+          <div class="money">R$ ??</div>
+          <a class="buy" href="https://discord.gg/qsZ65QJc" target="_blank" rel="noreferrer">Comprar</a>
         </div>
       </div>
     </div>
   </div>
+</section>
 
-  <div class="toast" id="toast">Copiado!</div>
+<section class="section" id="kits">
+  <h2>⚔️ Kits</h2>
+  <p>Escolha seu kit favorito.</p>
 
-  <script>
-    // ===== BANNER (mude o número quando trocar banner.png) =====
-    const BANNER_V = "1"; // <- trocou banner? muda pra 2, 3, 4...
-    document.getElementById("bannerImg").src = "assets/banner.png?v=" + BANNER_V;
+  <div class="grid">
+    <div class="card">
+      <div class="thumb"><img src="assets/kitarcano.png" alt="Kit Arcano"></div>
+      <div class="card-body">
+        <div class="badge">🪄 Kit</div>
+        <h3 class="title">Kit Arcano</h3>
+        <p class="desc">Itens mágicos/encantados (ajuste do jeito que você vende).</p>
+        <div class="price">
+          <div class="money">R$ ??</div>
+          <a class="buy" href="https://discord.gg/qsZ65QJc" target="_blank" rel="noreferrer">Comprar</a>
+        </div>
+      </div>
+    </div>
 
-    // ===== SEUS DADOS =====
-    const PIX_KEY = "098.636.509-27";
-    const WHATSAPP_NUMBER = "+5542999095985";
+    <div class="card">
+      <div class="thumb"><img src="assets/kitberserker.png" alt="Kit Berserker"></div>
+      <div class="card-body">
+        <div class="badge">🔥 Kit</div>
+        <h3 class="title">Kit Berserker</h3>
+        <p class="desc">Foco em PvP / dano (você ajusta os itens).</p>
+        <div class="price">
+          <div class="money">R$ ??</div>
+          <a class="buy" href="https://discord.gg/qsZ65QJc" target="_blank" rel="noreferrer">Comprar</a>
+        </div>
+      </div>
+    </div>
 
-    // ===== PRODUTOS (COM IMAGENS) =====
-    const products = [
-      // VIPS
-      {
-        id:"vip-1m", cat:"VIP", title:"VIP | 1 MÊS", price: 4.00, duration:"30 dias", recharge:"—", stock:"∞",
-        img:"assets/vip.png",
-        short:"VIP baratinho pra começar: cores, enderchest, homes e bônus.",
-        full:
-`🔒 Vantagens do VIP
-✓ Até 8 homes
-✓ Cores no chat
-✓ /enderchest
-✓ +80 blocos de claim
-✓ Chance aumentada de drops especiais ao minerar
-✓ Acesso a cosméticos e comandos especiais
+    <div class="card">
+      <div class="thumb"><img src="assets/kitspectro.png" alt="Kit Spectro"></div>
+      <div class="card-body">
+        <div class="badge">👻 Kit</div>
+        <h3 class="title">Kit Spectro</h3>
+        <p class="desc">Mobilidade/estratégia (ajuste como quiser).</p>
+        <div class="price">
+          <div class="money">R$ ??</div>
+          <a class="buy" href="https://discord.gg/qsZ65QJc" target="_blank" rel="noreferrer">Comprar</a>
+        </div>
+      </div>
+    </div>
 
-ℹ️ Importante:
-- VIP válido por 30 dias
-- Benefícios ativados no servidor
-- Não é permitido transferir VIP`
-      },
-      {
-        id:"ultra-1m", cat:"VIP", title:"ULTRA | 1 MÊS", price: 6.00, duration:"30 dias", recharge:"—", stock:"∞",
-        img:"assets/ultra.png",
-        short:"Mais forte que VIP: /back, mais homes, mais claim e bônus.",
-        full:
-`⭐ Vantagens do ULTRA
-✓ Comando /back
-✓ Cores personalizadas no chat
-✓ Até 30 homes
-✓ Acesso ao /enderchest
-✓ +200 blocos de claim
-✓ Chance de obter spawners ao quebrar com Silk Touch
+    <div class="card">
+      <div class="thumb"><img src="assets/kitsentinela.png" alt="Kit Sentinela"></div>
+      <div class="card-body">
+        <div class="badge">🛡️ Kit</div>
+        <h3 class="title">Kit Sentinela</h3>
+        <p class="desc">Defesa/armadura (você define certinho).</p>
+        <div class="price">
+          <div class="money">R$ ??</div>
+          <a class="buy" href="https://discord.gg/qsZ65QJc" target="_blank" rel="noreferrer">Comprar</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-📦 Kit ULTRA: /kit ultra (se estiver configurado no servidor)`
-      },
-      {
-        id:"mestre-1m", cat:"VIP", title:"MESTRE | 1 MÊS", price: 8.00, duration:"30 dias", recharge:"—", stock:"∞",
-        img:"assets/mestre.png",
-        short:"Topo do servidor: kit bruto e bônus máximos.",
-        full:
-`👑 MESTRE
-✓ /back liberado
-✓ Cores no chat
-✓ Até 50 homes
-✓ /enderchest
-✓ +300 blocos de claim
-✓ Chance alta de drop de spawner com Silk Touch (se estiver ativo no server)
+<section class="section" id="extras">
+  <h2>🧰 Extras</h2>
+  <p>Serviços e itens especiais.</p>
 
-📦 Kit MESTRE: /kit mestre (se estiver configurado no servidor)`
-      },
+  <div class="grid">
+    <div class="card">
+      <div class="thumb"><img src="assets/spawners.png" alt="Spawners"></div>
+      <div class="card-body">
+        <div class="badge">🧱 Item</div>
+        <h3 class="title">Spawners</h3>
+        <p class="desc">Spawners e variações (você define os mobs).</p>
+        <div class="price">
+          <div class="money">R$ ??</div>
+          <a class="buy" href="https://discord.gg/qsZ65QJc" target="_blank" rel="noreferrer">Comprar</a>
+        </div>
+      </div>
+    </div>
 
-      // KITS (COM IMAGEM)
-      {
-        id:"kit-berserker", cat:"Kits", title:"KIT BERSERKER", price: 4.00, duration:"Entrega única", recharge:"—", stock:"∞",
-        img:"assets/kitberserker.png",
-        short:"Combate direto: kit focado em dano e resistência.",
-        full:`🟠 KIT BERSERKER
-Entrega única (sem recarga)
-Itens (exemplo/Resumo):
-- Machado Netherita encantado
-- Armadura/itens de combate
-- Besta + flechas
-- Tridente`
-      },
-      {
-        id:"kit-sentinela", cat:"Kits", title:"KIT SENTINELA", price: 4.00, duration:"Entrega única", recharge:"—", stock:"∞",
-        img:"assets/kitsentinela.png",
-        short:"Controle à distância + utilidade.",
-        full:`🟩 KIT SENTINELA
-Entrega única (sem recarga)
-Itens (exemplo/Resumo):
-- Arco + espada
-- Armadura
-- Poções e utilidades`
-      },
-      {
-        id:"kit-espectro", cat:"Kits", title:"KIT ESPECTRO", price: 4.00, duration:"Entrega única", recharge:"—", stock:"∞",
-        img:"assets/kitespectro.png",
-        short:"Mobilidade e invisibilidade (kit agressivo).",
-        full:`⚫ KIT ESPECTRO
-Entrega única (sem recarga)
-Itens (exemplo/Resumo):
-- Lâmina/Arco
-- Armadura
-- Poções (agilidade/visão/ocultação)`
-      },
-      {
-        id:"kit-arcano", cat:"Kits", title:"KIT ARCANO", price: 4.00, duration:"Entrega única", recharge:"—", stock:"∞",
-        img:"assets/kitarcano.png",
-        short:"Kit mágico lendário com itens raros.",
-        full:`🟣 KIT ARCANO
-Entrega única (sem recarga)
-Itens (exemplo/Resumo):
-- Lâmina + tridente
-- Itens raros
-- Poções fortes`
-      },
+    <div class="card">
+      <div class="thumb"><img src="assets/blocosclaim.png" alt="Blocos de Claim"></div>
+      <div class="card-body">
+        <div class="badge">🏠 Proteção</div>
+        <h3 class="title">Blocos de Claim</h3>
+        <p class="desc">Proteja sua base com mais blocos de claim.</p>
+        <div class="price">
+          <div class="money">R$ ??</div>
+          <a class="buy" href="https://discord.gg/qsZ65QJc" target="_blank" rel="noreferrer">Comprar</a>
+        </div>
+      </div>
+    </div>
 
-      // EXTRAS (COM IMAGEM)
-      {
-        id:"spawner-2", cat:"Extras", title:"2 SPAWNERS", price: 3.00, duration:"Entrega única", recharge:"—", stock:"∞",
-        img:"assets/spawners.png",
-        short:"Recebe 2 spawners aleatórios na sua conta.",
-        full:"Ao comprar este produto você irá receber 2 spawners aleatórios na sua conta."
-      },
-      {
-        id:"claim-500", cat:"Extras", title:"500 BLOCOS DE CLAIM", price: 2.00, duration:"Entrega única", recharge:"—", stock:"∞",
-        img:"assets/blocosclaim.png",
-        short:"Ganha 500 blocos de claim.",
-        full:"Ao comprar esse produto você ganhará 500 blocos de claim."
-      },
-      {
-        id:"unban", cat:"Extras", title:"UNBAN", price: 10.00, duration:"Entrega única", recharge:"—", stock:"∞",
-        img:"assets/unban.png",
-        short:"Desbanimento do servidor.",
-        full:"Ao comprar você será desbanido do nosso servidor. (Compre apenas se você estiver banido)"
-      },
-    ];
+    <div class="card">
+      <div class="thumb"><img src="assets/unban.png" alt="Unban"></div>
+      <div class="card-body">
+        <div class="badge">⚠️ Serviço</div>
+        <h3 class="title">Unban</h3>
+        <p class="desc">Pedido de unban (depende de análise da staff).</p>
+        <div class="price">
+          <div class="money">R$ ??</div>
+          <a class="buy" href="https://discord.gg/qsZ65QJc" target="_blank" rel="noreferrer">Comprar</a>
+        </div>
+      </div>
+    </div>
+  </div>
 
-    // ===== UI =====
-    const grid = document.getElementById("grid");
-    const modal = document.getElementById("modal");
-    const toast = document.getElementById("toast");
+  <div class="note">
+    Quer que eu coloque <b>Pix / QR Code / botão “Copiar chave Pix”</b> aqui também? Eu coloco em 2 linhas e pronto.
+  </div>
+</section>
 
-    const fAll = document.getElementById("fAll");
-    const fVip = document.getElementById("fVip");
-    const fKits = document.getElementById("fKits");
-    const fExtras = document.getElementById("fExtras");
+<div class="footer">© Flux MC — Loja — GitHub Pages</div>
 
-    const mTitle = document.getElementById("mTitle");
-    const mCat = document.getElementById("mCat");
-    const mFull = document.getElementById("mFull");
-    const mPrice = document.getElementById("mPrice");
-    const mDuration = document.getElementById("mDuration");
-    const mRecharge = document.getElementById("mRecharge");
-    const mStock = document.getElementById("mStock");
-
-    const pixKeyEl = document.getElementById("pixKey");
-    const nickEl = document.getElementById("nick");
-    const obsEl = document.getElementById("obs");
-
-    pixKeyEl.textContent = PIX_KEY;
-
-    let currentFilter = "ALL";
-    let currentProduct = null;
-
-    function money(v){ return v.toLocaleString("pt-BR", { style:"currency", currency:"BRL" }); }
-
-    function showToast(msg){
-      toast.textContent = msg;
-      toast.style.display = "block";
-      clearTimeout(window.__t);
-      window.__t = setTimeout(()=> toast.style.display="none", 1600);
-    }
-
-    async function copyText(text){
-      try{ await navigator.clipboard.writeText(text); showToast("Copiado!"); }
-      catch(e){
-        const ta = document.createElement("textarea");
-        ta.value = text; document.body.appendChild(ta);
-        ta.select(); document.execCommand("copy");
-        ta.remove(); showToast("Copiado!");
-      }
-    }
-
-    function setActive(btn){
-      [fAll,fVip,fKits,fExtras].forEach(x=>x.classList.remove("active"));
-      btn.classList.add("active");
-    }
-
-    function render(){
-      const q = (document.getElementById("search").value || "").trim().toLowerCase();
-      grid.innerHTML = "";
-
-      const list = products.filter(p=>{
-        const matchQ = !q || (p.title + " " + p.short + " " + p.cat).toLowerCase().includes(q);
-        const matchF =
-          currentFilter==="ALL" ? true :
-          currentFilter==="VIP" ? p.cat==="VIP" :
-          currentFilter==="Kits" ? p.cat==="Kits" :
-          currentFilter==="Extras" ? p.cat==="Extras" : true;
-        return matchQ && matchF;
-      });
-
-      if(list.length===0){
-        const empty = document.createElement("div");
-        empty.className = "card";
-        empty.style.gridColumn = "span 12";
-        empty.innerHTML = `
-          <div class="content">
-            <h2 class="title">Nada encontrado</h2>
-            <p class="mini">Tenta pesquisar: VIP, Mestre, Spawner, Kit, Unban, Claim…</p>
-          </div>
-        `;
-        grid.appendChild(empty);
-        return;
-      }
-
-      list.forEach(p=>{
-        const el = document.createElement("div");
-        el.className = "card";
-
-        const thumb = p.img
-          ? `<div class="thumb">
-               <img src="${p.img}" alt="${p.title}" onerror="this.style.display='none'">
-               <div class="tag">${p.cat}</div>
-             </div>`
-          : `<div class="thumb"><div class="tag">${p.cat}</div></div>`;
-
-        el.innerHTML = `
-          ${thumb}
-          <div class="content">
-            <h2 class="title">${p.title}</h2>
-            <p class="mini">${p.short}</p>
-
-            <div class="meta">
-              <span class="badge">${p.duration}</span>
-              <span class="badge">${p.recharge && p.recharge!=="—" ? ("Recarga: " + p.recharge) : "Sem recarga"}</span>
-            </div>
-
-            <div class="meta">
-              <div>
-                <div class="price">${money(p.price)}</div>
-                <div class="mini" style="margin-top:2px;color:rgba(255,255,255,.55)">Pix • sem taxa</div>
-              </div>
-              <span class="badge">Estoque: ${p.stock}</span>
-            </div>
-
-            <div class="btnrow">
-              <button class="btn btn-ghost" data-details="${p.id}">Ver detalhes</button>
-              <button class="btn btn-primary" data-buy="${p.id}">Comprar</button>
-            </div>
-          </div>
-        `;
-        grid.appendChild(el);
-      });
-
-      grid.querySelectorAll("[data-details]").forEach(b=>{
-        b.addEventListener("click", ()=> openProduct(b.getAttribute("data-details")));
-      });
-      grid.querySelectorAll("[data-buy]").forEach(b=>{
-        b.addEventListener("click", ()=> openProduct(b.getAttribute("data-buy")));
-      });
-    }
-
-    function openProduct(id){
-      const p = products.find(x=>x.id===id);
-      if(!p) return;
-      currentProduct = p;
-
-      mTitle.textContent = p.title;
-      mCat.textContent = p.cat;
-      mPrice.textContent = money(p.price);
-      mDuration.textContent = p.duration || "—";
-      mRecharge.textContent = p.recharge || "—";
-      mStock.textContent = p.stock || "∞";
-      mFull.innerHTML = (p.full || p.short || "").replace(/\n/g, "<br>");
-
-      modal.classList.add("open");
-      nickEl.focus();
-    }
-
-    function closeModal(){ modal.classList.remove("open"); }
-
-    function buildOrderText(){
-      const nick = (nickEl.value || "").trim();
-      const obs = (obsEl.value || "").trim();
-
-      const lines = [];
-      lines.push("🛒 *PEDIDO — FLUX MC*");
-      lines.push(`• Produto: ${currentProduct?.title || "-"}`);
-      lines.push(`• Valor: ${currentProduct ? money(currentProduct.price) : "-"}`);
-      lines.push(`• Nick: ${nick || "(não informado)"}`);
-      if(obs) lines.push(`• Obs: ${obs}`);
-      lines.push("");
-      lines.push("✅ Pagamento via PIX");
-      lines.push(`• Chave Pix: ${PIX_KEY}`);
-      lines.push("");
-      lines.push("📎 Vou enviar o comprovante aqui.");
-      return lines.join("\n");
-    }
-
-    function buyWhats(){
-      if(!currentProduct) return;
-      const nick = (nickEl.value || "").trim();
-      if(!nick){
-        showToast("Coloca seu nick primeiro.");
-        nickEl.focus();
-        return;
-      }
-      const msg = buildOrderText();
-      const url = `https://wa.me/${WHATSAPP_NUMBER.replace(/[^0-9]/g,"")}?text=${encodeURIComponent(msg)}`;
-      window.open(url, "_blank", "noopener,noreferrer");
-    }
-
-    fAll.addEventListener("click", ()=>{ currentFilter="ALL"; setActive(fAll); render(); });
-    fVip.addEventListener("click", ()=>{ currentFilter="VIP"; setActive(fVip); render(); });
-    fKits.addEventListener("click", ()=>{ currentFilter="Kits"; setActive(fKits); render(); });
-    fExtras.addEventListener("click", ()=>{ currentFilter="Extras"; setActive(fExtras); render(); });
-
-    document.getElementById("close").addEventListener("click", closeModal);
-    modal.addEventListener("click", (e)=>{ if(e.target===modal) closeModal(); });
-    document.addEventListener("keydown", (e)=>{ if(e.key==="Escape") closeModal(); });
-
-    document.getElementById("copyPix").addEventListener("click", ()=> copyText(PIX_KEY));
-    document.getElementById("buyWhats").addEventListener("click", buyWhats);
-
-    document.getElementById("btnPix").addEventListener("click", ()=> copyText(PIX_KEY));
-    document.getElementById("btnHow").addEventListener("click", ()=>{ showToast("1) Escolhe  2) Nick  3) Paga no Pix  4) Envia comprovante ✅"); });
-
-    document.getElementById("search").addEventListener("input", render);
-    render();
-  </script>
+</div>
 </body>
 </html>
