@@ -7,177 +7,346 @@
 
 <style>
 :root{
---bg:#0b0712;
---text:#f2eaff;
---muted:#b7a6d6;
---purple:#8b5cf6;
---pink:#ec4899;
---line:rgba(255,255,255,.08);
---radius:18px;
---shadow:0 20px 60px rgba(0,0,0,.45);
+  --bg:#0b0712;
+  --card:#120a22;
+  --text:#f2eaff;
+  --muted:#b7a6d6;
+  --purple:#8b5cf6;
+  --pink:#ec4899;
+  --line:rgba(255,255,255,.10);
+  --shadow:0 18px 60px rgba(0,0,0,.45);
+  --radius:18px;
+  --max:1200px;
 }
 
 *{box-sizing:border-box}
+html{scroll-behavior:smooth}
 body{
-margin:0;
-font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-background:
-radial-gradient(900px 500px at 20% 10%,rgba(139,92,246,.28),transparent 65%),
-radial-gradient(700px 450px at 80% 20%,rgba(236,72,153,.20),transparent 60%),
-var(--bg);
-color:var(--text);
+  margin:0;
+  font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+  background:
+    radial-gradient(900px 500px at 20% 10%,rgba(139,92,246,.28),transparent 65%),
+    radial-gradient(700px 450px at 80% 20%,rgba(236,72,153,.20),transparent 60%),
+    radial-gradient(900px 600px at 50% 100%,rgba(139,92,246,.18),transparent 70%),
+    var(--bg);
+  color:var(--text);
+  min-height:100vh;
 }
 
-.wrap{max-width:1300px;margin:auto;padding:30px 20px;}
+.wrap{max-width:var(--max);margin:0 auto;padding:28px 16px 56px;}
 
 .top{
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:15px 20px;
-border-radius:20px;
-background:rgba(18,10,34,.6);
-border:1px solid var(--line);
-backdrop-filter:blur(10px);
-margin-bottom:30px;
+  display:flex;gap:12px;align-items:center;justify-content:space-between;
+  padding:14px;
+  border:1px solid var(--line);
+  background:rgba(18,10,34,.55);
+  backdrop-filter:blur(10px);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  position:sticky;top:12px;z-index:10;
 }
-
+.brand{display:flex;gap:12px;align-items:center;font-weight:900;letter-spacing:.4px;}
 .logo{
-display:flex;
-align-items:center;
-gap:12px;
-font-weight:900;
+  width:48px;height:48px;border-radius:16px;overflow:hidden;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 10px 30px rgba(139,92,246,.35);
 }
-
-.logo img{
-width:45px;
-height:45px;
-border-radius:12px;
+.logo img{width:100%;height:100%;object-fit:cover;display:block;}
+.nav{display:flex;gap:10px;flex-wrap:wrap;align-items:center;}
+.chip{
+  padding:10px 12px;border-radius:999px;
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.04);
+  text-decoration:none;font-weight:800;color:var(--muted);
 }
-
-.nav a{
-color:var(--muted);
-text-decoration:none;
-margin-left:15px;
-font-weight:700;
-}
+.chip:hover{border-color:rgba(139,92,246,.55);color:var(--text)}
 
 .hero{
-background:linear-gradient(145deg,rgba(139,92,246,.15),rgba(236,72,153,.08));
-border:1px solid var(--line);
-padding:25px;
-border-radius:20px;
-margin-bottom:30px;
+  margin-top:16px;
+  padding:18px;
+  border-radius:var(--radius);
+  border:1px solid var(--line);
+  background:linear-gradient(135deg,rgba(139,92,246,.15),rgba(236,72,153,.10));
+  box-shadow:var(--shadow);
+  display:grid;
+  gap:10px;
 }
+.hero h1{margin:0;font-size:34px}
+.hero p{margin:0;color:var(--muted);line-height:1.35}
 
-.hero h1{margin:0 0 8px 0;font-size:30px}
-.hero p{margin:0 0 15px 0;color:var(--muted)}
-
+.searchbar{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  align-items:center;
+  margin-top:4px;
+}
 .search{
-display:flex;
-gap:10px;
-flex-wrap:wrap;
+  flex:1;
+  min-width:220px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:12px 14px;
+  border-radius:999px;
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.04);
 }
-
+.search span{opacity:.8}
 .search input{
-flex:1;
-padding:12px 16px;
-border-radius:30px;
-border:1px solid var(--line);
-background:rgba(255,255,255,.05);
-color:white;
-outline:none;
+  border:0;outline:0;background:transparent;color:var(--text);
+  width:100%;
+  font-weight:700;
 }
-
+.nick{
+  min-width:220px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:12px 14px;
+  border-radius:999px;
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.04);
+}
+.nick input{
+  border:0;outline:0;background:transparent;color:var(--text);
+  width:100%;
+  font-weight:800;
+}
 .btn{
-padding:10px 18px;
-border-radius:25px;
-border:1px solid var(--line);
-background:linear-gradient(135deg,var(--purple),var(--pink));
-color:#140a22;
-font-weight:900;
-cursor:pointer;
-text-decoration:none;
+  border:0;cursor:pointer;text-decoration:none;
+  padding:12px 14px;border-radius:999px;
+  font-weight:1000;display:inline-flex;gap:10px;align-items:center;
 }
+.btn-primary{
+  background:linear-gradient(135deg,var(--purple),var(--pink));
+  color:#140a22;
+}
+.btn-ghost{
+  background:rgba(255,255,255,.06);
+  border:1px solid var(--line);
+  color:var(--text);
+}
+.btn-ghost:hover{border-color:rgba(139,92,246,.55)}
+.note{color:rgba(255,255,255,.65);font-size:12px;line-height:1.4}
+
+.sectionTitle{
+  margin-top:18px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+}
+.sectionTitle h2{margin:0;font-size:18px}
+.sectionTitle .mini{color:var(--muted);font-size:12px}
 
 .grid{
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:20px;
-margin-bottom:30px;
+  margin-top:14px;
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:14px;
 }
-
-@media(max-width:1000px){.grid{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:650px){.grid{grid-template-columns:1fr}}
+@media(max-width:980px){ .grid{grid-template-columns:repeat(2,minmax(0,1fr));}}
+@media(max-width:640px){
+  .grid{grid-template-columns:1fr;}
+  .top{position:static}
+}
 
 .card{
-background:rgba(18,10,34,.8);
-border-radius:20px;
-overflow:hidden;
-border:1px solid var(--line);
-box-shadow:var(--shadow);
-display:flex;
-flex-direction:column;
+  border-radius:18px;
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.03);
+  overflow:hidden;
+  box-shadow:0 10px 40px rgba(0,0,0,.35);
+  display:flex;
+  flex-direction:column;
+  min-height:320px;
 }
-
-.card img{
-width:100%;
-height:190px;
-object-fit:cover;
+.thumb{
+  height:150px;
+  background:linear-gradient(135deg,rgba(139,92,246,.18),rgba(236,72,153,.12));
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:center;
 }
-
+.thumb img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+.pill{
+  position:absolute;
+  top:10px;
+  left:10px;
+  padding:6px 10px;
+  border-radius:999px;
+  border:1px solid var(--line);
+  background:rgba(0,0,0,.25);
+  font-weight:900;
+  font-size:12px;
+  color:var(--text);
+}
 .card-body{
-padding:18px;
-display:flex;
-flex-direction:column;
-gap:10px;
-flex:1;
+  padding:14px;
+  display:grid;
+  gap:8px;
+  flex:1;
 }
+.title{margin:0;font-size:18px;letter-spacing:.2px}
+.desc{margin:0;color:var(--muted);font-size:13px;line-height:1.35}
 
-.tags{
-display:flex;
-gap:8px;
-flex-wrap:wrap;
-font-size:12px;
-color:var(--muted);
+.metaRow{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  margin-top:2px;
 }
-
-.price{
-font-size:20px;
-font-weight:900;
-margin-top:auto;
+.badges{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
 }
+.badge{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:6px 10px;
+  border-radius:999px;
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.04);
+  color:var(--muted);
+  font-weight:900;
+  font-size:12px;
+}
+.priceBox{
+  margin-top:6px;
+  display:grid;
+  gap:4px;
+}
+.money{font-weight:1000;font-size:20px}
+.subline{color:rgba(255,255,255,.55);font-size:12px}
 
 .actions{
-display:flex;
-gap:10px;
-margin-top:10px;
+  margin-top:auto;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
 }
-
-.buy, .details{
-flex:1;
-padding:10px;
-border-radius:12px;
-text-align:center;
-font-weight:900;
-text-decoration:none;
+.actionBtn{
+  padding:11px 12px;
+  border-radius:14px;
+  font-weight:1000;
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.05);
+  color:var(--text);
+  cursor:pointer;
 }
-
-.buy{
-background:linear-gradient(135deg,var(--purple),var(--pink));
-color:#140a22;
+.actionBtn.buy{
+  background:linear-gradient(135deg,var(--purple),var(--pink));
+  color:#140a22;
+  border:0;
 }
+.actionBtn:hover{filter:brightness(1.05)}
 
-.details{
-border:1px solid var(--line);
-color:var(--text);
+.footer{margin-top:30px;text-align:center;color:rgba(255,255,255,.45);font-size:12px}
+
+/* MODAL */
+.modalBackdrop{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.65);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:9999;
+  padding:18px;
 }
-
-.footer{
-text-align:center;
-color:rgba(255,255,255,.5);
-font-size:13px;
-margin-top:40px;
+.modal{
+  width:min(920px, 100%);
+  border-radius:20px;
+  border:1px solid var(--line);
+  background:rgba(12,7,20,.92);
+  backdrop-filter:blur(12px);
+  box-shadow:0 30px 100px rgba(0,0,0,.6);
+  overflow:hidden;
+}
+.modalTop{
+  padding:14px 16px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  border-bottom:1px solid var(--line);
+}
+.modalTop .left{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  font-weight:1000;
+}
+.modalTop .left img{
+  width:38px;height:38px;border-radius:12px;object-fit:cover;
+}
+.modalTop button{
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.06);
+  color:var(--text);
+  border-radius:12px;
+  padding:10px 12px;
+  font-weight:1000;
+  cursor:pointer;
+}
+.modalBody{
+  display:grid;
+  grid-template-columns: 1.2fr .8fr;
+  gap:0;
+}
+@media(max-width:840px){ .modalBody{grid-template-columns:1fr;} }
+.modalText{
+  padding:16px;
+  border-right:1px solid var(--line);
+}
+@media(max-width:840px){ .modalText{border-right:0;border-bottom:1px solid var(--line);} }
+.modalText pre{
+  margin:0;
+  white-space:pre-wrap;
+  font-family:inherit;
+  color:rgba(255,255,255,.88);
+  line-height:1.35;
+}
+.modalSide{
+  padding:16px;
+  display:grid;
+  gap:10px;
+}
+.modalSide .box{
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.04);
+  border-radius:16px;
+  padding:12px;
+}
+.modalSide .box b{display:block;margin-bottom:6px}
+.modalSide .row{
+  display:flex;
+  gap:10px;
+}
+.modalSide .row button{flex:1}
+.toast{
+  position:fixed;
+  bottom:18px;
+  left:50%;
+  transform:translateX(-50%);
+  background:rgba(0,0,0,.75);
+  border:1px solid rgba(255,255,255,.12);
+  color:#fff;
+  padding:10px 12px;
+  border-radius:999px;
+  font-weight:900;
+  display:none;
+  z-index:10000;
 }
 </style>
 </head>
@@ -186,143 +355,587 @@ margin-top:40px;
 <div class="wrap">
 
 <header class="top">
-<div class="logo">
-<img src="assets/logo.png">
-<div>Flux MC — Loja Oficial</div>
-</div>
-<div class="nav">
-<a href="index.html">Início</a>
-</div>
+  <div class="brand">
+    <div class="logo"><img src="assets/logo.png?v=3" alt="Flux MC"></div>
+    <div>Flux MC — Loja</div>
+  </div>
+
+  <nav class="nav">
+    <a class="chip" href="index.html">⬅️ Voltar</a>
+    <a class="chip" href="#vips">VIPs</a>
+    <a class="chip" href="#kits">Kits</a>
+    <a class="chip" href="#extras">Extras</a>
+  </nav>
 </header>
 
 <section class="hero">
-<h1>Compre por PIX (rápido)</h1>
-<p>Escolha o produto, coloque seu nick e clique em comprar. Envie o comprovante para confirmar.</p>
-<div class="search">
-<input placeholder="Pesquisar: mestre, vip, spawner, kit, unban, claim...">
-<a class="btn">PIX (copiar chave)</a>
-<a class="btn">Como comprar</a>
-</div>
+  <h1>Compre por PIX (rápido)</h1>
+  <p>
+    Escolha o produto, coloque seu nick e clique em comprar.
+    O site abre o WhatsApp com a mensagem pronta + sua chave Pix pra você pagar e mandar o comprovante.
+  </p>
+
+  <div class="searchbar">
+    <div class="search">
+      <span>🔎</span>
+      <input id="search" type="text" placeholder="Pesquisar: mestre, vip, spawner, kit, unban, claim...">
+    </div>
+
+    <div class="nick">
+      <span>👤</span>
+      <input id="nick" type="text" placeholder="Seu nick (obrigatório)">
+    </div>
+
+    <button class="btn btn-primary" id="btnPix">PIX (copiar chave)</button>
+    <button class="btn btn-ghost" id="btnComo">Como comprar</button>
+  </div>
+
+  <div class="note">
+    Dica: se não abrir o WhatsApp, copia a mensagem e manda manualmente.
+  </div>
 </section>
 
-<!-- VIPS -->
-<div class="grid">
+<div class="sectionTitle" id="vips">
+  <h2>💎 VIPs</h2>
+  <div class="mini">30 dias • sem recarga • estoque ∞</div>
+</div>
+<div class="grid" id="gridVips"></div>
 
-<!-- VIP -->
-<div class="card">
-<img src="assets/vip.png">
-<div class="card-body">
-<h3>VIP | 1 MÊS</h3>
-<p>VIP baratinho pra começar: cores, enderchest, homes e bônus.</p>
-<div class="tags"><span>30 dias</span><span>Sem recarga</span><span>Estoque: ∞</span></div>
-<div class="price">R$ 4,00</div>
-<div class="actions">
-<a class="details">Ver detalhes</a>
-<a class="buy">Comprar</a>
+<div class="sectionTitle" id="kits">
+  <h2>⚔️ Kits</h2>
+  <div class="mini">entrega única • sem recarga • estoque ∞</div>
 </div>
-</div>
-</div>
+<div class="grid" id="gridKits"></div>
 
-<!-- ULTRA -->
-<div class="card">
-<img src="assets/ultra.png">
-<div class="card-body">
-<h3>ULTRA | 1 MÊS</h3>
-<p>Mais forte que VIP: /back, mais homes, mais claim e bônus.</p>
-<div class="tags"><span>30 dias</span><span>Sem recarga</span><span>Estoque: ∞</span></div>
-<div class="price">R$ 6,00</div>
-<div class="actions">
-<a class="details">Ver detalhes</a>
-<a class="buy">Comprar</a>
+<div class="sectionTitle" id="extras">
+  <h2>🧰 Extras</h2>
+  <div class="mini">entrega única • sem recarga • estoque ∞</div>
 </div>
-</div>
-</div>
+<div class="grid" id="gridExtras"></div>
 
-<!-- MESTRE -->
-<div class="card">
-<img src="assets/mestre.png">
-<div class="card-body">
-<h3>MESTRE | 1 MÊS</h3>
-<p>Topo do servidor: kit bruto e bônus máximos.</p>
-<div class="tags"><span>30 dias</span><span>Sem recarga</span><span>Estoque: ∞</span></div>
-<div class="price">R$ 8,00</div>
-<div class="actions">
-<a class="details">Ver detalhes</a>
-<a class="buy">Comprar</a>
-</div>
-</div>
-</div>
+<div class="footer">© Flux MC — Loja Oficial</div>
 
 </div>
 
-<!-- KITS -->
-<div class="grid">
+<!-- MODAL DETALHES -->
+<div class="modalBackdrop" id="backdrop">
+  <div class="modal" role="dialog" aria-modal="true">
+    <div class="modalTop">
+      <div class="left">
+        <img id="mImg" src="assets/logo.png" alt="">
+        <div id="mTitle">Detalhes</div>
+      </div>
+      <button id="mClose">Fechar</button>
+    </div>
 
-<div class="card">
-<img src="assets/kitarcano.png">
-<div class="card-body">
-<h3>Kit Arcano</h3>
-<div class="price">R$ 5,00</div>
-<div class="actions"><a class="details">Ver detalhes</a><a class="buy">Comprar</a></div>
-</div>
-</div>
+    <div class="modalBody">
+      <div class="modalText">
+        <pre id="mText"></pre>
+      </div>
 
-<div class="card">
-<img src="assets/kitberserker.png">
-<div class="card-body">
-<h3>Kit Berserker</h3>
-<div class="price">R$ 5,00</div>
-<div class="actions"><a class="details">Ver detalhes</a><a class="buy">Comprar</a></div>
-</div>
-</div>
+      <div class="modalSide">
+        <div class="box">
+          <b>Resumo</b>
+          <div id="mPrice" style="font-weight:1000;font-size:18px;"></div>
+          <div style="color:rgba(255,255,255,.6);font-size:12px;margin-top:4px;">Pix • sem taxa</div>
+          <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;">
+            <span class="badge">Entrega única</span>
+            <span class="badge">Sem recarga</span>
+            <span class="badge">Estoque: ∞</span>
+          </div>
+        </div>
 
-<div class="card">
-<img src="assets/kitespectro.png">
-<div class="card-body">
-<h3>Kit Espectro</h3>
-<div class="price">R$ 5,00</div>
-<div class="actions"><a class="details">Ver detalhes</a><a class="buy">Comprar</a></div>
-</div>
-</div>
+        <div class="box">
+          <b>Ações</b>
+          <div class="row">
+            <button class="actionBtn" id="mCopyMsg">Copiar mensagem</button>
+            <button class="actionBtn buy" id="mBuy">Comprar</button>
+          </div>
+          <div class="note" style="margin-top:10px;">
+            Comprar abre WhatsApp com mensagem pronta.
+          </div>
+        </div>
 
-</div>
-
-<!-- EXTRAS -->
-<div class="grid">
-
-<div class="card">
-<img src="assets/spawners.png">
-<div class="card-body">
-<h3>Spawners</h3>
-<div class="price">R$ 10,00</div>
-<div class="actions"><a class="details">Ver detalhes</a><a class="buy">Comprar</a></div>
-</div>
-</div>
-
-<div class="card">
-<img src="assets/blocosclaim.png">
-<div class="card-body">
-<h3>Blocos de Claim</h3>
-<div class="price">R$ 3,00</div>
-<div class="actions"><a class="details">Ver detalhes</a><a class="buy">Comprar</a></div>
-</div>
+        <div class="box">
+          <b>Pix</b>
+          <button class="actionBtn" id="mCopyPix">Copiar chave Pix</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
-<div class="card">
-<img src="assets/unban.png">
-<div class="card-body">
-<h3>Unban</h3>
-<div class="price">R$ 15,00</div>
-<div class="actions"><a class="details">Ver detalhes</a><a class="buy">Comprar</a></div>
-</div>
-</div>
+<div class="toast" id="toast"></div>
 
-</div>
+<script>
+/*** CONFIG (já com seus dados) ***/
+const PIX_KEY = "098.636.509-27";
+const WHATS_NUMBER = "5542999095985";
 
-<div class="footer">
-© Flux MC — Loja Oficial
-</div>
+/*** PRODUTOS (preços do seu print) ***/
+const PRODUCTS = [
+  // VIPs
+  {
+    id:"vip1m", cat:"vips", tag:"VIP",
+    title:"VIP | 1 MÊS", price:"R$ 4,00",
+    img:"assets/vip.png",
+    desc:"VIP baratinho pra começar: cores, enderchest, homes e bônus.",
+    details:
+`🔒 VIP | 1 MÊS
 
-</div>
+🔓 Vantagens do VIP
+✓ Até 8 homes disponíveis
+✓ Permissão para usar cores no chat
+✓ Acesso ao /enderchest
+✓ +80 blocos de claim extras para proteger sua base
+✓ Chance aumentada de drops especiais ao minerar
+✓ Acesso a cosméticos exclusivos e comandos especiais
+
+🎁 Kit VIP (/kit vip)
+📅 Recarga: a cada 7 dias
+
+Um kit equilibrado, ideal para ajudar no progresso sem perder a essência do survival.
+
+Conteúdo do kit:
+🛡️ Armadura de Diamante encantada
+⚔️ Espada encantada para combate
+🏹 Arco encantado para PvP e mobs
+🍎 Maçãs douradas
+🔵 Pérolas do End
+
+ℹ️ Informações importantes
+• O VIP é válido por 30 dias
+• Os benefícios são ativados automaticamente no servidor
+• Não é permitido transferir o VIP para outro jogador`
+  },
+  {
+    id:"ultra1m", cat:"vips", tag:"VIP",
+    title:"ULTRA | 1 MÊS", price:"R$ 6,00",
+    img:"assets/ultra.png",
+    desc:"Mais forte que VIP: /back, mais homes, mais claim e bônus.",
+    details:
+`⚡ ULTRA | 1 MÊS
+
+⭐ Vantagens do ULTRA
+✓ Comando /back para retornar ao local da morte quando quiser
+✓ Fale no chat usando cores personalizadas
+✓ Até 30 homes disponíveis
+✓ Acesso ao /enderchest para armazenar itens com segurança
+✓ +200 blocos de claim para expandir sua área
+✓ 50% de chance de obter spawners ao quebrar com Silk Touch
+
+🎁 Kit ULTRA disponível em /kit ultra
+📅 Recarga: a cada 7 dias
+
+O Kit ULTRA entrega um conjunto completo de Netherita encantada, focado em resistência extrema, dano elevado e suporte total em combate.
+
+🎁 Itens do Kit ULTRA
+• Elmo ULTRA — Netherita (Proteção IV • Inquebrável III • Remendo I)
+• Peitoral ULTRA — Netherita (Proteção IV • Espinhos II • Inquebrável III • Remendo I)
+• Calças ULTRA — Netherita (Proteção IV • Inquebrável III • Remendo I)
+• Botas ULTRA — Netherita (Proteção IV • Queda Suave IV • Inquebrável III • Remendo I)
+• Espada ULTRA — Netherita (Afiação V • Inquebrável III • Remendo I)
+• Arco ULTRA (Força V • Infinidade I • Inquebrável III)
+• Maçãs Douradas x16
+• Pérolas do Fim x12
+
+🧪 Poções inclusas:
+- Velocidade (x3) — +20% por 3 minutos
+- Força (x2) — +130% de dano por 1m30
+- Cura Instantânea (x2)`
+  },
+  {
+    id:"mestre1m", cat:"vips", tag:"VIP",
+    title:"MESTRE | 1 MÊS", price:"R$ 8,00",
+    img:"assets/mestre.png",
+    desc:"Topo do servidor: kit bruto e bônus máximos.",
+    details:
+`👑 MESTRE | 1 MÊS
+
+✅ Vantagens do MESTRE
+✓ Comando /back liberado, volte ao local da morte sempre que precisar
+✓ Use cores no chat para se destacar
+✓ Até 50 homes disponíveis
+✓ Acesso ao /enderchest para armazenar itens com segurança
+✓ Receba 300 blocos de claim ao adquirir o MESTRE
+✓ 100% de chance de drop de spawners ao minerar com Silk Touch
+
+🎁 Kit MESTRE — use /kit mestre
+📅 Recarga: 7 dias
+
+O Kit MESTRE é o nível máximo de poder do servidor. Equipamentos lendários em netherita, armas encantadas e itens especiais garantem domínio absoluto em PvP e PvE.
+
+📦 Itens do Kit:
+• Elmo Mestre — Netherita (Proteção IV • Respiração III • Inquebrável III • Remendo I)
+• Peitoral Mestre — Netherita (Proteção IV • Espinhos III • Inquebrável III • Remendo I)
+• Calças Mestre — Netherita (Proteção IV • Inquebrável III • Remendo I)
+• Botas Mestre — Netherita (Proteção IV • Queda Suave IV • Passos Profundos III • Velocidade das Almas III • Inquebrável III • Remendo I)
+
+⚔️ Espada Mestre — Netherita (Afiação V • Aspecto Flamejante II • Saque III • Inquebrável III • Remendo I)
+🏹 Arco Mestre (Força V • Chama I • Infinidade I • Inquebrável III)
+🔱 Tridente Mestre (Empalamento V • Lealdade III • Canalização I • Inquebrável III • Remendo I)
+⛏️ Picareta Mestre — Netherita (Eficiência V • Fortuna III • Inquebrável III • Remendo I)
+🪓 Machado Mestre — Netherita (Eficiência V • Afiação I)
+
+🍎 Maçãs Douradas x32
+💠 Pérolas Místicas x16
+
+🧪 Poções incluídas:
+- Velocidade II (x3) — +40% por 1m30
+- Força II (x3) — +260% por 1m30
+- Cura Instantânea II (x2)
+- Invisibilidade (x3) — 3 minutos`
+  },
+
+  // Kits
+  {
+    id:"kit_arcano", cat:"kits", tag:"Kits",
+    title:"KIT ARCANO", price:"R$ 4,00",
+    img:"assets/kitarcano.png",
+    desc:"Kit mágico lendário com itens raros.",
+    details:
+`🟣 KIT ARCANO (15 dias de acesso)
+🕒 Recarga: 7 dias
+
+Um conjunto lendário voltado aos mestres das artes ocultas. Equipamentos poderosos, armas encantadas e itens raros para quem domina o caos, o submundo e a magia ancestral.
+
+📦 Itens inclusos:
+⚔️ Lâmina Arcana — Netherita (Afiação V • Aspecto Flamejante II • Saque III • Inquebrável III • Remendo I)
+🔱 Tridente dos Elementos (Empalamento V • Lealdade III • Canalização I • Inquebrável III • Remendo I)
+🪓 Machado do Abismo — Netherita (Eficiência V • Afiação V • Inquebrável III • Remendo I)
+🪄 Foco Arcano — Vara de Blaze (item decorativo)
+👁️ Olhos Profanos x16
+🧿 Totens Ancestrais x5
+📘 Livros de Restauração x3
+
+🛡️ Armadura Arcana — Netherita
+• Elmo Arcano (Proteção IV • Respiração III • Inquebrável III • Remendo I)
+• Peitoral Arcano (Proteção IV • Espinhos III • Inquebrável III • Remendo I)
+• Calças Arcanas (Proteção IV • Inquebrável III • Remendo I)
+• Botas Arcanas (Proteção IV • Queda Suave IV • Velocidade das Almas III • Inquebrável III • Remendo I)
+
+🧪 Poções inclusas:
+- Força II (x3) — aumento massivo de dano por 1m30
+- Invisibilidade (x3) — invisível por 3 minutos
+
+🍎 Maçãs Douradas x16
+🍏 Maçãs Douradas Encantadas x4
+💠 Pérolas Obscuras x16
+🧪 Pó Ígneo x16
+👻 Lágrimas do Ghast x8
+🧵 Membranas Fantasma x8
+💎 Lápis-Lazúli x64`
+  },
+  {
+    id:"kit_berserker", cat:"kits", tag:"Kits",
+    title:"KIT BERSERKER", price:"R$ 4,00",
+    img:"assets/kitberserker.png",
+    desc:"Combate direto: kit focado em dano e resistência.",
+    details:
+`🟠 KIT BERSERKER (15 dias de acesso)
+🕒 Recarga: 7 dias
+Criado para combatentes que avançam sem medo.
+O Kit Berserker entrega resistência máxima e dano esmagador, ideal para confrontos diretos, invasões e batalhas intensas corpo a corpo.
+
+📦 Itens inclusos:
+🪓 Machado da Fúria — Netherita (Eficiência V • Fortuna III • Afiação V • Inquebrável III • Remendo I)
+🛡️ Escudo de Guerra
+
+🛡️ Armadura do Berserker — Netherita
+• Capacete do Berserker (Proteção IV • Respiração III • Inquebrável III • Remendo I)
+• Peitoral do Berserker (Proteção IV • Espinhos III • Inquebrável III • Remendo I)
+• Perneiras do Berserker (Proteção IV • Inquebrável III • Remendo I)
+• Botas do Berserker (Proteção IV • Queda Suave IV • Passos Profundos III • Inquebrável III • Remendo I)
+
+🏹 Besta de Batalha (Tiro Triplo I • Carregamento Rápido III • Inquebrável III • Remendo I)
+🔱 Tridente do Abismo (Lealdade III)
+🏹 Flechas de Combate x64`
+  },
+  {
+    id:"kit_sentinela", cat:"kits", tag:"Kits",
+    title:"KIT SENTINELA", price:"R$ 4,00",
+    img:"assets/kitsentinela.png",
+    desc:"Controle à distância + utilidade.",
+    details:
+`🟢 KIT SENTINELA (15 dias de acesso)
+🕒 Recarga: 7 dias
+Desenvolvido para combatentes que controlam o campo de batalha à distância. O Kit Sentinela une precisão extrema, movimentação fluida e resistência equilibrada, ideal para vigiar territórios, eliminar alvos e recuar com segurança.
+
+📦 Itens inclusos:
+🏹 Arco da Sentinela (Força V • Impacto II • Chama I • Infinidade I • Inquebrável III • Remendo I)
+⚔️ Espada Veloz — Netherita (Afiação IV • Inquebrável III • Remendo I)
+
+🛡️ Armadura da Vigília — Netherita
+• Capacete da Vigília (Proteção IV • Respiração III • Inquebrável III • Remendo I)
+• Armadura da Vigília (Proteção IV • Inquebrável III • Remendo I)
+• Perneiras da Vigília (Proteção IV • Inquebrável III • Remendo I)
+• Botas da Vigília (Proteção IV • Queda Suave IV • Passos Profundos III • Inquebrável III • Remendo I)
+
+🧪 Poções:
+- Poções de Deslocamento II (x4) — velocidade por 1 minuto e 30s
+- Poções de Poder (x2) — amplia o dano por 1 minuto e 30s
+- Poções de Olhos Noturnos (x2) — visão no escuro por 3 minutos
+
+🏹 Munição da Sentinela x64
+💠 Pérolas de Retirada x12
+🍎 Maçãs Encantadas x8
+🧿 Totens da Vigília x5`
+  },
+  {
+    id:"kit_espectro", cat:"kits", tag:"Kits",
+    title:"KIT ESPECTRO", price:"R$ 4,00",
+    img:"assets/kitespectro.png",
+    desc:"Mobilidade e invisibilidade (kit agressivo).",
+    details:
+`⚫ KIT ESPECTRO (15 dias de acesso)
+🕒 Recarga: 7 dias
+Criado para quem domina a arte do ataque invisível. O Kit Espectro combina mobilidade extrema, domínio das sombras e dano preciso, ideal para emboscadas, infiltrações e retiradas rápidas sem deixar rastros.
+
+📦 Itens inclusos:
+🛡️ Capacete Espectro — Netherita (Proteção IV • Respiração III • Inquebrável III • Remendo I)
+🛡️ Armadura Peitoral Espectro — Netherita (Proteção IV • Espinhos II • Inquebrável III • Remendo I)
+🛡️ Perneiras Espectro — Netherita (Proteção IV • Inquebrável III • Remendo I)
+🛡️ Botas Espectro — Netherita (Proteção IV • Queda Suave IV • Passos Profundos III • Velocidade das Almas III • Inquebrável III • Remendo I)
+
+⚔️ Lâmina Fantasma — Netherita (Afiação V • Aspecto Flamejante II • Saque III • Inquebrável III • Remendo I)
+🏹 Arco das Trevas (Força V • Chama I • Infinidade I • Inquebrável III)
+🏹 Flecha Especial x1
+
+💠 Pérolas do Vazio x16
+
+🧪 Poções:
+- Agilidade I (x3) — +movimento por 3 minutos
+- Agilidade II (x3) — velocidade intensa por 1m30
+- Fôlego Aquático (x3) — respiração submersa por 3 minutos
+- Visão Sombria (x3) — visão no escuro por 3 minutos
+- Ocultação (x3) — invisível por 3 minutos`
+  },
+
+  // Extras
+  {
+    id:"spawners2", cat:"extras", tag:"Extras",
+    title:"2 SPAWNERS", price:"R$ 3,00",
+    img:"assets/spawners.png",
+    desc:"Recebe 2 spawners aleatórios na sua conta.",
+    details:
+`🧱 2 Spawners
+Ao comprar este produto você irá receber 2 spawners aleatórios na sua conta.`
+  },
+  {
+    id:"claim500", cat:"extras", tag:"Extras",
+    title:"500 BLOCOS DE CLAIM", price:"R$ 2,00",
+    img:"assets/blocosclaim.png",
+    desc:"Ganha 500 blocos de claim.",
+    details:
+`🏠 Blocos de Claim
+Ao comprar esse você ganhará 500 blocos de claim.`
+  },
+  {
+    id:"unban", cat:"extras", tag:"Extras",
+    title:"UNBAN", price:"R$ 10,00",
+    img:"assets/unban.png",
+    desc:"Desbanimento do servidor (somente se você estiver banido).",
+    details:
+`🚫 UNBAN
+Ao comprar você será desbanido do nosso servidor!
+
+(só compre se VOCÊ for banido)`
+  }
+];
+
+function el(tag, attrs={}, children=[]){
+  const n = document.createElement(tag);
+  Object.entries(attrs).forEach(([k,v])=>{
+    if(k==="class") n.className=v;
+    else if(k==="html") n.innerHTML=v;
+    else n.setAttribute(k,v);
+  });
+  (Array.isArray(children)?children:[children]).forEach(c=>{
+    if(c===null || c===undefined) return;
+    if(typeof c==="string") n.appendChild(document.createTextNode(c));
+    else n.appendChild(c);
+  });
+  return n;
+}
+
+const gridVips = document.getElementById("gridVips");
+const gridKits = document.getElementById("gridKits");
+const gridExtras = document.getElementById("gridExtras");
+const search = document.getElementById("search");
+
+const backdrop = document.getElementById("backdrop");
+const mImg = document.getElementById("mImg");
+const mTitle = document.getElementById("mTitle");
+const mText = document.getElementById("mText");
+const mPrice = document.getElementById("mPrice");
+const mClose = document.getElementById("mClose");
+const mBuy = document.getElementById("mBuy");
+const mCopyPix = document.getElementById("mCopyPix");
+const mCopyMsg = document.getElementById("mCopyMsg");
+
+const toast = document.getElementById("toast");
+
+let currentProduct = null;
+
+function showToast(msg){
+  toast.textContent = msg;
+  toast.style.display = "block";
+  clearTimeout(showToast._t);
+  showToast._t = setTimeout(()=> toast.style.display="none", 1800);
+}
+
+function makeCard(p){
+  const card = el("div",{class:"card", "data-id":p.id, "data-search":(p.title+" "+p.desc+" "+p.tag).toLowerCase()});
+
+  const thumb = el("div",{class:"thumb"},[
+    el("span",{class:"pill"},[p.tag]),
+    el("img",{src:p.img, alt:p.title})
+  ]);
+
+  const badges = el("div",{class:"badges"},[
+    el("span",{class:"badge"},["Entrega única"]),
+    el("span",{class:"badge"},["Sem recarga"]),
+    el("span",{class:"badge"},["Estoque: ∞"]),
+  ]);
+
+  const body = el("div",{class:"card-body"},[
+    el("h3",{class:"title"},[p.title]),
+    el("p",{class:"desc"},[p.desc]),
+    el("div",{class:"metaRow"},[
+      el("div",{},[el("span",{class:"badge"},["30 dias"].filter(()=> p.cat==="vips").join("")||"")]),
+      el("div",{},[])
+    ]),
+    badges,
+    el("div",{class:"priceBox"},[
+      el("div",{class:"money"},[p.price]),
+      el("div",{class:"subline"},["Pix • sem taxa"])
+    ]),
+    el("div",{class:"actions"},[
+      el("button",{class:"actionBtn", type:"button"},["Ver detalhes"]),
+      el("button",{class:"actionBtn buy", type:"button"},["Comprar"])
+    ])
+  ]);
+
+  const metaBadge = body.querySelector(".metaRow .badge");
+  if(p.cat !== "vips"){ metaBadge.remove(); }
+
+  card.appendChild(thumb);
+  card.appendChild(body);
+
+  const [btnDetails, btnBuy] = body.querySelectorAll("button");
+  btnDetails.addEventListener("click", ()=> openModal(p));
+  btnBuy.addEventListener("click", ()=> buyProduct(p));
+
+  return card;
+}
+
+function render(){
+  gridVips.innerHTML = "";
+  gridKits.innerHTML = "";
+  gridExtras.innerHTML = "";
+
+  PRODUCTS.forEach(p=>{
+    const card = makeCard(p);
+    if(p.cat==="vips") gridVips.appendChild(card);
+    else if(p.cat==="kits") gridKits.appendChild(card);
+    else gridExtras.appendChild(card);
+  });
+}
+render();
+
+function openModal(p){
+  currentProduct = p;
+  mImg.src = p.img || "assets/logo.png";
+  mTitle.textContent = p.title || "Detalhes";
+  mText.textContent = p.details || p.desc || "";
+  mPrice.textContent = p.price || "";
+  backdrop.style.display = "flex";
+}
+
+function closeModal(){
+  backdrop.style.display = "none";
+  currentProduct = null;
+}
+
+mClose.addEventListener("click", closeModal);
+backdrop.addEventListener("click", (e)=>{
+  if(e.target === backdrop) closeModal();
+});
+document.addEventListener("keydown", (e)=>{
+  if(e.key === "Escape") closeModal();
+});
+
+function buildMessage(p){
+  const nick = (document.getElementById("nick").value || "").trim();
+  const nickLine = nick ? `Nick: ${nick}\n` : "";
+  return `Olá! Quero comprar:\n${p.title}\nPreço: ${p.price}\n${nickLine}\nPix: ${PIX_KEY}\n\nVou enviar o comprovante aqui.`;
+}
+
+function buyProduct(p){
+  const nick = (document.getElementById("nick").value || "").trim();
+  if(!nick){
+    showToast("Coloca seu nick primeiro 👤");
+    document.getElementById("nick").focus();
+    return;
+  }
+
+  const msg = buildMessage(p);
+  const url = `https://wa.me/${WHATS_NUMBER}?text=${encodeURIComponent(msg)}`;
+  window.open(url, "_blank");
+}
+
+document.getElementById("btnPix").addEventListener("click", ()=>{
+  navigator.clipboard.writeText(PIX_KEY).then(()=>{
+    showToast("Chave Pix copiada ✅");
+  }).catch(()=> showToast("Não consegui copiar 😕"));
+});
+
+document.getElementById("btnComo").addEventListener("click", ()=>{
+  openModal({
+    title:"Como comprar",
+    img:"assets/logo.png",
+    price:"",
+    details:
+`✅ COMO COMPRAR (RÁPIDO)
+
+1) Digite seu NICK no campo 👤
+2) Escolha o produto
+3) Clique em COMPRAR
+4) Vai abrir WhatsApp com a mensagem pronta + chave Pix
+5) Faça o Pix e mande o comprovante
+
+📌 Importante:
+• Entrega única (quando confirmar pagamento)
+• Sem recarga automática (exceto kits com recarga dentro do jogo)
+• Estoque: ∞ (sempre disponível)`
+  });
+});
+
+mBuy.addEventListener("click", ()=>{
+  if(currentProduct) buyProduct(currentProduct);
+});
+
+mCopyPix.addEventListener("click", ()=>{
+  navigator.clipboard.writeText(PIX_KEY).then(()=>{
+    showToast("Chave Pix copiada ✅");
+  }).catch(()=> showToast("Não consegui copiar 😕"));
+});
+
+mCopyMsg.addEventListener("click", ()=>{
+  if(!currentProduct) return;
+  const msg = buildMessage(currentProduct);
+  navigator.clipboard.writeText(msg).then(()=>{
+    showToast("Mensagem copiada ✅");
+  }).catch(()=> showToast("Não consegui copiar 😕"));
+});
+
+search.addEventListener("input", ()=>{
+  const q = search.value.trim().toLowerCase();
+  document.querySelectorAll(".card").forEach(card=>{
+    const hay = card.getAttribute("data-search") || "";
+    card.style.display = hay.includes(q) ? "" : "none";
+  });
+});
+</script>
 </body>
 </html>
