@@ -8,7 +8,6 @@
 <style>
 :root{
 --bg:#0b0712;
---card:#120a22;
 --text:#f2eaff;
 --muted:#b7a6d6;
 --purple:#8b5cf6;
@@ -16,11 +15,10 @@
 --line:rgba(255,255,255,.10);
 --shadow:0 18px 60px rgba(0,0,0,.45);
 --radius:18px;
---max:1000px;
+--max:1100px;
 }
 
 *{box-sizing:border-box}
-html{scroll-behavior:smooth}
 body{
 margin:0;
 font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
@@ -36,48 +34,66 @@ min-height:100vh;
 .wrap{max-width:var(--max);margin:0 auto;padding:28px 16px 56px;}
 
 .top{
-display:flex;gap:12px;align-items:center;justify-content:space-between;
+display:flex;
+align-items:center;
+justify-content:space-between;
 padding:14px;
 border:1px solid var(--line);
 background:rgba(18,10,34,.55);
 backdrop-filter:blur(10px);
 border-radius:var(--radius);
 box-shadow:var(--shadow);
-position:sticky;top:12px;z-index:10;
+position:sticky;
+top:12px;
+z-index:10;
 }
 
-.brand{display:flex;gap:12px;align-items:center;font-weight:900;letter-spacing:.4px;}
+.brand{
+display:flex;
+gap:12px;
+align-items:center;
+font-weight:900;
+}
 
 .logo{
-width:55px;
-height:55px;
+width:50px;
+height:50px;
 border-radius:16px;
 overflow:hidden;
-display:flex;
-align-items:center;
-justify-content:center;
 box-shadow:0 10px 30px rgba(139,92,246,.35);
-background:none;
 }
-.logo img{width:100%;height:100%;object-fit:cover;display:block;}
+.logo img{
+width:100%;
+height:100%;
+object-fit:cover;
+}
 
-.nav{display:flex;gap:10px;flex-wrap:wrap;align-items:center;}
+.nav{
+display:flex;
+gap:10px;
+flex-wrap:wrap;
+}
+
 .chip{
-padding:10px 12px;border-radius:999px;
+padding:10px 14px;
+border-radius:999px;
 border:1px solid var(--line);
 background:rgba(255,255,255,.04);
-text-decoration:none;font-weight:800;color:var(--muted);
+text-decoration:none;
+font-weight:800;
+color:var(--muted);
 }
-.chip:hover{border-color:rgba(139,92,246,.55);color:var(--text)}
+.chip:hover{
+border-color:rgba(139,92,246,.55);
+color:var(--text);
+}
 
 .banner{
 margin-top:18px;
 border-radius:var(--radius);
-border:1px solid var(--line);
-background:rgba(18,10,34,.45);
-box-shadow:var(--shadow);
 overflow:hidden;
-position:relative;
+border:1px solid var(--line);
+box-shadow:var(--shadow);
 }
 .banner img{
 width:100%;
@@ -85,63 +101,80 @@ height:240px;
 object-fit:cover;
 display:block;
 }
-.banner:after{
-content:"";
-position:absolute;inset:0;
-background:linear-gradient(to top,rgba(11,7,18,.75),rgba(11,7,18,.05));
-pointer-events:none;
-}
 
 .hero{
-margin-top:16px;
-padding:26px 18px;
+margin-top:18px;
+padding:28px;
 border-radius:var(--radius);
 border:1px solid var(--line);
 background:rgba(18,10,34,.45);
 box-shadow:var(--shadow);
 }
 
-.hero-inner{display:grid;gap:14px;}
-h1{margin:0;font-size:40px;}
-.sub{margin:0;color:var(--muted);font-size:16px;}
-
-.cta{display:flex;gap:12px;flex-wrap:wrap;}
-.btn{
-border:0;cursor:pointer;text-decoration:none;
-padding:12px 14px;border-radius:14px;
-font-weight:1000;display:inline-flex;gap:10px;align-items:center;
+.hero h1{
+margin:0;
+font-size:42px;
 }
-.btn-primary{background:linear-gradient(135deg,var(--purple),var(--pink));color:#140a22;}
-.btn-ghost{background:rgba(255,255,255,.06);border:1px solid var(--line);color:var(--text);}
 
-.section{
-margin-top:16px;
-padding:18px;
+.hero p{
+margin:10px 0 20px 0;
+color:var(--muted);
+font-size:16px;
+}
+
+.cta{
+display:flex;
+gap:12px;
+flex-wrap:wrap;
+}
+
+.btn{
+border:0;
+cursor:pointer;
+text-decoration:none;
+padding:14px 18px;
+border-radius:14px;
+font-weight:1000;
+display:inline-flex;
+align-items:center;
+gap:10px;
+}
+
+.btn-primary{
+background:linear-gradient(135deg,var(--purple),var(--pink));
+color:#140a22;
+}
+
+.btn-ghost{
+background:rgba(255,255,255,.06);
+border:1px solid var(--line);
+color:var(--text);
+}
+
+.info{
+margin-top:18px;
+padding:20px;
 border-radius:var(--radius);
 border:1px solid var(--line);
 background:rgba(18,10,34,.35);
 box-shadow:var(--shadow);
 }
-.section h2{margin:0 0 8px 0;font-size:22px}
-.section p{margin:0;color:var(--muted);line-height:1.5}
 
-.kbd{
-display:inline-block;
-padding:6px 10px;
-border-radius:12px;
-border:1px solid var(--line);
-background:rgba(255,255,255,.04);
-color:var(--text);
-font-weight:900;
+.info h2{
+margin:0 0 10px 0;
 }
 
-.footer{margin-top:30px;text-align:center;color:rgba(255,255,255,.45);font-size:12px}
+.footer{
+margin-top:40px;
+text-align:center;
+color:rgba(255,255,255,.45);
+font-size:13px;
+}
 
 @media(max-width:760px){
-h1{font-size:32px}
+.hero h1{font-size:30px}
 .banner img{height:180px}
 .top{position:static}
-.logo{width:48px;height:48px}
 }
 </style>
 </head>
@@ -152,7 +185,7 @@ h1{font-size:32px}
 <header class="top">
 <div class="brand">
 <div class="logo">
-<img src="assets/logo.png?v=2" alt="Flux MC Logo">
+<img src="assets/logo.png?v=10" alt="Flux MC">
 </div>
 <div>Flux MC</div>
 </div>
@@ -162,7 +195,7 @@ h1{font-size:32px}
 <a class="chip" href="#vip">VIP</a>
 <a class="chip" href="#discord">Discord</a>
 <a class="chip" href="#regras">Regras</a>
-<a class="chip" href="#loja">Loja</a>
+<a class="chip" href="loja.html?v=10">Loja</a>
 </nav>
 </header>
 
@@ -171,46 +204,41 @@ h1{font-size:32px}
 </section>
 
 <section class="hero">
-<div class="hero-inner">
 <h1>Flux MC</h1>
-<p class="sub">Entre, jogue e evolua no Flux MC. Eventos, ranks, desafios e muito mais.</p>
+<p>
+Entre, jogue e evolua no Flux MC. Eventos, ranks, desafios e muito mais.
+</p>
 
 <div class="cta">
-<a class="btn btn-primary" href="loja.html">🛒 Abrir Loja</a>
-<a class="btn btn-ghost" href="https://discord.gg/qsZ65QJc" target="_blank" rel="noreferrer">💬 Discord</a>
+<a class="btn btn-primary" href="loja.html?v=10">🛒 Abrir Loja</a>
+<a class="btn btn-ghost" href="https://discord.gg/qsZ65QJc" target="_blank">💬 Entrar no Discord</a>
 </div>
-</div>
 </section>
 
-<section class="section" id="ip">
-<h2>📌 IP</h2>
-<p>IP do servidor: <span class="kbd">COLOQUE_AQUI</span></p>
+<section class="info" id="ip">
+<h2>📌 IP do Servidor</h2>
+<p>Java: fluxmc.blazeh​osting.com.br</p>
+<p>Bedrock: sd-br5.blazebr.com | Porta: 26084</p>
 </section>
 
-<section class="section" id="vip">
-<h2>💎 VIP</h2>
-<p>Veja os benefícios e compre seu VIP pela loja.</p>
+<section class="info" id="vip">
+<h2>💎 VIPs</h2>
+<p>Temos VIP, Ultra e Mestre disponíveis na loja.</p>
 </section>
 
-<section class="section" id="discord">
+<section class="info" id="discord">
 <h2>💬 Discord</h2>
-<p>Entre no Discord oficial: <a class="chip" href="https://discord.gg/qsZ65QJc" target="_blank" rel="noreferrer">Entrar</a></p>
+<p>Entre para novidades, suporte e eventos exclusivos.</p>
 </section>
 
-<section class="section" id="regras">
+<section class="info" id="regras">
 <h2>📜 Regras</h2>
-<p>Respeito em primeiro lugar. Sem hacks, sem toxicidade. Mais regras em breve.</p>
+<p>Sem hacks, sem x-ray, sem flood. Respeito sempre.</p>
 </section>
 
-<section class="section" id="loja">
-<h2>🛒 Loja</h2>
-<p>Clique para abrir a loja completa:</p>
-<div class="cta" style="margin-top:12px">
-<a class="btn btn-primary" href="loja.html">Abrir Loja</a>
+<div class="footer">
+© Flux MC — GitHub Pages
 </div>
-</section>
-
-<div class="footer">© Flux MC — GitHub Pages</div>
 
 </div>
 </body>
