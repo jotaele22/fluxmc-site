@@ -95,6 +95,12 @@
       display:block;
       filter:saturate(1.05) contrast(1.02);
     }
+    .banner:after{
+      content:"";
+      position:absolute; inset:0;
+      background: linear-gradient(to top, rgba(11,7,18,.75), rgba(11,7,18,.05));
+      pointer-events:none;
+    }
 
     .hero{
       margin-top:16px;
@@ -106,7 +112,14 @@
       overflow:hidden;
       position:relative;
     }
-
+    .hero:before{
+      content:"";
+      position:absolute; inset:-2px;
+      background: radial-gradient(700px 260px at 30% 0%, rgba(139,92,246,.28), transparent 60%),
+                  radial-gradient(650px 240px at 80% 30%, rgba(236,72,153,.20), transparent 60%);
+      pointer-events:none;
+    }
+    .hero-inner{position:relative; display:grid; gap:14px;}
     h1{margin:0; font-size:40px; line-height:1.05}
     .sub{margin:0; color:var(--muted); font-size:16px; max-width:72ch}
 
@@ -116,8 +129,10 @@
       padding:12px 14px; border-radius:14px;
       font-weight:1000;
       display:inline-flex; gap:10px; align-items:center;
+      transition: transform .05s ease;
       user-select:none;
     }
+    .btn:active{transform: translateY(1px)}
     .btn-primary{
       background: linear-gradient(135deg, var(--purple), var(--pink));
       color:#140a22;
@@ -128,6 +143,7 @@
       border:1px solid var(--line);
       color:var(--text);
     }
+    .btn-ghost:hover{border-color:rgba(139,92,246,.55)}
 
     .small{font-size:13px; color:var(--muted)}
     code.inline{
@@ -155,13 +171,89 @@
       background: rgba(18,10,34,.40);
       box-shadow: var(--shadow);
     }
+    .card h2{margin:0 0 8px 0; font-size:18px}
+    .card p{margin:0; color:var(--muted); line-height:1.45}
+    .row{display:flex; gap:10px; align-items:center; justify-content:space-between; flex-wrap:wrap}
 
-    .vip-card{grid-column: span 12; padding:0; overflow:hidden;}
-    .vip-banner{display:grid; grid-template-columns: 320px 1fr;}
-    .vip-img img{width:100%; height:100%; object-fit:cover;}
-    .vip-content{padding:16px; display:grid; gap:10px;}
+    .list{
+      margin:0;
+      padding-left:18px;
+      color:var(--muted);
+      line-height:1.55;
+    }
+    .list li{margin:6px 0}
+
+    .vip-card{
+      grid-column: span 12;
+      padding:0;
+      overflow:hidden;
+    }
+    .vip-banner{
+      display:grid;
+      grid-template-columns: 320px 1fr;
+      gap:0;
+      align-items:stretch;
+    }
+    .vip-img{
+      background: rgba(255,255,255,.04);
+      border-right: 1px solid var(--line);
+      min-height: 180px;
+    }
+    .vip-img img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+    }
+    .vip-content{
+      padding:16px;
+      display:grid;
+      gap:10px;
+    }
+    .vip-title{
+      margin:0;
+      font-size:20px;
+      font-weight:1000;
+      letter-spacing:.2px;
+    }
+    .vip-meta{
+      display:flex; gap:8px; flex-wrap:wrap; align-items:center;
+    }
+    .badge{
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.04);
+      color: rgba(255,255,255,.78);
+      font-weight:900;
+      font-size:12px;
+    }
 
     .footer{margin-top:18px; text-align:center; color:rgba(255,255,255,.45); font-size:12px}
+
+    .toast{
+      position:fixed; left:50%; bottom:18px; transform:translateX(-50%);
+      background: rgba(18,10,34,.92);
+      border:1px solid var(--line);
+      padding:10px 12px;
+      border-radius:999px;
+      color:var(--text);
+      display:none;
+      box-shadow: var(--shadow);
+      font-weight:1000;
+      z-index:30;
+    }
+
+    @media (max-width:900px){
+      .vip-banner{grid-template-columns: 1fr;}
+      .vip-img{border-right:0; border-bottom:1px solid var(--line)}
+    }
+    @media (max-width:760px){
+      h1{font-size:34px}
+      .card{grid-column: span 12;}
+      .top{position:static}
+      .banner img{height:180px}
+    }
   </style>
 </head>
 
@@ -184,30 +276,157 @@
       </nav>
     </header>
 
-    <section class="banner">
-      <img id="bannerImg" alt="Flux MC Banner" onerror="this.style.display='none'">
+    <section class="banner" aria-label="Banner do servidor">
+      <img id="bannerImg" alt="Flux MC - Banner do servidor" onerror="this.style.display='none'">
     </section>
 
     <section class="hero">
-      <h1>Flux MC</h1>
-      <p class="sub">
-        Entre, jogue e evolua no Flux MC. Eventos, ranks, desafios e muito mais.
-      </p>
+      <div class="hero-inner">
+        <h1>Flux MC</h1>
+        <p class="sub">
+          Entre, jogue e evolua no Flux MC. Eventos, ranks, desafios e muito mais.
+          Copie o IP e conecte-se agora.
+        </p>
 
-      <div class="cta">
-        <a class="btn btn-primary" href="loja.html">🛒 Abrir Loja</a>
-        <a class="btn btn-ghost" href="regras.html">📌 Ver Regras</a>
+        <div class="cta">
+          <button class="btn btn-primary" id="copyJavaBtn">📋 Copiar IP (Java)</button>
+          <button class="btn btn-ghost" id="copyBedrockBtn">📱 Copiar IP (Bedrock)</button>
+          <a class="btn btn-ghost" href="https://discord.gg/qsZ65QJc" target="_blank" rel="noreferrer">💬 Entrar no Discord</a>
+          <a class="btn btn-primary" href="loja.html">🛒 Abrir Loja</a>
+          <a class="btn btn-ghost" href="regras.html">📌 Ver Regras</a>
+        </div>
+
+        <div class="small">
+          Java: <code class="inline" id="javaText">fluxmc.blazehosting.com.br</code>
+          &nbsp;•&nbsp;
+          Bedrock: <code class="inline" id="bedrockText">sd-br5.blazebr.com</code>
+          <span class="small"> : </span><code class="inline" id="bedrockPortText">26084</code>
+        </div>
+      </div>
+    </section>
+
+    <section class="grid">
+      <div class="card" id="ip">
+        <h2>Informações do Servidor</h2>
+
+        <p style="margin-top:10px;"><strong>🖥 Java Edition</strong></p>
+        <p>IP: <code class="inline">fluxmc.blazehosting.com.br</code></p>
+
+        <p style="margin-top:16px;"><strong>📱 Bedrock Edition</strong></p>
+        <p>
+          IP: <code class="inline">sd-br5.blazebr.com</code><br>
+          Porta: <code class="inline">26084</code>
+        </p>
+
+        <p class="small" style="margin-top:10px;">
+          Dica: no Bedrock, preenche o IP e a porta certinho.
+        </p>
+      </div>
+
+      <div class="card" id="discord">
+        <div class="row">
+          <h2>Discord</h2>
+          <a class="btn btn-primary" href="https://discord.gg/qsZ65QJc" target="_blank" rel="noreferrer">Entrar</a>
+        </div>
+        <p>
+          Atualizações, eventos, suporte e novidades do servidor em primeira mão.
+        </p>
+      </div>
+
+      <div class="card vip-card" id="vip">
+        <div class="vip-banner">
+          <div class="vip-img">
+            <img src="assets/vip.png" alt="Flux MC VIP" onerror="this.style.display='none'">
+          </div>
+          <div class="vip-content">
+            <p class="vip-title">VIPs do Flux MC</p>
+            <p style="margin:0; color:var(--muted); line-height:1.45">
+              Apoie o servidor e ganhe vantagens. Temos VIP, Ultra e Mestre na loja.
+            </p>
+            <div class="vip-meta">
+              <span class="badge">VIP</span>
+              <span class="badge">ULTRA</span>
+              <span class="badge">MESTRE</span>
+            </div>
+            <div class="cta" style="margin:0">
+              <a class="btn btn-primary" href="loja.html">🛒 Ver VIPs na Loja</a>
+              <a class="btn btn-ghost" href="regras.html">📌 Ver Regras</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Regras rápidas</h2>
+        <ul class="list">
+          <li>Proibido hacks, x-ray e qualquer trapaça.</li>
+          <li>Respeito no chat: sem ofensas, racismo ou provocações.</li>
+          <li>Sem flood/spam.</li>
+          <li>Golpes/roubos só são permitidos se estiverem liberados nas regras oficiais do Discord.</li>
+          <li>Decisão final da staff em casos de abuso/exploit.</li>
+        </ul>
+
+        <div class="cta" style="margin-top:10px">
+          <a class="btn btn-ghost" href="regras.html">📌 Abrir Regulamento Completo</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>O que tem no Flux?</h2>
+        <ul class="list">
+          <li>Eventos e desafios.</li>
+          <li>Planeta Terra.</li>
+          <li>Parkour.</li>
+          <li>Sistema de ranks e benefícios (VIP).</li>
+          <li>Economia e progressão.</li>
+        </ul>
+        <p class="small" style="margin-top:10px;">
+          Quer apoiar o servidor? Confira a loja e os VIPs.
+        </p>
       </div>
     </section>
 
     <div class="footer">© Flux MC — GitHub Pages</div>
   </div>
 
+  <div class="toast" id="toast">Copiado!</div>
+
   <script>
     const LOGO_V = "1";
     const BANNER_V = "1";
     document.getElementById("logoImg").src = "assets/logo.png?v=" + LOGO_V;
     document.getElementById("bannerImg").src = "assets/banner.png?v=" + BANNER_V;
+
+    const JAVA_IP = "fluxmc.blazehosting.com.br";
+    const BEDROCK_IP = "sd-br5.blazebr.com";
+    const BEDROCK_PORT = "26084";
+
+    const toast = document.getElementById("toast");
+
+    function showToast(msg){
+      toast.textContent = msg;
+      toast.style.display = "block";
+      clearTimeout(window.__t);
+      window.__t = setTimeout(()=> toast.style.display="none", 1600);
+    }
+
+    async function copyText(text, label){
+      try{
+        await navigator.clipboard.writeText(text);
+        showToast((label ? label + " " : "") + "copiado!");
+      }catch(e){
+        const ta = document.createElement("textarea");
+        ta.value = text;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand("copy");
+        ta.remove();
+        showToast((label ? label + " " : "") + "copiado!");
+      }
+    }
+
+    document.getElementById("copyJavaBtn").addEventListener("click", ()=> copyText(JAVA_IP, "IP Java"));
+    document.getElementById("copyBedrockBtn").addEventListener("click", ()=> copyText(BEDROCK_IP + ":" + BEDROCK_PORT, "IP Bedrock"));
   </script>
 </body>
 </html>
