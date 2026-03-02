@@ -28,13 +28,13 @@ var(--bg);
 color:var(--text);
 }
 
-.wrap{max-width:1200px;margin:auto;padding:30px 20px;}
+.wrap{max-width:1300px;margin:auto;padding:30px 20px;}
 
 .top{
 display:flex;
 justify-content:space-between;
 align-items:center;
-padding:14px 18px;
+padding:15px 20px;
 border-radius:20px;
 background:rgba(18,10,34,.6);
 border:1px solid var(--line);
@@ -62,8 +62,6 @@ margin-left:15px;
 font-weight:700;
 }
 
-.nav a:hover{color:white}
-
 .hero{
 background:linear-gradient(145deg,rgba(139,92,246,.15),rgba(236,72,153,.08));
 border:1px solid var(--line);
@@ -73,7 +71,7 @@ margin-bottom:30px;
 }
 
 .hero h1{margin:0 0 8px 0;font-size:30px}
-.hero p{margin:0 0 20px 0;color:var(--muted)}
+.hero p{margin:0 0 15px 0;color:var(--muted)}
 
 .search{
 display:flex;
@@ -106,13 +104,14 @@ text-decoration:none;
 display:grid;
 grid-template-columns:repeat(3,1fr);
 gap:20px;
+margin-bottom:30px;
 }
 
 @media(max-width:1000px){.grid{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:600px){.grid{grid-template-columns:1fr}}
+@media(max-width:650px){.grid{grid-template-columns:1fr}}
 
 .card{
-background:rgba(18,10,34,.7);
+background:rgba(18,10,34,.8);
 border-radius:20px;
 overflow:hidden;
 border:1px solid var(--line);
@@ -123,7 +122,7 @@ flex-direction:column;
 
 .card img{
 width:100%;
-height:180px;
+height:190px;
 object-fit:cover;
 }
 
@@ -135,29 +134,50 @@ gap:10px;
 flex:1;
 }
 
-.card h3{margin:0;font-size:18px}
+.tags{
+display:flex;
+gap:8px;
+flex-wrap:wrap;
+font-size:12px;
+color:var(--muted);
+}
+
 .price{
 font-size:20px;
 font-weight:900;
 margin-top:auto;
 }
 
-.buy{
+.actions{
+display:flex;
+gap:10px;
 margin-top:10px;
+}
+
+.buy, .details{
+flex:1;
 padding:10px;
 border-radius:12px;
-background:linear-gradient(135deg,var(--purple),var(--pink));
 text-align:center;
 font-weight:900;
-color:#140a22;
 text-decoration:none;
 }
 
+.buy{
+background:linear-gradient(135deg,var(--purple),var(--pink));
+color:#140a22;
+}
+
+.details{
+border:1px solid var(--line);
+color:var(--text);
+}
+
 .footer{
-margin-top:40px;
 text-align:center;
 color:rgba(255,255,255,.5);
 font-size:13px;
+margin-top:40px;
 }
 </style>
 </head>
@@ -167,8 +187,8 @@ font-size:13px;
 
 <header class="top">
 <div class="logo">
-<img src="assets/logo.png" alt="Flux MC">
-<div>Flux MC — Loja</div>
+<img src="assets/logo.png">
+<div>Flux MC — Loja Oficial</div>
 </div>
 <div class="nav">
 <a href="index.html">Início</a>
@@ -177,44 +197,123 @@ font-size:13px;
 
 <section class="hero">
 <h1>Compre por PIX (rápido)</h1>
-<p>Escolha o produto, coloque seu nick e clique em comprar.</p>
-
+<p>Escolha o produto, coloque seu nick e clique em comprar. Envie o comprovante para confirmar.</p>
 <div class="search">
-<input type="text" placeholder="Pesquisar: mestre, vip, spawner, kit, unban...">
-<a class="btn" href="#">PIX (copiar chave)</a>
-<a class="btn" href="#">Como comprar</a>
+<input placeholder="Pesquisar: mestre, vip, spawner, kit, unban, claim...">
+<a class="btn">PIX (copiar chave)</a>
+<a class="btn">Como comprar</a>
 </div>
 </section>
 
+<!-- VIPS -->
 <div class="grid">
 
+<!-- VIP -->
 <div class="card">
 <img src="assets/vip.png">
 <div class="card-body">
 <h3>VIP | 1 MÊS</h3>
-<p>VIP baratinho pra começar.</p>
+<p>VIP baratinho pra começar: cores, enderchest, homes e bônus.</p>
+<div class="tags"><span>30 dias</span><span>Sem recarga</span><span>Estoque: ∞</span></div>
 <div class="price">R$ 4,00</div>
-<a class="buy" href="#">Comprar</a>
+<div class="actions">
+<a class="details">Ver detalhes</a>
+<a class="buy">Comprar</a>
+</div>
 </div>
 </div>
 
+<!-- ULTRA -->
 <div class="card">
 <img src="assets/ultra.png">
 <div class="card-body">
 <h3>ULTRA | 1 MÊS</h3>
-<p>Mais forte que VIP.</p>
+<p>Mais forte que VIP: /back, mais homes, mais claim e bônus.</p>
+<div class="tags"><span>30 dias</span><span>Sem recarga</span><span>Estoque: ∞</span></div>
 <div class="price">R$ 6,00</div>
-<a class="buy" href="#">Comprar</a>
+<div class="actions">
+<a class="details">Ver detalhes</a>
+<a class="buy">Comprar</a>
+</div>
 </div>
 </div>
 
+<!-- MESTRE -->
 <div class="card">
 <img src="assets/mestre.png">
 <div class="card-body">
 <h3>MESTRE | 1 MÊS</h3>
-<p>Topo do servidor.</p>
+<p>Topo do servidor: kit bruto e bônus máximos.</p>
+<div class="tags"><span>30 dias</span><span>Sem recarga</span><span>Estoque: ∞</span></div>
 <div class="price">R$ 8,00</div>
-<a class="buy" href="#">Comprar</a>
+<div class="actions">
+<a class="details">Ver detalhes</a>
+<a class="buy">Comprar</a>
+</div>
+</div>
+</div>
+
+</div>
+
+<!-- KITS -->
+<div class="grid">
+
+<div class="card">
+<img src="assets/kitarcano.png">
+<div class="card-body">
+<h3>Kit Arcano</h3>
+<div class="price">R$ 5,00</div>
+<div class="actions"><a class="details">Ver detalhes</a><a class="buy">Comprar</a></div>
+</div>
+</div>
+
+<div class="card">
+<img src="assets/kitberserker.png">
+<div class="card-body">
+<h3>Kit Berserker</h3>
+<div class="price">R$ 5,00</div>
+<div class="actions"><a class="details">Ver detalhes</a><a class="buy">Comprar</a></div>
+</div>
+</div>
+
+<div class="card">
+<img src="assets/kitespectro.png">
+<div class="card-body">
+<h3>Kit Espectro</h3>
+<div class="price">R$ 5,00</div>
+<div class="actions"><a class="details">Ver detalhes</a><a class="buy">Comprar</a></div>
+</div>
+</div>
+
+</div>
+
+<!-- EXTRAS -->
+<div class="grid">
+
+<div class="card">
+<img src="assets/spawners.png">
+<div class="card-body">
+<h3>Spawners</h3>
+<div class="price">R$ 10,00</div>
+<div class="actions"><a class="details">Ver detalhes</a><a class="buy">Comprar</a></div>
+</div>
+</div>
+
+<div class="card">
+<img src="assets/blocosclaim.png">
+<div class="card-body">
+<h3>Blocos de Claim</h3>
+<div class="price">R$ 3,00</div>
+<div class="actions"><a class="details">Ver detalhes</a><a class="buy">Comprar</a></div>
+</div>
+</div>
+
+<div class="card">
+<img src="assets/unban.png">
+<div class="card-body">
+<h3>Unban</h3>
+<div class="price">R$ 15,00</div>
+<div class="actions"><a class="details">Ver detalhes</a><a class="buy">Comprar</a></div>
 </div>
 </div>
 
