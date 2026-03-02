@@ -1,1 +1,354 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Regras — Flux MC</title>
 
+  <style>
+    :root{
+      --bg:#070510;
+      --card:#120a22;
+      --text:#f4efff;
+      --muted:#b7a6d6;
+      --line: rgba(255,255,255,.10);
+      --shadow: 0 22px 70px rgba(0,0,0,.55);
+      --radius: 18px;
+
+      --purple:#8b5cf6;
+      --pink:#ec4899;
+      --blue:#60a5fa;
+
+      --max: 1120px;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background:
+        radial-gradient(900px 520px at 18% 12%, rgba(139,92,246,.30), transparent 65%),
+        radial-gradient(820px 520px at 84% 18%, rgba(236,72,153,.22), transparent 60%),
+        radial-gradient(900px 700px at 50% 105%, rgba(96,165,250,.16), transparent 70%),
+        var(--bg);
+      color:var(--text);
+      min-height:100vh;
+    }
+
+    a{color:inherit}
+    .wrap{max-width:var(--max); margin:0 auto; padding:26px 16px 44px;}
+
+    .top{
+      display:flex; gap:12px; align-items:center; justify-content:space-between;
+      padding:14px 14px;
+      border:1px solid var(--line);
+      background: rgba(18,10,34,.58);
+      backdrop-filter: blur(10px);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      position:sticky; top:12px;
+      z-index:10;
+    }
+
+    .brand{display:flex; gap:10px; align-items:center; font-weight:950; letter-spacing:.4px;}
+    .logo{
+      width:40px; height:40px; border-radius:14px; overflow:hidden;
+      background: linear-gradient(135deg, var(--purple), var(--pink));
+      display:grid; place-items:center;
+      box-shadow: 0 10px 30px rgba(139,92,246,.35);
+      font-weight:1000;
+      color:#140a22;
+    }
+    .logo img{width:100%;height:100%;object-fit:cover;display:block}
+
+    .nav{display:flex; gap:10px; flex-wrap:wrap; align-items:center;}
+    .chip{
+      padding:10px 12px; border-radius:999px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.04);
+      text-decoration:none;
+      font-weight:800;
+      color:var(--muted);
+      cursor:pointer;
+      user-select:none;
+    }
+    .chip:hover{border-color:rgba(139,92,246,.55); color:var(--text)}
+
+    .hero{
+      margin-top:14px;
+      padding:22px 18px;
+      border-radius: var(--radius);
+      border:1px solid var(--line);
+      background: rgba(18,10,34,.46);
+      box-shadow: var(--shadow);
+      position:relative;
+      overflow:hidden;
+    }
+    .hero:before{
+      content:"";
+      position:absolute; inset:-2px;
+      background: radial-gradient(760px 260px at 25% 0%, rgba(139,92,246,.38), transparent 60%),
+                  radial-gradient(700px 240px at 85% 28%, rgba(236,72,153,.28), transparent 60%);
+      pointer-events:none;
+    }
+    .hero-inner{position:relative; display:grid; gap:10px;}
+    h1{margin:0; font-size:30px; line-height:1.05}
+    .sub{margin:0; color:var(--muted); font-size:14px; max-width:90ch}
+
+    .layout{
+      margin-top:14px;
+      display:grid;
+      grid-template-columns: 320px 1fr;
+      gap:14px;
+      align-items:start;
+    }
+
+    .box{
+      border:1px solid var(--line);
+      background: rgba(18,10,34,.42);
+      box-shadow: var(--shadow);
+      border-radius: 22px;
+      overflow:hidden;
+    }
+    .box-head{
+      padding:14px 16px;
+      border-bottom:1px solid var(--line);
+      background: rgba(255,255,255,.03);
+      font-weight:1000;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+    .box-body{padding:14px 16px; display:grid; gap:12px;}
+
+    .side a{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      padding:10px 12px;
+      border-radius: 14px;
+      text-decoration:none;
+      border:1px solid transparent;
+      color:rgba(255,255,255,.82);
+      font-weight:900;
+      background: rgba(255,255,255,.03);
+    }
+    .side a:hover{border-color:rgba(139,92,246,.45)}
+    .side small{color:rgba(255,255,255,.55); font-weight:800}
+
+    .rule{
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.04);
+      border-radius: 18px;
+      padding:14px;
+      display:grid;
+      gap:10px;
+      position:relative;
+    }
+    .rule:before{
+      content:"";
+      position:absolute;
+      left:0; top:0; bottom:0;
+      width:3px;
+      background: linear-gradient(180deg, var(--blue), var(--pink));
+      border-radius: 18px 0 0 18px;
+      opacity:.85;
+    }
+
+    .rt{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+    .title{
+      margin:0;
+      font-size:16px;
+      font-weight:1000;
+    }
+    .badge{
+      padding:6px 10px;
+      border-radius: 999px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.04);
+      color: rgba(255,255,255,.75);
+      font-weight:900;
+      font-size:12px;
+      width:max-content;
+    }
+    .txt{
+      margin:0;
+      color: rgba(255,255,255,.78);
+      font-size:13.5px;
+      line-height:1.55;
+    }
+    ul{
+      margin:0;
+      padding-left:18px;
+      color: rgba(255,255,255,.78);
+      line-height:1.6;
+      font-size:13.5px;
+    }
+    li{margin:4px 0}
+
+    .footer{
+      margin-top:18px;
+      text-align:center;
+      color:rgba(255,255,255,.45);
+      font-size:12px;
+    }
+
+    @media (max-width: 980px){
+      .layout{grid-template-columns:1fr}
+      .top{position:static}
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <header class="top">
+      <div class="brand">
+        <div class="logo">
+          <img src="assets/logo.png?v=2" alt="Flux MC" onerror="this.parentElement.textContent='FX'">
+        </div>
+        <div>Flux MC — Regras</div>
+      </div>
+
+      <nav class="nav">
+        <a class="chip" href="index.html">🏠 Início</a>
+        <a class="chip" href="loja.html">🛒 Loja</a>
+        <a class="chip" href="#avisos">⚠️ Avisos</a>
+        <a class="chip" href="#provas">📁 Provas</a>
+        <a class="chip" href="#mafe">⚖️ Má-fé</a>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <div class="hero-inner">
+        <h1>📜 Regulamento Oficial — Flux MC</h1>
+        <p class="sub">
+          Leitura obrigatória para todos. O descumprimento pode gerar punições.
+          A staff pode ajustar o tempo e tipo da punição conforme o caso.
+        </p>
+      </div>
+    </section>
+
+    <div class="layout">
+      <!-- MENU LATERAL -->
+      <aside class="box side">
+        <div class="box-head">Atalhos</div>
+        <div class="box-body">
+          <a href="#avisos">⚠️ Avisos importantes <small>(incidência)</small></a>
+          <a href="#provas">📁 Evidências e provas <small>(tickets)</small></a>
+          <a href="#mafe">⚖️ Condutas de má-fé <small>(abuso/exploit)</small></a>
+          <a href="#chat">💬 Chat e respeito <small>(toxidade)</small></a>
+          <a href="#trapa">🚫 Hacks/Trapaças <small>(x-ray, etc)</small></a>
+          <a href="#economia">💰 Economia/Loja <small>(Pix, chargeback)</small></a>
+        </div>
+      </aside>
+
+      <!-- CONTEÚDO -->
+      <main class="box">
+        <div class="box-head">Regras</div>
+        <div class="box-body">
+
+          <div class="rule" id="avisos">
+            <div class="rt">
+              <h2 class="title">⚠️ Avisos importantes</h2>
+              <span class="badge">Sistema de incidência</span>
+            </div>
+            <p class="txt">
+              A staff pode ajustar o tempo e o tipo de punição conforme cada caso, considerando:
+            </p>
+            <ul>
+              <li>Histórico do jogador</li>
+              <li>Reincidência de infrações</li>
+              <li>Gravidade da conduta</li>
+              <li>Contexto e impacto na comunidade</li>
+              <li>Outros fatores avaliados pela staff</li>
+            </ul>
+          </div>
+
+          <div class="rule" id="provas">
+            <div class="rt">
+              <h2 class="title">📁 Evidências e provas</h2>
+              <span class="badge">Tickets no Discord</span>
+            </div>
+            <p class="txt">
+              A administração do <b>Flux MC</b> pode aplicar punições sem divulgar provas publicamente,
+              desde que aprovadas por um <b>Gerente ou superior</b>.
+            </p>
+            <p class="txt">
+              Se discordar da punição: reúna suas provas e abra um ticket no Discord oficial.
+            </p>
+          </div>
+
+          <div class="rule" id="mafe">
+            <div class="rt">
+              <h2 class="title">⚖️ Condutas de má-fé</h2>
+              <span class="badge">Abuso / Exploit</span>
+            </div>
+            <p class="txt">
+              O Flux MC pode punir atitudes mal-intencionadas, abusivas ou prejudiciais,
+              mesmo que não estejam descritas diretamente neste regulamento.
+            </p>
+            <p class="txt"><b>Essas punições:</b></p>
+            <ul>
+              <li>Podem ser autorizadas por um Dono</li>
+              <li>Sem interesses pessoais</li>
+              <li>Sem obrigação de provas públicas</li>
+            </ul>
+            <p class="txt">
+              Essa política existe para proteger a integridade da comunidade. Jogadores de boa-fé não têm motivo pra preocupação.
+            </p>
+          </div>
+
+          <div class="rule" id="chat">
+            <div class="rt">
+              <h2 class="title">💬 Chat e respeito</h2>
+              <span class="badge">Sem toxicidade</span>
+            </div>
+            <ul>
+              <li>Sem ofensas, racismo, discriminação ou provocação pesada.</li>
+              <li>Sem flood/spam.</li>
+              <li>Sem exposição de dados pessoais (seu ou de outros).</li>
+            </ul>
+          </div>
+
+          <div class="rule" id="trapa">
+            <div class="rt">
+              <h2 class="title">🚫 Hacks / Trapaças</h2>
+              <span class="badge">Ban / reset</span>
+            </div>
+            <ul>
+              <li>Proibido hacks, x-ray e qualquer trapaça.</li>
+              <li>Proibido usar bugs/exploits pra vantagem.</li>
+              <li>Decisão final da staff em casos de abuso/exploit.</li>
+            </ul>
+          </div>
+
+          <div class="rule" id="economia">
+            <div class="rt">
+              <h2 class="title">💰 Economia / Loja</h2>
+              <span class="badge">Pix</span>
+            </div>
+            <ul>
+              <li>Compras: após pagar, envie comprovante + nick.</li>
+              <li>Tentativa de golpe/chargeback = punição.</li>
+              <li>Produtos/serviços podem ser ajustados sem aviso.</li>
+            </ul>
+          </div>
+
+        </div>
+      </main>
+    </div>
+
+    <div class="footer">© Flux MC — Regras • GitHub Pages</div>
+  </div>
+</body>
+</html>
